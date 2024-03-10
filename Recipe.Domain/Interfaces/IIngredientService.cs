@@ -1,4 +1,5 @@
 ﻿using Recipe.Domain.Dtos;
+using Recipe.Infrastructure.External.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Recipe.Domain.Interfaces
 {
     public interface IIngredientService
     {
+        Task<bool> AddIngridient(string ingredientName);
         Task<IEnumerable<IngredientDTO>> GetAllIngredientsAsync();
     }
 }

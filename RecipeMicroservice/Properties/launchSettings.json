@@ -21,7 +21,11 @@
         "POSTGRES_PORT": "5432",
         "POSTHGRES_HOST": "91.228.56.38",
         "POSTGRES_PASSWORD": "TesT1234!",
-        "POSTGRES_USER": "postgres"
+        "POSTGRES_USER": "postgres",
+        "NUTRITION_API_BASE_URL": "https://api.api-ninjas.com/v1/nutrition",
+        "NUTRITION_API_KEY": "PuKct7UWze0jnVh8QTWK5Q==JLlUfP8u0521rqPI",
+        "DEEPL_API_BASE_URL": "https://api-free.deepl.com/",
+        "DEEPL_API_KEY": "DeepL-Auth-Key ff24e172-be82-40cb-9613-4b8f3ec5ad50:fx"
       }
     },
     "IIS Express": {

@@ -15,6 +15,7 @@ namespace RecipeMicroservice.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IIngredientService _service;
+
        
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IIngredientService service)
@@ -41,9 +42,9 @@ namespace RecipeMicroservice.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<IngredientDTO>>> GetAllProducts()
         {
-            var result = await _service.GetAllIngredientsAsync();
-
-            if (result.Any()) return Ok(result);
+            await _service.AddIngridient("ziemniak");
+            
+           
 
             _logger.LogInformation("Products not found");
             return NotFound("Products not found");

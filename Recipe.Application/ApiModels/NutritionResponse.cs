@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Recipe.Infrastructure.External.Models
+namespace Recipe.Application.ApiModels
 {
     public class NutritionResponse
     {

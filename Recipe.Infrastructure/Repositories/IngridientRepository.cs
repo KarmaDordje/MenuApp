@@ -1,6 +1,6 @@
-﻿using Recipe.Infrastructure.Context;
-using Recipe.Infrastructure.Context.Entities;
-using Recipe.Infrastructure.Interfaces;
+﻿using Recipe.Domain.Persistence;
+using Recipe.Domain.Entities;
+using Recipe.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;

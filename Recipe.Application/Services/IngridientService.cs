@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Recipe.Application.ApiModels;
+using Recipe.Application.Interfaces;
 using Recipe.Domain.Dtos;
+using Recipe.Domain.Entities;
 using Recipe.Domain.Interfaces;
-using Recipe.Infrastructure.Context.Entities;
-using Recipe.Infrastructure.External;
-using Recipe.Infrastructure.External.Models;
-using Recipe.Infrastructure.Interfaces;
+using Recipe.Domain.Persistence;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recipe.Domain.Services
+namespace Recipe.Application.Services
 {
     public class IngredientService : IIngredientService
     {
@@ -49,8 +49,10 @@ namespace Recipe.Domain.Services
                 _logger.LogInformation($"Getting nutrition information for product {request.Text}");
                 string translation = await _deepLApiClient.Translate(request);
 
-                Ingredient nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
-                return await _IngredientRepository.InsertAsync(nutrition);
+                var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
+
+                return false;//await _IngredientRepository.InsertAsync(nutrition);
+
             }
             catch (Exception ex)
             {

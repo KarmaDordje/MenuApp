@@ -16,6 +16,6 @@ namespace Recipe.Domain.Dtos
         [MinLength(3)]
         [MaxLength(100)]
         [DisplayName("Name")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
     }
 }

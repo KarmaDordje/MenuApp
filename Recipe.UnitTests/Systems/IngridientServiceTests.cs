@@ -4,16 +4,16 @@ using Castle.Core.Logging;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Recipe.Domain.Services;
-using Recipe.Infrastructure.Context.Entities;
-using Recipe.Infrastructure.External;
-using Recipe.Infrastructure.External.Models;
-using Recipe.Infrastructure.Interfaces;
+using Recipe.Application.Interfaces;
+using Recipe.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recipe.Domain.Persistence;
+using Recipe.Application.Services;
+using Recipe.Application.ApiModels;
 
 namespace Recipe.UnitTests.Systems
 {
@@ -45,7 +45,7 @@ namespace Recipe.UnitTests.Systems
         public async Task Should_Add_Ingridient_ToTheDb(string productName)
         {
             // Arrange
-            var fakeNutrition = _fixture.Create<Ingredient>();
+            var fakeNutrition = _fixture.Create<NutritionResponse>();
 
             _deepLClientMock.Setup(x => x.Translate(It.IsAny<DeepLTranslationRequest>())).ReturnsAsync("Patato");
             _nutritionMock.Setup(x => x.GetProductNutrition(It.IsAny<string>())).ReturnsAsync(fakeNutrition);

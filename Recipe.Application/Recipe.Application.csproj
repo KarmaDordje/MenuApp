@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.8" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Recipe.Application\Recipe.Application.csproj" />
     <ProjectReference Include="..\Recipe.Domain\Recipe.Domain.csproj" />
   </ItemGroup>
 

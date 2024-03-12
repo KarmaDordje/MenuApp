@@ -1,5 +1,5 @@
-﻿using Recipe.Domain.Dtos;
-using Recipe.Infrastructure.External.Models;
+﻿
+using Recipe.Domain.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

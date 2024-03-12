@@ -1,5 +1,5 @@
-﻿using Recipe.Infrastructure.External.Models;
-using Recipe.Infrastructure.Interfaces;
+﻿using Recipe.Application.ApiModels;
+using Recipe.Application.Interfaces;
 using RestSharp;
 using System;
 using System.Collections.Generic;

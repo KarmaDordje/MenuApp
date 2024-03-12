@@ -1,24 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Recipe.Domain.Interfaces;
-using Recipe.Domain.Services;
-using Recipe.Infrastructure.Context;
-using Recipe.Infrastructure.Interfaces;
-using Recipe.Domain.Mappings;
-using Recipe.Infrastructure.Repositories;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Recipe.Application.Interfaces;
+using Recipe.Domain.Persistence;
 using Recipe.Infrastructure.External;
+using Recipe.Infrastructure.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RecipeMicroservice.Configuration
+namespace Recipe.Infrastructure
 {
     public static class DependencyInjection
-    {
-        public static void AddInfrastructureApi(this IServiceCollection services, IConfiguration configuration)
+    {   
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            var connectionString = configuration.GetConnectionString("WebApiDatabase");
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-            services.AddScoped<IIngredientRepository, IngredientRepository>();
-            services.AddScoped<IIngredientService, IngredientService>();
-          
             services.AddSingleton<INutritionClient, NutritionApiClient>(provider =>
             {
                 var baseUrl = Environment.GetEnvironmentVariable("NUTRITION_API_BASE_URL");
@@ -33,8 +30,8 @@ namespace RecipeMicroservice.Configuration
                 string headerName = "Authorization";
                 return new DeepLApiClient(baseUrl, apiKey, headerName);
             });
-            services.AddAutoMapper(typeof(DomainToDtoMappingProfile));
-
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            return services;
         }
     }
 }

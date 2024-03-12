@@ -1,11 +1,12 @@
-﻿using Recipe.Infrastructure.External.Models;
+﻿
+using Recipe.Application.ApiModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recipe.Infrastructure.Interfaces
+namespace Recipe.Application.Interfaces
 {
     public interface IDeepLClient
     {

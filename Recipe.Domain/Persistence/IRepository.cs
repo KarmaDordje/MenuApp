@@ -1,11 +1,11 @@
-﻿using Recipe.Infrastructure.Context.Entities;
+﻿using Recipe.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recipe.Infrastructure.Interfaces
+namespace Recipe.Domain.Persistence
 {
     public interface IRepository<T> where T : BaseEntity
     {

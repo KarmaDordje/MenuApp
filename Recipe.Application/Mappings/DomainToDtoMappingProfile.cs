@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
 using Recipe.Domain.Dtos;
-using Recipe.Infrastructure.Context.Entities;
-using Recipe.Infrastructure.External.Models;
+using Recipe.Domain.Entities;
 
-namespace Recipe.Domain.Mappings
+namespace Recipe.Application.Mappings
 {
     public class DomainToDtoMappingProfile : Profile
     {
         public DomainToDtoMappingProfile()
         {
             CreateMap<Ingredient, IngredientDTO>().ReverseMap();
-
-            CreateMap<NutritionResponse, Ingredient>().ReverseMap();
             
         }
     }

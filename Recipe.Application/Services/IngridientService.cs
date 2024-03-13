@@ -22,10 +22,10 @@ namespace Recipe.Application.Services
         private readonly INutritionClient _nutriotionApiClient;
         private readonly IDeepLClient _deepLApiClient;
         private readonly ILogger<IngredientService> _logger;
-        
+
 
         public IngredientService(
-            IMapper mapper, 
+            IMapper mapper,
             IIngredientRepository IngredientRepository,
             INutritionClient nutritionService,
             IDeepLClient deepLApiClient,
@@ -41,25 +41,21 @@ namespace Recipe.Application.Services
 
         public async Task<bool> AddIngridient(string ingredientName)
         {
-            try
-            {
-                _logger.LogInformation($"Translating product {ingredientName}");
-                DeepLTranslationRequest request = new DeepLTranslationRequest().Create(ingredientName, "en");
 
-                _logger.LogInformation($"Getting nutrition information for product {request.Text}");
-                string translation = await _deepLApiClient.Translate(request);
+            _logger.LogInformation($"Translating product {ingredientName}");
+            DeepLTranslationRequest request = new DeepLTranslationRequest().Create(ingredientName, "en");
 
-                var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
+            _logger.LogInformation($"Getting nutrition information for product {request.Text}");
+            string translation = await _deepLApiClient.Translate(request);
 
-                return false;//await _IngredientRepository.InsertAsync(nutrition);
+            var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
 
-            }
-            catch (Exception ex)
-            {
-                _logger.LogInformation($"\rError while trying to add ingredient to DB \n\rError: {ex}");
-                return false;
-            }
-            
+            throw new Exception("Product is not found here");
+            return false;//await _IngredientRepository.InsertAsync(nutrition);
+
+
+
+
         }
 
         public async Task<IEnumerable<IngredientDTO>> GetAllIngredientsAsync()

@@ -5,6 +5,8 @@ using Recipe.Domain;
 using Recipe.Infrastructure.Context;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Recipe.API.Middleware;
+using Recipe.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ var configuration = new ConfigurationBuilder()
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ErrorHandlingFilterAttribute>());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -37,6 +39,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    //app.UseMiddleware<ErrorHandlingMiddleware>();
 }
 
 app.UseHttpsRedirection();

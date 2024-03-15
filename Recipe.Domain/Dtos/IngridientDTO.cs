@@ -10,12 +10,19 @@ namespace Recipe.Domain.Dtos
 {
     public class IngredientDTO
     {
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "The Name is Required")]
         [MinLength(3)]
         [MaxLength(100)]
         [DisplayName("Name")]
         public string Name { get; set; }
+        public decimal Calories { get; private set; }
+        public decimal Cholesterol { get; private set; }
+        public decimal FatSaturated { get; private set; }
+        public decimal FatTotal { get; private set; }
+        public decimal Potassium { get; private set; }
+        public decimal Protein { get; private set; }
+        public decimal Sodium { get; private set; }
+        public decimal Quantity { get; set; }
     }
 }

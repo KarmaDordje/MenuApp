@@ -1,0 +1,4 @@
+@host=https://localhost:7034
+
+GET {{host}}/WeatherForecast/GetAllIngredients
+Content-Type: application/json

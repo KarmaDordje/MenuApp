@@ -9,7 +9,7 @@ namespace Recipe.Domain.Entities
     public class Ingredient:BaseEntity
     {
         public string Name { get;  set; }
-        public decimal Proportion { get; private set; }
+        public decimal Quantity { get; private set; }
         public decimal Calories { get; private set; }
         public decimal Cholesterol { get; private set; }
         public decimal FatSaturated { get; private set; }
@@ -19,7 +19,7 @@ namespace Recipe.Domain.Entities
         public decimal Protein { get; private set; }
         public decimal Sodium { get; private set; }
 
-        public Ingredient(string name, decimal proportion, decimal calories, decimal cholesterol,
+        public Ingredient(string name, decimal quantity, decimal calories, decimal cholesterol,
             decimal fatSaturated, decimal fatTotal, int measuresType, decimal potassium, decimal protein, decimal sodium)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -28,7 +28,7 @@ namespace Recipe.Domain.Entities
             }
 
             Name = name;
-            Proportion = proportion;
+            Quantity = quantity;
             Calories = calories;
             Cholesterol = cholesterol;
             FatSaturated = fatSaturated;

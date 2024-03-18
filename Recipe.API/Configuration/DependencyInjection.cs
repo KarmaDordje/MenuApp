@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Recipe.Domain.Interfaces;
 using Recipe.Infrastructure.Context;
 using Recipe.Infrastructure.Repositories;
 using Recipe.Infrastructure.External;

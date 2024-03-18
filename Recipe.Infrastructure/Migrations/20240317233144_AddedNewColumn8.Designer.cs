@@ -11,8 +11,8 @@ using Recipe.Infrastructure.Context;
 namespace Recipe.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240315220554_UpdateTable")]
-    partial class UpdateTable
+    [Migration("20240317233144_AddedNewColumn8")]
+    partial class AddedNewColumn8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,13 +50,14 @@ namespace Recipe.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("PolishName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<decimal>("Potassium")
                         .HasColumnType("numeric");
 
                     b.Property<decimal>("Protein")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("Quantity")
                         .HasColumnType("numeric");
 
                     b.Property<decimal>("Sodium")
@@ -65,6 +66,33 @@ namespace Recipe.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("Recipe.Domain.Entities.Ingredient", b =>
+                {
+                    b.OwnsOne("Recipe.Domain.ValueObjects.Measurement", "Measurement", b1 =>
+                        {
+                            b1.Property<int>("IngredientId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Name")
+                                .HasColumnType("integer")
+                                .HasColumnName("QuantityType");
+
+                            b1.Property<decimal>("Quantity")
+                                .HasColumnType("numeric")
+                                .HasColumnName("Quanity");
+
+                            b1.HasKey("IngredientId");
+
+                            b1.ToTable("Ingredients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("IngredientId");
+                        });
+
+                    b.Navigation("Measurement")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -2,14 +2,15 @@
 using Recipe.Application.ApiModels;
 using Recipe.Domain.Dtos;
 using Recipe.Domain.Entities;
+using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Application.Mappings
 {
     public class DomainToDtoMappingProfile : Profile
     {
         public DomainToDtoMappingProfile()
-        {
-            CreateMap<Ingredient, IngredientDTO>().ReverseMap();
+        {   
+            CreateMap<Ingredient, IngredientDTO>();
             CreateMap<NutritionResponse, Ingredient>()
             .ForMember(dest => dest.Calories, opt => opt.MapFrom(src => src.CaloriesG / 100))
             .ForMember(dest => dest.Cholesterol, opt => opt.MapFrom(src => src.CholesterolMg / 100 /  1000))
@@ -18,9 +19,8 @@ namespace Recipe.Application.Mappings
             .ForMember(dest => dest.Potassium, opt => opt.MapFrom(src => src.PotassiumMg / 100 / 1000))
             .ForMember(dest => dest.Protein, opt => opt.MapFrom(src => src.ProteinG / 100 / 1000))
             .ForMember(dest => dest.Sodium, opt => opt.MapFrom(src => src.SodiumMg / 100 / 1000 ))
-            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => 1))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
-            
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Measurement, opt => opt.MapFrom(src => new Measurement(1m, QuantityType.Grams)));
         }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Domain.Dtos
 {
@@ -24,5 +25,6 @@ namespace Recipe.Domain.Dtos
         public decimal Protein { get; private set; }
         public decimal Sodium { get; private set; }
         public decimal Quantity { get; set; }
+        public Measurement Measurement { get; set; }
     }
 }

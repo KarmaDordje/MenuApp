@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Recipe.API.Filters;
 using Recipe.Domain.Dtos;
-using Recipe.Domain.Interfaces;
 
 namespace RecipeMicroservice.Controllers
 {
@@ -15,14 +14,12 @@ namespace RecipeMicroservice.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IIngredientService _service;
 
        
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IIngredientService service)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _service = service;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -43,10 +40,6 @@ namespace RecipeMicroservice.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult<IEnumerable<IngredientDTO>>> GetAllProducts()
         {
-            await _service.AddIngridient("ziemniak");
-            
-           
-
             _logger.LogInformation("Products not found");
             return NotFound("Products not found");
         }

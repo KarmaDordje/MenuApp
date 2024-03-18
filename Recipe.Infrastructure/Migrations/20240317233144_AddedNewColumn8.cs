@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Recipe.Infrastructure.Migrations
 {
-    public partial class UpdateTable : Migration
+    public partial class AddedNewColumn8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace Recipe.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Quantity = table.Column<decimal>(type: "numeric", nullable: false),
+                    PolishName = table.Column<string>(type: "text", nullable: false),
                     Calories = table.Column<decimal>(type: "numeric", nullable: false),
                     Cholesterol = table.Column<decimal>(type: "numeric", nullable: false),
                     FatSaturated = table.Column<decimal>(type: "numeric", nullable: false),
@@ -24,7 +24,9 @@ namespace Recipe.Infrastructure.Migrations
                     MeasuresType = table.Column<int>(type: "integer", nullable: false),
                     Potassium = table.Column<decimal>(type: "numeric", nullable: false),
                     Protein = table.Column<decimal>(type: "numeric", nullable: false),
-                    Sodium = table.Column<decimal>(type: "numeric", nullable: false)
+                    Sodium = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quanity = table.Column<decimal>(type: "numeric", nullable: false),
+                    QuantityType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Recipe.Domain.Entities
 {
-    public abstract  class BaseEntity
+    public abstract class BaseEntity
     {
-        public virtual int Id { get;  set; }
+        public virtual int Id { get; set; }
     }
 }

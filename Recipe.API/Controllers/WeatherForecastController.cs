@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+
 using Recipe.API.Filters;
 using Recipe.Domain.Dtos;
 
@@ -14,8 +15,6 @@ namespace RecipeMicroservice.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-       
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {

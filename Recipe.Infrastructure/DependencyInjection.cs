@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Persistence;
 using Recipe.Infrastructure.External;
-using Recipe.Infrastructure.Repositories;
+//using Recipe.Infrastructure.Repositories;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ using System.Threading.Tasks;
 namespace Recipe.Infrastructure
 {
     public static class DependencyInjection
-    {   
+    {
+
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
 
@@ -30,7 +33,7 @@ namespace Recipe.Infrastructure
                 string headerName = "Authorization";
                 return new DeepLApiClient(baseUrl, apiKey, headerName);
             });
-            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            // services.AddScoped<IIngredientRepository, IngredientRepository>();
             return services;
         }
     }

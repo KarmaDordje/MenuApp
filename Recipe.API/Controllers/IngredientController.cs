@@ -1,14 +1,23 @@
+using CleanArchitecture.Api.Controllers;
+
+using ErrorOr;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
+
+using Newtonsoft.Json;
+
 using Recipe.API.RequestModels;
 using Recipe.Application.Ingredients.Commands.AddIngredient;
 using Recipe.Domain.Dtos;
 
-namespace Recipe.API.Controllers{
+namespace Recipe.API.Controllers
+{
 
     [ApiController]
     [Route("[controller]")]
-    public class IngredientController : ControllerBase
+    public class IngredientController : ApiController
     {
         private readonly ISender _mediator;
 
@@ -24,10 +33,13 @@ namespace Recipe.API.Controllers{
         public async Task<ActionResult<IngredientDTO>> AddIngredient([FromBody] AddIngredientRequest request)
         {
             var command = new AddIngredientCommand(request.IngredientName, request.Quantity);
-            var result = await _mediator.Send(command);
+            ErrorOr<IngredientDTO> result = await _mediator.Send(command);
+
+            return result.Match<ActionResult<IngredientDTO>>(
+                result => Ok(result),
+                errors => Problem(errors));
             return Ok(result);
         }
     }
 }
 
-   

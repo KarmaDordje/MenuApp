@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace Recipe.Infrastructure.External
 {
     public abstract class GenericApiClient
     {
-        private string _baseUrl;
-        private string _apiKey;
-        private string _headerName;
+        private readonly string _baseUrl;
+        private readonly string _apiKey;
+        private readonly string _headerName;
 
         public GenericApiClient(string baseUrl, string apiKey, string headerName)
         {
@@ -19,6 +20,7 @@ namespace Recipe.Infrastructure.External
             _apiKey = apiKey;
             _headerName = headerName;
         }
+
         public async Task<T> Request<T>(Func<RestRequest> compose_request_fn, string url = null) where T : class
         {
             RestClient c = url == null ? new RestClient(_baseUrl) : new RestClient(url);
@@ -35,9 +37,16 @@ namespace Recipe.Infrastructure.External
             }
 
             if (typeof(T) == typeof(string))
+            {
+
                 return response.Content as T;
+            }
             else
+            {
+
                 return response.Data;
+            }
+
         }
     }
 }

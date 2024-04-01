@@ -1,0 +1,8 @@
+@host=https://localhost:7034
+
+GET {{host}}/Ingredient/AddIngredient
+Content-Type: application/json
+{
+    "name": "ziemniak",
+    "quantity": 0
+}

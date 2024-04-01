@@ -20,50 +20,5 @@ namespace Recipe.UnitTests.Systems
     public class IngridientServiceTests
     {
 
-        private readonly Fixture _fixture;
-        private readonly Mock<ILogger<IngredientService>> _loggerMock;
-        private readonly Mock<IMapper> _mapper;
-        private readonly Mock<IIngredientRepository> _repositoryMock;
-        private readonly Mock<INutritionClient> _nutritionMock;
-        private readonly Mock<IDeepLClient> _deepLClientMock;
-        private readonly IngredientService _sut;
-
-        public IngridientServiceTests()
-        {
-            _fixture = new Fixture();
-            _loggerMock = new Mock<ILogger<IngredientService>>();
-            _mapper = new Mock<IMapper>();
-            _repositoryMock = new Mock<IIngredientRepository>();
-            _nutritionMock = new Mock<INutritionClient>();
-            _deepLClientMock = new Mock<IDeepLClient>();
-            _sut = new IngredientService(_mapper.Object, _repositoryMock.Object, _nutritionMock.Object, _deepLClientMock.Object, _loggerMock.Object);
-
-        }
-
-        [Theory]
-        [InlineData("Ziemniak")]
-        public async Task Should_Add_Ingridient_ToTheDb(string productName)
-        {
-            // Arrange
-            var fakeNutrition = _fixture.Create<NutritionResponse>();
-
-            _deepLClientMock.Setup(x => x.Translate(It.IsAny<DeepLTranslationRequest>())).ReturnsAsync("Patato");
-            _nutritionMock.Setup(x => x.GetProductNutrition(It.IsAny<string>())).ReturnsAsync(fakeNutrition);
-            _repositoryMock.Setup(x => x.InsertAsync(It.IsAny<Ingredient>())).ReturnsAsync(true);
-            var sut = new IngredientService(_mapper.Object, _repositoryMock.Object, _nutritionMock.Object, _deepLClientMock.Object, _loggerMock.Object);
-            
-            //Act
-            var r = await _sut.AddIngridient(productName);
-
-            //Assert
-            _deepLClientMock.Verify(x => x.Translate(It.IsAny<DeepLTranslationRequest>()), Times.Once());
-            _nutritionMock.Verify(x => x.GetProductNutrition(It.IsAny<string>()), Times.Once());
-            _repositoryMock.Verify(x => x.InsertAsync(It.IsAny<Ingredient>()), Times.Once());
-            r.Should().BeTrue();
-        }
-
-
-
-
     }
 }

@@ -3,7 +3,9 @@ using Recipe.Application.Interfaces;
 using Recipe.Domain.Entities;
 using Recipe.Infrastructure.Common;
 using Recipe.Infrastructure.Context;
+
 using RestSharp;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,12 @@ using System.Threading.Tasks;
 
 namespace Recipe.Infrastructure.External
 {
-    public class NutritionApiClient: GenericApiClient, INutritionClient
-    {   
-        public NutritionApiClient(string baseUrl, string apiKey, string headerName) : base(baseUrl, apiKey, headerName){}
-        
+    public class NutritionApiClient : GenericApiClient, INutritionClient
+    {
+
+        public NutritionApiClient(string baseUrl, string apiKey, string headerName)
+            : base(baseUrl, apiKey, headerName) { }
+
         /// <summary>
         /// Returns nutriton infromation about product
         /// </summary>
@@ -28,8 +32,8 @@ namespace Recipe.Infrastructure.External
             return result.First();
         }
 
-        //private Ingredient ConvertToPerGramNutritionData(NutritionResponse response)
-        //{
+        // private Ingredient ConvertToPerGramNutritionData(NutritionResponse response)
+        // {
         //    var result = new Ingredient(response)
         //    {
         //        Calories = response.CaloriesG / response.ServingSize,
@@ -43,7 +47,7 @@ namespace Recipe.Infrastructure.External
         //        Sodium = response.SodiumMg / response.ServingSize,
         //    };
         //    return result;
-        //}
+        // }
 
     }
 }

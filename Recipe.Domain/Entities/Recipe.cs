@@ -5,12 +5,13 @@ namespace Recipe.Domain.Entities;
 
 public sealed class Recipe : AggregateRoot<RecipeId>
 {
-    private readonly List<Ingredient> _ingredients = new();
+    private readonly List<Ingredient> _ingredients = new ();
     public string Name { get; private set; }
     public string Description { get; private set; }
     public float AvarageRating { get; set; }
     public string Image { get; private set; }
-    public int MyProperty { get; set; }
+    public string VideoUrl { get; private set; }
+    public List<string>? Steps { get; private set; }
     public IReadOnlyList<Ingredient> Ingredients => _ingredients.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
@@ -21,6 +22,9 @@ public sealed class Recipe : AggregateRoot<RecipeId>
         string description,
         float avarageRating,
         string image,
+        string videoUrl,
+        List<string> steps,
+        List<Ingredient> ingredients,
         DateTime createdAt,
         DateTime updatedAt)
         : base(recipeId)
@@ -29,6 +33,9 @@ public sealed class Recipe : AggregateRoot<RecipeId>
         Description = description;
         AvarageRating = avarageRating;
         Image = image;
+        VideoUrl = videoUrl;
+        Steps = steps;
+        _ingredients = ingredients;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
@@ -38,6 +45,9 @@ public sealed class Recipe : AggregateRoot<RecipeId>
         string description,
         float avarageRating,
         string image,
+        string videoUrl,
+        List<string> steps,
+        List<Ingredient> ingredients,
         DateTime createdAt,
         DateTime updatedAt)
     {
@@ -47,6 +57,9 @@ public sealed class Recipe : AggregateRoot<RecipeId>
             description,
             avarageRating,
             image,
+            videoUrl,
+            steps,
+            ingredients,
             createdAt,
             updatedAt);
     }

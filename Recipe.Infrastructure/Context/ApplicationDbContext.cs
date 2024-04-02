@@ -34,8 +34,7 @@ namespace Recipe.Infrastructure.Context
                     .HasColumnName("QuantityType")
                     .HasConversion(
                         v => (int)v,   // Convert enum to integer for database
-                        v => (QuantityType)v // Convert integer to enum for .NET
-                    );
+                        v => (QuantityType)v); // Convert integer to enum for .NET
             });
 
             // Add other entity configurations here if needed

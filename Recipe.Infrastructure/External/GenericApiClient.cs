@@ -21,7 +21,7 @@ namespace Recipe.Infrastructure.External
             _headerName = headerName;
         }
 
-        public async Task<T> Request<T>(Func<RestRequest> compose_request_fn, string url = null) where T : class
+        public async Task<T?> Request<T>(Func<RestRequest> compose_request_fn, string url = null) where T : class
         {
             RestClient c = url == null ? new RestClient(_baseUrl) : new RestClient(url);
             var r = compose_request_fn();

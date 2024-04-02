@@ -38,8 +38,6 @@ namespace Recipe.API.Controllers
             return result.Match<ActionResult<IngredientDTO>>(
                 result => Ok(result),
                 errors => Problem(errors));
-            return Ok(result);
         }
     }
 }
-

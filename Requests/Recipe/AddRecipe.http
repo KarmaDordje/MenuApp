@@ -1,0 +1,18 @@
+@host=https://localhost:7034
+
+POST {{host}}/api/Recipe
+Content-Type: application/json
+
+{  
+    "name": "Recipe Name",
+    "description": "Recipe Description",
+    "imageUrl": "https://example.com/image.jpg",
+    "videoUrl": "https://example.com/video.mp4",
+    "ingredients": [
+        {
+            "name": "Ingredient 1",
+            "quantity": "1 cup"
+        }
+    ]
+}
+

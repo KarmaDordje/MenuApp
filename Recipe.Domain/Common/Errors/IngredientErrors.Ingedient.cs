@@ -2,7 +2,7 @@ using ErrorOr;
 
 namespace Recipe.Domain.Common.Errors
 {
-    public static class Ingredient
+    public static class IngredientErrors
     {
         public static Error IngredientNameCannotBeEmpty => Error.Validation("Ingredient.IngredientName", "Ingredient name cannot be empty");
         public static Error IngredientNameTooLong => Error.Validation("IngredientNameTooLong", "Ingredient name is too long");

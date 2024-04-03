@@ -11,13 +11,12 @@ namespace Recipe.Domain.Entities
 {
     public sealed class Ingredient : Entity<IngredientId>
     {
-        public string Name { get; set; }
-        public string PolishName { get; set; }
+        public string Name { get; private set; }
+        public string PolishName { get; private set; }
         public decimal Calories { get; private set; }
         public decimal Cholesterol { get; private set; }
         public decimal FatSaturated { get; private set; }
         public decimal FatTotal { get; private set; }
-        public int MeasuresType { get; private set; }
         public decimal Potassium { get; private set; }
         public decimal Protein { get; private set; }
         public decimal Sodium { get; private set; }
@@ -31,7 +30,6 @@ namespace Recipe.Domain.Entities
             decimal cholesterol,
             decimal fatSaturated,
             decimal fatTotal,
-            int measuresType,
             decimal potassium,
             decimal protein,
             decimal sodium,
@@ -44,7 +42,6 @@ namespace Recipe.Domain.Entities
             Cholesterol = cholesterol;
             FatSaturated = fatSaturated;
             FatTotal = fatTotal;
-            MeasuresType = measuresType;
             Potassium = potassium;
             Protein = protein;
             Sodium = sodium;
@@ -59,7 +56,6 @@ namespace Recipe.Domain.Entities
             decimal cholesterol,
             decimal fatSaturated,
             decimal fatTotal,
-            int measuresType,
             decimal potassium,
             decimal protein,
             decimal sodium,
@@ -73,7 +69,6 @@ namespace Recipe.Domain.Entities
                 cholesterol,
                 fatSaturated,
                 fatTotal,
-                measuresType,
                 potassium,
                 protein,
                 sodium,
@@ -86,9 +81,9 @@ namespace Recipe.Domain.Entities
         }
 
         #pragma warning disable CS8618
-        // private Ingredient()
-        // {
-        // }
+        private Ingredient()
+        {
+        }
         #pragma warning restore CS8618
     }
 }

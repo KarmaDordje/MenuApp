@@ -22,8 +22,10 @@ namespace Recipe.Application
             services.AddAutoMapper(typeof(DomainToDtoMappingProfile));
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             services.AddTransient<INutritionCalculationService, NutritionCalculationService>();
+            services.AddScoped(
+                typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
     }

@@ -1,5 +1,6 @@
 using Recipe.Domain.Common.Errors;
 using Recipe.Domain.Entities;
+using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Contracts.Recipes
 {
@@ -8,6 +9,20 @@ namespace Recipe.Contracts.Recipes
         string Description,
         string ImageUrl,
         string VideoUrl,
-        List<RecipeIngredient> Ingredients);
-    public record RecipeIngredient(string Name, string Quantity);
+        List<RecipeStep> RecipeSteps,
+        List<Ingredient> Ingredients);
+    public record Ingredient(
+        string Name,
+        string PolishName,
+        decimal Calories,
+        decimal Cholesterol,
+        decimal FatSaturated,
+        decimal FatTotal,
+        int MeasuresType,
+        decimal Potassium,
+        decimal Protein,
+        decimal Sodium,
+        Measurement Measurement
+    );
+    public record RecipeStep(int Order, string Name);
 }

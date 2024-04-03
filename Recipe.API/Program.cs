@@ -1,10 +1,9 @@
-using Recipe.Infrastructure;
-using Recipe.Application;
-using Recipe.Domain;
-using Recipe.Infrastructure.Context;
+using BuberDinner.Api;
 using Microsoft.EntityFrameworkCore;
 using Recipe.API.Common.Mapping;
-using BuberDinner.Api;
+using Recipe.Application;
+using Recipe.Domain;
+using Recipe.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +18,7 @@ var configuration = new ConfigurationBuilder()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(MenuMappingConfig));
-var connectionString = configuration.GetConnectionString("Postgress");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services
     .AddPresentation()
     .AddInfrastructure()
@@ -36,7 +32,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    // app.UseMiddleware<ErrorHandlingMiddleware>();
 }
 
 app.UseExceptionHandler("/error");

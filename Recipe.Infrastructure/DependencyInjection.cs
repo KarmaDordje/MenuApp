@@ -1,9 +1,16 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+using Recipe.Application.Common.Interfaces.Persistence;
 
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Persistence;
 using Recipe.Infrastructure.External;
+using Recipe.Infrastructure.Persistence;
+
 //using Recipe.Infrastructure.Repositories;
+
 
 using System;
 using System.Collections.Generic;
@@ -33,7 +40,18 @@ namespace Recipe.Infrastructure
                 string headerName = "Authorization";
                 return new DeepLApiClient(baseUrl, apiKey, headerName);
             });
+            services.AddPersistence();
             // services.AddScoped<IIngredientRepository, IngredientRepository>();
+            return services;
+        }
+
+        public static IServiceCollection AddPersistence(this IServiceCollection services)
+        {
+            
+            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+            var connectionString = configuration.GetConnectionString("Postgress");
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString!));
             return services;
         }
     }

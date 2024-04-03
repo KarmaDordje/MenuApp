@@ -19,7 +19,7 @@ namespace Recipe.Application.Services
         public Ingredient CalculateNutritionPerGramm(NutritionResponse nutrition, string polishName)
         {
             var result = _mapper.Map<Ingredient>(nutrition);
-            result.PolishName = polishName;
+            //result.PolishName = polishName;
             return result;
         }
 

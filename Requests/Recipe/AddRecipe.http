@@ -1,6 +1,6 @@
 @host=https://localhost:7034
 
-POST {{host}}/api/Recipe
+POST {{host}}/api/Recipe?userId=123
 Content-Type: application/json
 
 {  
@@ -8,10 +8,22 @@ Content-Type: application/json
     "description": "Recipe Description",
     "imageUrl": "https://example.com/image.jpg",
     "videoUrl": "https://example.com/video.mp4",
+    "recipeSteps": [
+        {   
+            "order": 1,
+            "name": "Step 1"
+           
+        }
+    ],
     "ingredients": [
         {
             "name": "Ingredient 1",
-            "quantity": "1 cup"
+            "polishName": "Ingredient 1 Polish Name",
+            "measurement": {
+                "uantity": 22,
+                "name": 1
+            }
+
         }
     ]
 }

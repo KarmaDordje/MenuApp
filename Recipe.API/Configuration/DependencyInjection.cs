@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Recipe.Infrastructure.Context;
 using Recipe.Infrastructure.External;
 
 namespace RecipeMicroservice.Configuration

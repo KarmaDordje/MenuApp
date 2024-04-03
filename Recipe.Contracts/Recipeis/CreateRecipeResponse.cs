@@ -1,20 +1,34 @@
+using Recipe.Domain.ValueObjects;
+
 namespace Recipe.Contracts.Recipes
 {
-    public record CreareRecipeResponse(CreateRecipeStatus Status);
+    public record CreateRecipeResponse(
+        string RecipeId,
+        string Name,
+        string Description,
+        float AvarageRating,
+        string Image,
+        string VideoUrl,
+        List<StepResponse> Steps,
+        List<IngredientResponse> Ingredients,
+        DateTime CreatedAt,
+        DateTime UpdatedAt
+    );
 
-    /// <summary>
-    /// Represents the status of creating a recipe.
-    /// </summary>
-    public enum CreateRecipeStatus
-    {
-        /// <summary>
-        /// The recipe was created successfully.
-        /// </summary>
-        Success = 0,
+    public record IngredientResponse(
+        string IngredientId,
+        string Name,
+        string PolishName,
+        decimal Calories,
+        decimal Cholesterol,
+        decimal FatSaturated,
+        decimal FatTotal,
+        int MeasuresType,
+        decimal Potassium,
+        decimal Protein,
+        decimal Sodium,
+        Measurement Measurement
+    );
 
-        /// <summary>
-        /// An error occurred while creating the recipe.
-        /// </summary>
-        Error = 1
-    }
+    public record StepResponse(string Name, string Order);
 }

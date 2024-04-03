@@ -2,8 +2,6 @@
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Entities;
 using Recipe.Infrastructure.Common;
-using Recipe.Infrastructure.Context;
-
 using RestSharp;
 
 using System;

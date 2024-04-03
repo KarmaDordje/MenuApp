@@ -2,24 +2,24 @@ using Recipe.Domain.Common.Models;
 
 namespace Recipe.Domain.ValueObjects
 {
-    public class IngredientId : ValueObject
+    public class RecipeStepId : ValueObject
     {
         public Guid Value { get; private set; }
 
-        private IngredientId(Guid value)
+        private RecipeStepId(Guid value)
         {
             Value = value;
         }
 
-        public static IngredientId CreateUnique()
+        public static RecipeStepId CreateUnique()
         {
-            return new IngredientId(Guid.NewGuid());
+            return new RecipeStepId(Guid.NewGuid());
         }
 
-        public static IngredientId Create(Guid value)
-    {
-        return new IngredientId(value);
-    }
+        public static RecipeStepId Create(Guid value)
+        {
+            return new RecipeStepId(value);
+        }
 
         public override IEnumerable<object> GetEqualityComponents()
         {

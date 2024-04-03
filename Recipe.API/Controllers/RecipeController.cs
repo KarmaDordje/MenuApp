@@ -17,20 +17,22 @@ namespace Recipe.API.Controllers
     public class RecipeController : ApiController
     {
         private readonly IMapper _mapper;
-        private readonly IMediator _mediator;
+        private readonly ISender _mediator;
 
-    public RecipeController(IMapper mapper, IMediator mediator)
+    public RecipeController(IMapper mapper, ISender mediator)
     {
         _mapper = mapper;
         _mediator = mediator;
     }
 
        [HttpPost]
-       public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeRequest request)
+       public async Task<IActionResult> CreateRecipe(CreateRecipeRequest request, int userId)
        {
             var commnad = _mapper.Map<CreateRecipeCommand>(request);
-            var createMenuRequest = await _mediator.Send(commnad);
-            return Ok(commnad);
+            var createRecipeResult = await _mediator.Send(commnad);
+            return createRecipeResult.Match(
+                recipe => Ok(_mapper.Map<CreateRecipeResponse>(recipe)),
+                errors => Problem(errors));
        }
     }
 }

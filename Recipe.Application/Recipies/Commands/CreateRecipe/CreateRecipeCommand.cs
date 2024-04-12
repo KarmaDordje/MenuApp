@@ -16,18 +16,6 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
         List<Ingredient> Ingredients
     ) : IRequest<ErrorOr<Domain.Entities.Recipe>>;
 
-    public record Ingredient(
-        string Name,
-        string PolishName,
-        decimal Calories,
-        decimal Cholesterol,
-        decimal FatSaturated,
-        decimal FatTotal,
-        int MeasuresType,
-        decimal Potassium,
-        decimal Protein,
-        decimal Sodium,
-        Measurement Measurement
-    );
+    public record Ingredient(string IngredientId, decimal Quantity);
     public record RecipeStep(int Order, string Name);
 }

@@ -47,7 +47,7 @@ namespace Recipe.Infrastructure
 
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
-            
+
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("Postgress");
             services.AddScoped<IRecipeRepository, RecipeRepository>();

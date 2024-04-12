@@ -5,7 +5,7 @@ namespace Recipe.Domain.Entities;
 
 public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 {
-    private readonly List<Ingredient> _ingredients = new ();
+    private readonly List<RecipeIngredient> _ingredients = new ();
     private readonly List<RecipeStep> _recipeSteps = new ();
     public string Name { get; private set; }
     public int UserId { get; private set; }
@@ -14,7 +14,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     public string ImageUrl { get; private set; }
     public string VideoUrl { get; private set; }
     public IReadOnlyList<RecipeStep> RecipeSteps => _recipeSteps.AsReadOnly();
-    public IReadOnlyList<Ingredient> Ingredients => _ingredients.AsReadOnly();
+    public IReadOnlyList<RecipeIngredient> Ingredients => _ingredients.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
@@ -29,7 +29,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         DateTime createdAt,
         DateTime updatedAt,
         List<RecipeStep> steps,
-        List<Ingredient> ingredients)
+        List<RecipeIngredient> ingredients)
         : base(recipeId)
     {
         Name = name;
@@ -54,7 +54,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         DateTime createdAt,
         DateTime updatedAt,
         List<RecipeStep>? steps = null,
-        List<Ingredient>? ingredients = null)
+        List<RecipeIngredient>? ingredients = null)
     {
         return new Recipe(
             RecipeId.CreateUnique(),

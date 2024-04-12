@@ -17,13 +17,8 @@ Content-Type: application/json
     ],
     "ingredients": [
         {
-            "name": "Ingredient 1",
-            "polishName": "Ingredient 1 Polish Name",
-            "measurement": {
-                "uantity": 22,
-                "name": 1
-            }
-
+            "IngredientId": "a7496a8f-ab43-4238-983d-3da29d50c753",
+            "quantity": 1
         }
     ]
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Recipe.Infrastructure.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class RecipeIngredintNewTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,23 +33,15 @@ namespace Recipe.Infrastructure.Migrations
                 name: "RecipeIngredients",
                 columns: table => new
                 {
-                    IngredintId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RecipeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    PolishName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Calories = table.Column<decimal>(type: "numeric", nullable: false),
-                    Cholesterol = table.Column<decimal>(type: "numeric", nullable: false),
-                    FatSaturated = table.Column<decimal>(type: "numeric", nullable: false),
-                    FatTotal = table.Column<decimal>(type: "numeric", nullable: false),
-                    Potassium = table.Column<decimal>(type: "numeric", nullable: false),
-                    Protein = table.Column<decimal>(type: "numeric", nullable: false),
-                    Sodium = table.Column<decimal>(type: "numeric", nullable: false),
-                    Measurement_Quantity = table.Column<string>(type: "character varying(64)", nullable: false),
-                    Measurement_Name = table.Column<int>(type: "integer", nullable: false)
+                    IngredientId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantity = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipeIngredients", x => new { x.IngredintId, x.RecipeId });
+                    table.PrimaryKey("PK_RecipeIngredients", x => new { x.Id, x.RecipeId });
                     table.ForeignKey(
                         name: "FK_RecipeIngredients_Recipes_RecipeId",
                         column: x => x.RecipeId,

@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,39 +24,14 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.Entities.Rec
 
             sb.HasKey("Id", "RecipeId");
 
-            sb.Property(s => s.Id)
-                .HasColumnName("IngredintId")
+            sb.Property(s => s.IngredientId)
+                .HasColumnName("IngredientId")
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
                     value => Domain.ValueObjects.IngredientId.Create(value));
-            sb.Property(s => s.Name)
-                .HasMaxLength(100);
-            
-            sb.Property(s => s.PolishName)
-                .HasMaxLength(100);
 
-            sb.Property(s => s.Calories);
-
-            sb.Property(s => s.Cholesterol);
-
-            sb.Property(s => s.FatSaturated);
-
-            sb.Property(s => s.FatTotal);
-
-            sb.Property(s => s.Potassium);
-
-            sb.Property(s => s.Protein);
-
-            sb.Property(s => s.Sodium);
-
-            sb.OwnsOne(s => s.Measurement, ms =>
-            {
-                ms.Property(m => m.Quantity)
-                .HasConversion<string>();
-                ms.Property(m => m.Name);
-            });
-
+            sb.Property(s => s.Quantity);
         });
 
         builder.Metadata.FindNavigation(nameof(Domain.Entities.Recipe.Ingredients))!

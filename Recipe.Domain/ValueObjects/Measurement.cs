@@ -3,7 +3,7 @@ using Recipe.Domain.Common.Models;
 namespace Recipe.Domain.ValueObjects
 {
     public class Measurement : ValueObject
-    {   
+    {
          public Measurement(decimal quantity, QuantityType name)
         {
             this.Quantity = quantity;
@@ -24,7 +24,7 @@ namespace Recipe.Domain.ValueObjects
         {
         }
         #pragma warning restore CS8618
-        
+
     }
 
 }

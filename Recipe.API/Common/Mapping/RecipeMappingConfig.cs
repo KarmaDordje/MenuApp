@@ -15,7 +15,7 @@ namespace Recipe.API.Common.Mapping
             .Map(dest => dest.RecipeId, src => src.Id.Value);
         config.NewConfig<Domain.Entities.Ingredient, IngredientResponse>()
             .Map(dest => dest.IngredientId, src => src.Id.Value);
-            
+
     }
 }
 }

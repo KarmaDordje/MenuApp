@@ -9,5 +9,8 @@ namespace Recipe.Domain.Common.Errors
         public static Error QuantityMustBeGreaterThanZero => Error.Validation("Ingredient.QuantityMustBeGreaterThanZero", "Quantity must be greater than zero");
         public static Error IngredientNotFound => Error.NotFound("IngredientNotFound", "Ingredient not found");
         public static Error IngredientAlreadyExists => Error.Conflict("IngredientAlreadyExists", "Ingredient already exists");
+        public static Error InvalidIngredientId => Error.Validation(
+            code: "Ingredient.InvalidId",
+            description: "Ingredient ID is invalid");
     }
 }

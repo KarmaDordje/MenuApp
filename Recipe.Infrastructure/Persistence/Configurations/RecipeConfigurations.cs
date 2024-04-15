@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Recipe.Infrastructure.Persistence.Configurations;
 
-public class RecipeConfigurations : IEntityTypeConfiguration<Domain.Entities.Recipe>
+public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggregate.Recipe>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Recipe> builder)
+    public void Configure(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         ConfigureRecipeTable(builder);
         ConfigureRecipeStepTable(builder);
         ConfigureRecipeIngredientTable(builder);
     }
 
-    private void ConfigureRecipeIngredientTable(EntityTypeBuilder<Domain.Entities.Recipe> builder)
+    private void ConfigureRecipeIngredientTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         builder.OwnsMany(s => s.Ingredients, sb =>
         {
@@ -34,11 +34,11 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.Entities.Rec
             sb.Property(s => s.Quantity);
         });
 
-        builder.Metadata.FindNavigation(nameof(Domain.Entities.Recipe.Ingredients))!
+        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.Ingredients))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
-    private void ConfigureRecipeStepTable(EntityTypeBuilder<Domain.Entities.Recipe> builder)
+    private void ConfigureRecipeStepTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         builder.OwnsMany(s => s.RecipeSteps, sb =>
         {
@@ -61,12 +61,12 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.Entities.Rec
             sb.Property(s => s.Order);
         });
 
-        builder.Metadata.FindNavigation(nameof(Domain.Entities.Recipe.RecipeSteps))!
+        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeSteps))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
     }
 
-    private void ConfigureRecipeTable(EntityTypeBuilder<Domain.Entities.Recipe> builder)
+    private void ConfigureRecipeTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         builder.ToTable("Recipes");
 

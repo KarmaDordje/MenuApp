@@ -1,29 +1,25 @@
+using ErrorOr;
+
 using Recipe.Domain.Common.Models;
 
 namespace Recipe.Domain.ValueObjects
 {
-    public class IngredientId : ValueObject
+    public class IngredientId : AggregateRootId<string>
     {
-        public Guid Value { get; private set; }
-
-        private IngredientId(Guid value)
+         private IngredientId(string value)
+            : base(value)
         {
-            Value = value;
         }
 
-        public static IngredientId CreateUnique()
+        public static IngredientId Create(string hostId)
         {
-            return new IngredientId(Guid.NewGuid());
+        // TODO: enforce invariants
+            return new IngredientId(hostId);
         }
-
-        public static IngredientId Create(Guid value)
-    {
-        return new IngredientId(value);
-    }
-
-        public override IEnumerable<object> GetEqualityComponents()
+         public static IngredientId CreateUnique()
         {
-            yield return Value;
+        // TODO: enforce invariants
+        return new IngredientId(Guid.NewGuid().ToString());
         }
     }
 }

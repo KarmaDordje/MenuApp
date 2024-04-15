@@ -4,7 +4,7 @@ namespace Recipe.Domain.ValueObjects
 {
     public class RecipeIngredient : ValueObject
     {
-        private RecipeIngredient(Guid ingredientId, decimal quantity)
+        private RecipeIngredient(string ingredientId, decimal quantity)
         {
             IngredientId = IngredientId.Create(ingredientId);
             Quantity = quantity;
@@ -15,7 +15,7 @@ namespace Recipe.Domain.ValueObjects
 
         public static RecipeIngredient Create(string ingredientId, decimal quantity)
         {
-            return new RecipeIngredient(new Guid(ingredientId), quantity);
+            return new RecipeIngredient(ingredientId, quantity);
         }
 
         public override IEnumerable<object> GetEqualityComponents()

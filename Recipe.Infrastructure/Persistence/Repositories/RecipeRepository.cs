@@ -10,7 +10,7 @@ namespace Recipe.Infrastructure.Persistence
         {
             _context = context;
         }
-        public void AddAsync(Domain.Entities.Recipe recipe)
+        public void AddAsync(Domain.RecipeAggregate.Recipe recipe)
         {
             _context.Add(recipe);
             _context.SaveChanges();

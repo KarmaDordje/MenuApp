@@ -1,7 +1,7 @@
 using Recipe.Domain.Common.Models;
 using Recipe.Domain.ValueObjects;
 
-namespace Recipe.Domain.Entities
+namespace Recipe.Domain.RecipeAggregate.Entities
 {
     public class RecipeStep : Entity<RecipeStepId>
     {   

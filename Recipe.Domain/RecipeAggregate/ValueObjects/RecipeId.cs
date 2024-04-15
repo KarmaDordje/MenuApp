@@ -3,11 +3,9 @@ using Recipe.Domain.Common.Models;
 namespace Recipe.Domain.ValueObjects;
 public sealed class RecipeId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set; }
 
-    private RecipeId(Guid value)
+    private RecipeId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static RecipeId CreateUnique()

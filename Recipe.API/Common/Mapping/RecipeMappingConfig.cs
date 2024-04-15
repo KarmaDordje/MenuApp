@@ -11,7 +11,7 @@ namespace Recipe.API.Common.Mapping
         config.NewConfig<(CreateRecipeRequest, int UserId), CreateRecipeCommand>()
             .Map(dest => dest.UserId, src => src.UserId);
 
-        config.NewConfig<Domain.Entities.Recipe, CreateRecipeResponse>()
+        config.NewConfig<Domain.RecipeAggregate.Recipe, CreateRecipeResponse>()
             .Map(dest => dest.RecipeId, src => src.Id.Value);
         config.NewConfig<Domain.Entities.Ingredient, IngredientResponse>()
             .Map(dest => dest.IngredientId, src => src.Id.Value);

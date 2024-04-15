@@ -8,8 +8,11 @@ using Recipe.Application.Interfaces;
 using Recipe.Domain.Persistence;
 using Recipe.Infrastructure.External;
 using Recipe.Infrastructure.Persistence;
+using Recipe.Infrastructure.Persistence.Interceptors;
+
 
 //using Recipe.Infrastructure.Repositories;
+
 
 
 using System;
@@ -50,6 +53,7 @@ namespace Recipe.Infrastructure
 
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("Postgress");
+            services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString!));
             return services;

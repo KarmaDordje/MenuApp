@@ -1,14 +1,16 @@
 using Recipe.Domain.Common.Models;
+using Recipe.Domain.RecipeAggregate.Entities;
+using Recipe.Domain.RecipeAggregate.Events;
 using Recipe.Domain.ValueObjects;
 
-namespace Recipe.Domain.Entities;
+namespace Recipe.Domain.RecipeAggregate;
 
 public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 {
     private readonly List<RecipeIngredient> _ingredients = new ();
     private readonly List<RecipeStep> _recipeSteps = new ();
     public string Name { get; private set; }
-    public int UserId { get; private set; }
+    public string UserId { get; private set; }
     public string Description { get; private set; }
     public float AvarageRating { get; set; }
     public string ImageUrl { get; private set; }
@@ -21,7 +23,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     private Recipe(
         RecipeId recipeId,
         string name,
-        int userId,
+        string userId,
         string description,
         float avarageRating,
         string image,
@@ -46,7 +48,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 
     public static Recipe Create(
         string name,
-        int userId,
+        string userId,
         string description,
         float avarageRating,
         string image,
@@ -56,7 +58,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         List<RecipeStep>? steps = null,
         List<RecipeIngredient>? ingredients = null)
     {
-        return new Recipe(
+        var recipe = new Recipe(
             RecipeId.CreateUnique(),
             name,
             userId,
@@ -68,6 +70,8 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
             updatedAt,
             steps ?? new (),
             ingredients ?? new ());
+        recipe.AddDomainEvent(new RecipeCreated(recipe));
+        return recipe;
     }
 #pragma warning disable CS8618
     private Recipe()

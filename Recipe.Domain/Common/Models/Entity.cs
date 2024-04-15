@@ -8,13 +8,16 @@ namespace Recipe.Domain.Common.Models;
 /// Represents an abstract base class for entities in the domain model.
 /// </summary>
 /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
-public abstract class Entity<TId> : IEquatable<Entity<TId>>
+public abstract class Entity<TId> : IEquatable<Entity<TId>>, IhasDomainEvents
     where TId : notnull
-{
+{   
+    private readonly List<IDomainEvent> _domainEvents = new ();
     /// <summary>
     /// Gets or sets the identifier of the entity.
     /// </summary>
     public TId Id { get; protected set; }
+
+    public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Entity{TId}"/> class with the specified identifier.
@@ -76,7 +79,21 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
         return Id.GetHashCode();
     }
 
-    #pragma warning disable CS8618
+    /// <summary>
+    /// Adds a domain event to the entity.
+    /// </summary>
+    /// <param name="domainEvent">The domain event to be added.</param>
+    public void AddDomainEvent(IDomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+
+#pragma warning disable CS8618
     protected Entity()
     {
     }

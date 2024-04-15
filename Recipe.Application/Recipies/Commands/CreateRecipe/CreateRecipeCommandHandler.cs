@@ -1,5 +1,3 @@
-using System.Data;
-
 using ErrorOr;
 
 using MediatR;
@@ -11,7 +9,7 @@ using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Application.Recipes.Commands.CreateRecipe
 {
-    public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<Domain.Entities.Recipe>>
+    public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<Domain.RecipeAggregate.Recipe>>
     {
         private readonly IRecipeRepository _recipeRepository;
 
@@ -19,10 +17,10 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
         {
             _recipeRepository = recipeRepository;
         }
-        public async Task<ErrorOr<Domain.Entities.Recipe>> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Domain.RecipeAggregate.Recipe>> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            var recipe = Domain.Entities.Recipe.Create(
+            var recipe = Domain.RecipeAggregate.Recipe.Create(
                 request.Name,
                 request.UserId,
                 request.Description,
@@ -31,7 +29,7 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
                 request.VideoUrl,
                 DateTime.Now.ToUniversalTime(),
                 DateTime.Now.ToUniversalTime(),
-                request.RecipeSteps.ConvertAll(x => Domain.Entities.RecipeStep.Create(x.Order, x.Name)),
+                request.RecipeSteps.ConvertAll(x => Domain.RecipeAggregate.Entities.RecipeStep.Create(x.Order, x.Name)),
                 request.Ingredients.ConvertAll(x => RecipeIngredient.Create(x.IngredientId, x.Quantity)));
 
             _recipeRepository.AddAsync(recipe);

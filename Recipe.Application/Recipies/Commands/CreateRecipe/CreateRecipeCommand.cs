@@ -8,14 +8,14 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
 {
     public record CreateRecipeCommand(
         string Name,
-        int UserId,
+        string UserId,
         string Description,
         string ImageUrl,
         string VideoUrl,
-        List<RecipeStep> RecipeSteps,
-        List<Ingredient> Ingredients
-    ) : IRequest<ErrorOr<Domain.Entities.Recipe>>;
+        List<CreateRecipeStepCommand> RecipeSteps,
+        List<CreateIngredientCommand> Ingredients
+    ) : IRequest<ErrorOr<Domain.RecipeAggregate.Recipe>>;
 
-    public record Ingredient(string IngredientId, decimal Quantity);
-    public record RecipeStep(int Order, string Name);
+    public record CreateIngredientCommand(string IngredientId, decimal Quantity);
+    public record CreateRecipeStepCommand(int Order, string Name);
 }

@@ -1,9 +1,8 @@
 using AutoMapper;
-
 using Recipe.Application.ApiModels;
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Dtos;
-using Recipe.Domain.Entities;
+using Recipe.Domain.IngredientAggregate;
 
 namespace Recipe.Application.Services
 {

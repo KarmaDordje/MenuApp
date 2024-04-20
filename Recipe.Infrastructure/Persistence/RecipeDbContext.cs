@@ -7,7 +7,7 @@ using Recipe.Infrastructure.Persistence.Interceptors;
 namespace Recipe.Infrastructure.Persistence
 {
     public class RecipeDbContext : DbContext
-    {   
+    {
         private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;
         public RecipeDbContext(DbContextOptions<RecipeDbContext> options, PublishDomainEventsInterceptor publishDomainEventsInterceptor)
         : base(options)
@@ -16,6 +16,7 @@ namespace Recipe.Infrastructure.Persistence
         }
 
         public DbSet<Domain.RecipeAggregate.Recipe> Recipes { get; set; }
+        public DbSet<Domain.IngredientAggregate.Ingredient> Ingredients { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder

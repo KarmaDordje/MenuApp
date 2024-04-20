@@ -2,7 +2,7 @@ using ErrorOr;
 
 using Recipe.Domain.Common.Models;
 
-namespace Recipe.Domain.ValueObjects
+namespace Recipe.Domain.IngredientAggregate.ValueObjects
 {
     public class IngredientId : AggregateRootId<string>
     {
@@ -16,6 +16,7 @@ namespace Recipe.Domain.ValueObjects
         // TODO: enforce invariants
             return new IngredientId(hostId);
         }
+
          public static IngredientId CreateUnique()
         {
         // TODO: enforce invariants

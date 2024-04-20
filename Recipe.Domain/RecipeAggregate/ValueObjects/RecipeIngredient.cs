@@ -1,4 +1,5 @@
 using Recipe.Domain.Common.Models;
+using Recipe.Domain.IngredientAggregate.ValueObjects;
 
 namespace Recipe.Domain.ValueObjects
 {

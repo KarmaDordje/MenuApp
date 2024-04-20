@@ -4,7 +4,7 @@ using Recipe.Domain.ValueObjects;
 namespace Recipe.Domain.RecipeAggregate.Entities
 {
     public class RecipeStep : Entity<RecipeStepId>
-    {   
+    {
         public int Order { get; private set; }
          public string Name { get; private set; }
         private RecipeStep(int order, string name)

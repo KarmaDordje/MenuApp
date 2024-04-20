@@ -1,7 +1,7 @@
-using System.Security.Cryptography.X509Certificates;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using Recipe.Domain.IngredientAggregate.ValueObjects;
 
 namespace Recipe.Infrastructure.Persistence.Configurations;
 
@@ -29,7 +29,7 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
-                    value => Domain.ValueObjects.IngredientId.Create(value));
+                    value => IngredientId.Create(value));
 
             sb.Property(s => s.Quantity);
         });
@@ -92,11 +92,11 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
 
         builder.Property(r => r.VideoUrl)
             .HasMaxLength(100);
-        
+
         builder.Property(r => r.UserId);
-        
+
         builder.Property(r => r.CreatedAt);
-   
+
         builder.Property(r => r.UpdatedAt);
     }
 }

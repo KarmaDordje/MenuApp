@@ -11,7 +11,7 @@ using Recipe.Application.Recipes.Commands.CreateRecipe;
 using Recipe.Contracts.Recipes;
 
 namespace Recipe.API.Controllers
-{   
+{
     [ApiController]
     [Route("api/[controller]")]
     public class RecipeController : ApiController

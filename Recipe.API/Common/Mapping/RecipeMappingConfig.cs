@@ -3,8 +3,9 @@ namespace Recipe.API.Common.Mapping
     using Mapster;
     using Recipe.Application.Recipes.Commands.CreateRecipe;
     using Recipe.Contracts.Recipes;
+    using Recipe.Domain.IngredientAggregate;
 
-   public class RecipeMappingConfig : IRegister
+    public class RecipeMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
@@ -13,7 +14,7 @@ namespace Recipe.API.Common.Mapping
 
         config.NewConfig<Domain.RecipeAggregate.Recipe, CreateRecipeResponse>()
             .Map(dest => dest.RecipeId, src => src.Id.Value);
-        config.NewConfig<Domain.Entities.Ingredient, IngredientResponse>()
+        config.NewConfig<Ingredient, IngredientResponse>()
             .Map(dest => dest.IngredientId, src => src.Id.Value);
 
     }

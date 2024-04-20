@@ -1,9 +1,6 @@
 using ErrorOr;
 using MediatR;
 
-using Recipe.Domain.Entities;
-using Recipe.Domain.ValueObjects;
-
 namespace Recipe.Application.Recipes.Commands.CreateRecipe
 {
     public record CreateRecipeCommand(

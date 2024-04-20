@@ -70,5 +70,5 @@ public static partial class Constants
         public static int RecipeStepOrderFromIndex(int index)
             => index;
     }
-    
+
 }

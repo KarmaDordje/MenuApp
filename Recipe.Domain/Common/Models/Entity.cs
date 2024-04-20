@@ -10,7 +10,7 @@ namespace Recipe.Domain.Common.Models;
 /// <typeparam name="TId">The type of the entity's identifier.</typeparam>
 public abstract class Entity<TId> : IEquatable<Entity<TId>>, IhasDomainEvents
     where TId : notnull
-{   
+{
     private readonly List<IDomainEvent> _domainEvents = new ();
     /// <summary>
     /// Gets or sets the identifier of the entity.

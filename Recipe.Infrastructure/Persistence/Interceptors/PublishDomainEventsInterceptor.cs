@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Recipe.Domain.Common.Models;
 
 namespace Recipe.Infrastructure.Persistence.Interceptors
-{   
-    
+{
+
     public class PublishDomainEventsInterceptor : SaveChangesInterceptor
-    {   
+    {
         private readonly IPublisher _mediator;
         public PublishDomainEventsInterceptor(IMediator mediator)
         {
@@ -17,13 +17,13 @@ namespace Recipe.Infrastructure.Persistence.Interceptors
         }
 
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
-        {   
+        {
             PublishDomainInvetns(eventData.Context).GetAwaiter().GetResult();
             return base.SavingChanges(eventData, result);
         }
 
         public async override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
-        {   
+        {
             await PublishDomainInvetns(eventData.Context);
             return  await base.SavingChangesAsync(eventData, result, cancellationToken);
         }

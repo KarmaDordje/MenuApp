@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Recipe.Domain.Common.Models;
+﻿using Recipe.Domain.Common.Models;
+using Recipe.Domain.IngredientAggregate.ValueObjects;
 using Recipe.Domain.ValueObjects;
 
-namespace Recipe.Domain.Entities
+namespace Recipe.Domain.IngredientAggregate
 {
     public sealed class Ingredient : Entity<IngredientId>
     {
@@ -73,11 +68,6 @@ namespace Recipe.Domain.Entities
                 protein,
                 sodium,
                 measurement);
-        }
-
-        public void AddIngredient(string productName, decimal proportion)
-        {
-
         }
 
         #pragma warning disable CS8618

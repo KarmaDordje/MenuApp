@@ -1,6 +1,6 @@
 using Recipe.Application.ApiModels;
 using Recipe.Domain.Dtos;
-using Recipe.Domain.Entities;
+using Recipe.Domain.IngredientAggregate;
 
 namespace Recipe.Application.Interfaces
 {

@@ -5,13 +5,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Recipe.Application.Common.Interfaces.Persistence;
 
 using Recipe.Application.Interfaces;
+using Recipe.Application.Interfaces.Persistence;
 using Recipe.Domain.Persistence;
 using Recipe.Infrastructure.External;
 using Recipe.Infrastructure.Persistence;
 using Recipe.Infrastructure.Persistence.Interceptors;
+using Recipe.Infrastructure.Persistence.Repositories;
+
 
 
 //using Recipe.Infrastructure.Repositories;
+
 
 
 
@@ -55,6 +59,7 @@ namespace Recipe.Infrastructure
             var connectionString = configuration.GetConnectionString("Postgress");
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString!));
             return services;
         }

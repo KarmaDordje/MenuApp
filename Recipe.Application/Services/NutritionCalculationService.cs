@@ -20,6 +20,7 @@ namespace Recipe.Application.Services
         public Ingredient CalculateNutritionPerGramm(NutritionResponse nutrition, string polishName)
         {
             nutrition = ConvertToPerGramNutritionData(nutrition);
+
             var result = Ingredient.Create(
                 IngredientId.CreateUnique(),
                 nutrition.Name,

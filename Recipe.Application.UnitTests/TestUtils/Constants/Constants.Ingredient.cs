@@ -7,6 +7,7 @@ public static partial class Constatnts
 {
     public static class Ingredient
     {
-        public static readonly IngredientId IngredientId = IngredientId.Create("Hoste Id");
+        public static readonly IngredientId IngredientId = IngredientId.Create("Ingredient Id");
+
     }
 }

@@ -4,7 +4,7 @@ POST {{host}}/Ingredient/AddIngredient
 Content-Type: application/json
 
 {
-    "ingredientName": "ziemniak",
+    "ingredientName": "sdasd",
     "quantity": 10
 }
 

@@ -1,12 +1,7 @@
 using FluentAssertions;
-
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-
 using Moq;
-
 using Recipe.Application.Common.Interfaces.Persistence;
 using Recipe.Application.Recipes.Commands.CreateRecipe;
-
 using Recipe.Application.UnitTests.Recipies.Commands.TestUtils;
 using Recipe.Application.UnitTests.TestUnits.Extensions;
 

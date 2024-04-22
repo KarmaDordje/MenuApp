@@ -11,7 +11,9 @@ namespace Recipe.Application.Mappings
     {
         public DomainToDtoMappingProfile()
         {
-            CreateMap<Ingredient, IngredientDTO>();
+            CreateMap<Ingredient, IngredientDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.PolishName));
+
             CreateMap<NutritionResponse, Ingredient>()
             .ForMember(dest => dest.Calories, opt => opt.MapFrom(src => src.CaloriesG / 100))
             .ForMember(dest => dest.Cholesterol, opt => opt.MapFrom(src => src.CholesterolMg / 100 / 1000))

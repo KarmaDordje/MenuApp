@@ -12,6 +12,9 @@ namespace Recipe.Application.ApiModels
         [JsonPropertyName("text")]
         public List<string>? Text { get; set; }
 
+        [JsonPropertyName("source_lang")]
+        public string? SourceLanguage { get; set; }
+
         [JsonPropertyName("target_lang")]
         public string? TargetLang { get; set; }
 
@@ -20,7 +23,8 @@ namespace Recipe.Application.ApiModels
             return new DeepLTranslationRequest()
             {
                 Text = new List<string> { text },
-                TargetLang = targetLang
+                TargetLang = targetLang,
+                SourceLanguage = "pl"
             };
         }
     }

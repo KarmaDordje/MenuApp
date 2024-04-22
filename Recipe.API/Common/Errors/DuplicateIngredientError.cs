@@ -1,4 +1,3 @@
-
 using FluentResults;
 
 namespace Recipe.API.Common.Errors

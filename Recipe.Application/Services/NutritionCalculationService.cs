@@ -3,6 +3,8 @@ using Recipe.Application.ApiModels;
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Dtos;
 using Recipe.Domain.IngredientAggregate;
+using Recipe.Domain.IngredientAggregate.ValueObjects;
+using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Application.Services
 {
@@ -17,8 +19,20 @@ namespace Recipe.Application.Services
 
         public Ingredient CalculateNutritionPerGramm(NutritionResponse nutrition, string polishName)
         {
-            var result = _mapper.Map<Ingredient>(nutrition);
-            //result.PolishName = polishName;
+            nutrition = ConvertToPerGramNutritionData(nutrition);
+            var result = Ingredient.Create(
+                IngredientId.CreateUnique(),
+                nutrition.Name,
+                polishName,
+                nutrition.CaloriesG,
+                nutrition.CholesterolMg,
+                nutrition.FatSaturatedG,
+                nutrition.FatTotalG,
+                nutrition.PotassiumMg,
+                nutrition.ProteinG,
+                nutrition.SodiumMg,
+                nutrition.SugarG,
+                new Measurement(1, QuantityType.Grams));
             return result;
         }
 
@@ -39,6 +53,25 @@ namespace Recipe.Application.Services
 
             r.Measurement.Quantity = portion;
             return r;
+        }
+
+        private NutritionResponse ConvertToPerGramNutritionData(NutritionResponse response)
+        {
+            var result = new NutritionResponse()
+            {
+                CaloriesG = response.CaloriesG / response.ServingSize,
+                CholesterolMg = response.CholesterolMg / response.ServingSize / 1000,
+                FatSaturatedG = response.FatSaturatedG / response.ServingSize / 1000,
+                FatTotalG = response.FatTotalG / response.ServingSize,
+                Name = response.Name,
+                PotassiumMg = response.PotassiumMg / response.ServingSize / 1000,
+                ProteinG = response.ProteinG / response.ServingSize,
+                SodiumMg = response.SodiumMg / response.ServingSize / 1000,
+                SugarG = response.SugarG / response.ServingSize,
+                FiberG = response.FiberG / response.ServingSize,
+                CarbohydratesTotalG = response.CarbohydratesTotalG / response.ServingSize,
+            };
+            return result;
         }
     }
 }

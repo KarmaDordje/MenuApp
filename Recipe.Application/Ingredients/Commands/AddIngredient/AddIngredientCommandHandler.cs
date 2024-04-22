@@ -43,21 +43,28 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
         {
             var ingredient = await _repository.GetAsyncByIngredientName(command.IngredientName);
 
-            if (ingredient != null)
+            if (ingredient == null)
             {
-                return _mapper.Map<IngredientDTO>(ingredient);
+                try
+                {
+                    DeepLTranslationRequest request = new DeepLTranslationRequest().Create(command.IngredientName, "en");
+                    string translation = await _deepLApiClient.Translate(request);
+                    var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
+                    ingredient = _nutritionCalculationService.CalculateNutritionPerGramm(nutrition, command.IngredientName);
+                    await _repository.AddAsync(ingredient);
+                }
+                catch (Exception e)
+                {
+                    if (e.Message == "Sequence contains no elements")
+                    {
+                        return Domain.Common.Errors.IngredientErrors.IngredientNotFound;
+                    }
+                }
             }
-            else
-            {
-                 DeepLTranslationRequest request = new DeepLTranslationRequest().Create(command.IngredientName, "en");
-                string translation = await _deepLApiClient.Translate(request);
-                var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
-                var newIngredient = _nutritionCalculationService.CalculateNutritionPerGramm(nutrition, command.IngredientName);
-                await _repository.AddAsync(newIngredient);
-                IngredientDTO dto = _mapper.Map<IngredientDTO>(ingredient);
-                dto = _nutritionCalculationService.CalculateNutritionPerPortion(newIngredient, command.Quantity);
-                return dto;
-            }
+
+            IngredientDTO dto = _mapper.Map<IngredientDTO>(ingredient);
+            dto = _nutritionCalculationService.CalculateNutritionPerPortion(ingredient, command.Quantity);
+            return dto;
         }
     }
 }

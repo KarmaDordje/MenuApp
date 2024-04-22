@@ -15,6 +15,7 @@ namespace Recipe.Domain.IngredientAggregate
         public decimal Potassium { get; private set; }
         public decimal Protein { get; private set; }
         public decimal Sodium { get; private set; }
+        public decimal Sugar { get; private set; }
         public Measurement Measurement { get; private set; }
 
         private Ingredient(
@@ -28,6 +29,7 @@ namespace Recipe.Domain.IngredientAggregate
             decimal potassium,
             decimal protein,
             decimal sodium,
+            decimal sugar,
             Measurement measurement)
             : base(id)
         {
@@ -40,6 +42,7 @@ namespace Recipe.Domain.IngredientAggregate
             Potassium = potassium;
             Protein = protein;
             Sodium = sodium;
+            Sugar = sugar;
             Measurement = measurement;
         }
 
@@ -54,12 +57,14 @@ namespace Recipe.Domain.IngredientAggregate
             decimal potassium,
             decimal protein,
             decimal sodium,
+            decimal sugar,
             Measurement measurement)
         {
+
             return new Ingredient(
                 IngredientId.CreateUnique(),
-                name,
-                polishName,
+                name.ToLower(),
+                polishName.ToLower(),
                 calories,
                 cholesterol,
                 fatSaturated,
@@ -67,6 +72,7 @@ namespace Recipe.Domain.IngredientAggregate
                 potassium,
                 protein,
                 sodium,
+                sugar,
                 measurement);
         }
 

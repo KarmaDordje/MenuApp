@@ -1,5 +1,4 @@
-﻿
-using Recipe.Application.ApiModels;
+﻿using Recipe.Application.ApiModels;
 
 using System;
 using System.Collections.Generic;

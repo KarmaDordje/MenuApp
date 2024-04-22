@@ -46,6 +46,8 @@ public class IngredientConfigurations : IEntityTypeConfiguration<Ingredient>
 
         builder.Property(i => i.Sodium);
 
+        builder.Property(i => i.Sugar);
+
         builder.OwnsOne(i => i.Measurement, m =>
         {
             m.Property(me => me.Name);

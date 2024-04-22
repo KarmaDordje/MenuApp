@@ -34,7 +34,7 @@ public class IngredientRepository : IIngredientRepository
 
     public async Task<Ingredient> GetAsyncByIngredientName(string ingredientName)
     {
-        return await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.Name == ingredientName) ?? null;
+        return await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.PolishName == ingredientName) ?? null;
     }
 
     public async Task<IEnumerable<Ingredient>> GetIngredientsAsync()

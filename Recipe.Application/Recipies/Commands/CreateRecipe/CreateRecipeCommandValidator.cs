@@ -11,8 +11,6 @@ namespace Recipe.Application.Common.Behavior
         {
             RuleFor(x => x.Name)
                 .NotEmpty();
-            RuleFor(x => x.Description)
-                .NotEmpty();
         }
     }
 }

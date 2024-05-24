@@ -1,4 +1,5 @@
 using Recipe.Domain.Common.Models;
+using Recipe.Domain.IngredientAggregate.ValueObjects;
 using Recipe.Domain.RecipeAggregate.Entities;
 using Recipe.Domain.RecipeAggregate.Events;
 using Recipe.Domain.ValueObjects;
@@ -48,31 +49,55 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 
     public static Recipe Create(
         string name,
-        string userId,
-        string description,
-        float avarageRating,
-        string image,
-        string videoUrl,
-        DateTime createdAt,
-        DateTime updatedAt,
-        List<RecipeStep>? steps = null,
-        List<RecipeIngredient>? ingredients = null)
+        string userId)
     {
         var recipe = new Recipe(
             RecipeId.CreateUnique(),
             name,
             userId,
-            description,
-            avarageRating,
-            image,
-            videoUrl,
-            createdAt,
-            updatedAt,
-            steps ?? new (),
-            ingredients ?? new ());
-        recipe.AddDomainEvent(new RecipeCreated(recipe));
-        return recipe;
+            "",
+            0,
+            "",
+            "",
+            DateTime.Now.ToUniversalTime(),
+            DateTime.Now.ToUniversalTime(),
+            new (),
+            new ());
+            return recipe;
     }
+
+    public void AddIngredient(RecipeIngredient ingredient)
+    {
+        _ingredients.Add(ingredient);
+    }
+
+    // public static Recipe Create(
+    //     string name,
+    //     string userId,
+    //     string description,
+    //     float avarageRating,
+    //     string image,
+    //     string videoUrl,
+    //     DateTime createdAt,
+    //     DateTime updatedAt,
+    //     List<RecipeStep>? steps = null,
+    //     List<RecipeIngredient>? ingredients = null)
+    // {
+    //     var recipe = new Recipe(
+    //         RecipeId.CreateUnique(),
+    //         name,
+    //         userId,
+    //         description,
+    //         avarageRating,
+    //         image,
+    //         videoUrl,
+    //         createdAt,
+    //         updatedAt,
+    //         steps ?? new (),
+    //         ingredients ?? new ());
+    //     recipe.AddDomainEvent(new RecipeCreated(recipe));
+    //     return recipe;
+    // }
 #pragma warning disable CS8618
     private Recipe()
     {

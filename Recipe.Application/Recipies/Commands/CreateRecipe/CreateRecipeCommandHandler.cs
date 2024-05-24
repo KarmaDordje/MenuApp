@@ -6,7 +6,7 @@ using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Application.Recipes.Commands.CreateRecipe
 {
-    public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<Domain.RecipeAggregate.Recipe>>
+    public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<Guid>>
     {
         private readonly IRecipeRepository _recipeRepository;
 
@@ -14,23 +14,15 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
         {
             _recipeRepository = recipeRepository;
         }
-        public async Task<ErrorOr<Domain.RecipeAggregate.Recipe>> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
+
+        public async Task<ErrorOr<Guid>> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
             var recipe = Domain.RecipeAggregate.Recipe.Create(
                 request.Name,
-                request.UserId,
-                request.Description,
-                0,
-                request.ImageUrl,
-                request.VideoUrl,
-                DateTime.Now.ToUniversalTime(),
-                DateTime.Now.ToUniversalTime(),
-                request.RecipeSteps.ConvertAll(x => Domain.RecipeAggregate.Entities.RecipeStep.Create(x.Order, x.Name)),
-                request.Ingredients.ConvertAll(x => RecipeIngredient.Create(x.IngredientId, x.Quantity)));
+                request.UserId);
 
             _recipeRepository.AddAsync(recipe);
-            return recipe;
+            return recipe.Id.Value;
         }
     }
 }

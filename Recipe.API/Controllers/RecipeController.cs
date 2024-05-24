@@ -25,12 +25,12 @@ namespace Recipe.API.Controllers
     }
 
        [HttpPost]
-       public async Task<IActionResult> CreateRecipe(CreateRecipeRequest request, int userId)
+       public async Task<IActionResult> CreateRecipe(CreateRecipeRequest request)
        {
             var commnad = _mapper.Map<CreateRecipeCommand>(request);
             var createRecipeResult = await _mediator.Send(commnad);
             return createRecipeResult.Match(
-                recipe => Ok(_mapper.Map<CreateRecipeResponse>(recipe)),
+                recipeId => Ok(recipeId),
                 errors => Problem(errors));
        }
     }

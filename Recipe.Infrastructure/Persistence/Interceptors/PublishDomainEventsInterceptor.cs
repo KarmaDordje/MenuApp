@@ -25,7 +25,7 @@ namespace Recipe.Infrastructure.Persistence.Interceptors
         public async override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
             await PublishDomainInvetns(eventData.Context);
-            return  await base.SavingChangesAsync(eventData, result, cancellationToken);
+            return await base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
         private async Task PublishDomainInvetns(DbContext? dbContext)

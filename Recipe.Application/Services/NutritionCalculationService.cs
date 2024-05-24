@@ -1,4 +1,8 @@
 using AutoMapper;
+
+using ErrorOr;
+
+
 using Recipe.Application.ApiModels;
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Dtos;
@@ -11,14 +15,23 @@ namespace Recipe.Application.Services
     public class NutritionCalculationService : INutritionCalculationService
     {
         private readonly IMapper _mapper;
+        private readonly IDeepLClient _deepLApiClient;
+        private readonly INutritionClient _nutriotionApiClient;
 
-        public NutritionCalculationService(IMapper mapper)
+        public NutritionCalculationService(
+            IMapper mapper,
+            IDeepLClient deepLApiClient,
+            INutritionClient nutriotionApiClient)
         {
             _mapper = mapper;
+            _deepLApiClient = deepLApiClient;
+            _nutriotionApiClient = nutriotionApiClient;
         }
 
-        public Ingredient CalculateNutritionPerGramm(NutritionResponse nutrition, string polishName)
+        public async Task<Ingredient> CalculateNutritionPerGramm(string polishName)
         {
+            string translation = TranslateToEnglish(polishName);
+            var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
             nutrition = ConvertToPerGramNutritionData(nutrition);
 
             var result = Ingredient.Create(
@@ -34,6 +47,7 @@ namespace Recipe.Application.Services
                 nutrition.SodiumMg,
                 nutrition.SugarG,
                 new Measurement(1, QuantityType.Grams));
+
             return result;
         }
 
@@ -73,6 +87,12 @@ namespace Recipe.Application.Services
                 CarbohydratesTotalG = response.CarbohydratesTotalG / response.ServingSize,
             };
             return result;
+        }
+
+        private string TranslateToEnglish(string polishName)
+        {
+            DeepLTranslationRequest request = new DeepLTranslationRequest().Create(polishName, "en");
+            return _deepLApiClient.Translate(request).Result;
         }
     }
 }

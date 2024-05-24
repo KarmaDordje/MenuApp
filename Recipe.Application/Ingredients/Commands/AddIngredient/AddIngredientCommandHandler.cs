@@ -30,7 +30,6 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
             IDeepLClient deepLApiClient,
             INutritionCalculationService nutritionCalculationService,
             IIngredientRepository repository)
-
         {
             _mapper = mapper;
             _nutriotionApiClient = nutritionService;
@@ -47,10 +46,7 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
             {
                 try
                 {
-                    DeepLTranslationRequest request = new DeepLTranslationRequest().Create(command.IngredientName, "en");
-                    string translation = await _deepLApiClient.Translate(request);
-                    var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
-                    ingredient = _nutritionCalculationService.CalculateNutritionPerGramm(nutrition, command.IngredientName);
+                    ingredient = await _nutritionCalculationService.CalculateNutritionPerGramm(command.IngredientName);
                     await _repository.AddAsync(ingredient);
                 }
                 catch (Exception e)

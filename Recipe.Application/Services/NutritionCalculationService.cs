@@ -1,15 +1,15 @@
-using AutoMapper;
-
-using ErrorOr;
-using Recipe.Application.ApiModels;
-using Recipe.Application.Interfaces;
-using Recipe.Domain.Dtos;
-using Recipe.Domain.IngredientAggregate;
-using Recipe.Domain.IngredientAggregate.ValueObjects;
-using Recipe.Domain.ValueObjects;
-
 namespace Recipe.Application.Services
 {
+    using AutoMapper;
+    using ErrorOr;
+    using Recipe.Application.ApiModels;
+    using Recipe.Application.Interfaces;
+    using Recipe.Domain.Dtos;
+    using Recipe.Domain.IngredientAggregate;
+    using Recipe.Domain.IngredientAggregate.ValueObjects;
+    using Recipe.Domain.ValueObjects;
+
+
     public class NutritionCalculationService : INutritionCalculationService
     {
         private readonly IMapper _mapper;

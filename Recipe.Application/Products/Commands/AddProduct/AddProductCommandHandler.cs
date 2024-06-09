@@ -1,20 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
-using ErrorOr;
-
-using MediatR;
-
-using Recipe.Application.ApiModels;
-using Recipe.Application.Interfaces;
-using Recipe.Application.Interfaces.Persistence;
-using Recipe.Domain.Dtos;
-using Recipe.Domain.Persistence;
-
 namespace Recipe.Application.Ingredients.Commands.AddIngredient
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using ErrorOr;
+    using MediatR;
+    using Recipe.Application.ApiModels;
+    using Recipe.Application.Interfaces;
+    using Recipe.Application.Interfaces.Persistence;
+    using Recipe.Domain.Dtos;
+    using Recipe.Domain.Persistence;
+
+
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand, ErrorOr<ProductDTO>>
     {
 
@@ -22,7 +19,7 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
         private readonly INutritionClient _nutriotionApiClient;
         private readonly IDeepLClient _deepLApiClient;
         private readonly INutritionCalculationService _nutritionCalculationService;
-         private readonly IIngredientRepository _repository;
+        private readonly IIngredientRepository _repository;
 
         public AddProductCommandHandler(
             IMapper mapper,

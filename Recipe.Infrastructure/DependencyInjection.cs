@@ -1,19 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using Recipe.Application.Common.Interfaces.Persistence;
-
-using Recipe.Application.Interfaces;
-using Recipe.Application.Interfaces.Persistence;
-using Recipe.Domain.Persistence;
-using Recipe.Infrastructure.External;
-using Recipe.Infrastructure.Persistence;
-using Recipe.Infrastructure.Persistence.Interceptors;
-using Recipe.Infrastructure.Persistence.Repositories;
-
-namespace Recipe.Infrastructure
+﻿namespace Recipe.Infrastructure
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Recipe.Application.Common.Interfaces.Persistence;
+    using Recipe.Application.Interfaces;
+    using Recipe.Application.Interfaces.Persistence;
+    using Recipe.Domain.Persistence;
+    using Recipe.Infrastructure.External;
+    using Recipe.Infrastructure.Persistence;
+    using Recipe.Infrastructure.Persistence.Interceptors;
+    using Recipe.Infrastructure.Persistence.Repositories;
+
+
     public static class DependencyInjection
     {
 

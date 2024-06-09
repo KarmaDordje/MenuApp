@@ -1,6 +1,5 @@
-using Recipe.Domain.Common.Models;
-
 namespace Recipe.Domain.ValueObjects;
+using Recipe.Domain.Common.Models;
 public sealed class RecipeId : AggregateRootId<Guid>
 {
 

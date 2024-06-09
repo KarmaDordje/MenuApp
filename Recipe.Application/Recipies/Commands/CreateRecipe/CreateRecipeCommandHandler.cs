@@ -1,11 +1,11 @@
-using ErrorOr;
-using MediatR;
-using Recipe.Application.Common.Interfaces.Persistence;
-
-using Recipe.Domain.ValueObjects;
-
 namespace Recipe.Application.Recipes.Commands.CreateRecipe
 {
+    using ErrorOr;
+    using MediatR;
+    using Recipe.Application.Common.Interfaces.Persistence;
+    using Recipe.Domain.ValueObjects;
+
+
     public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<Guid>>
     {
         private readonly IRecipeRepository _recipeRepository;

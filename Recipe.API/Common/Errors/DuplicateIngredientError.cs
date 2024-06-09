@@ -1,7 +1,8 @@
-using FluentResults;
-
 namespace Recipe.API.Common.Errors
 {
+    using FluentResults;
+
+
     public record struct DuplicateIngredientError : IError
     {
 

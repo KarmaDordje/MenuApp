@@ -1,7 +1,7 @@
-﻿using Recipe.Domain.Common.Models;
-
-namespace Recipe.Domain.Persistence
+﻿namespace Recipe.Domain.Persistence
 {
+    using Recipe.Domain.Common.Models;
+
     /// <summary>
     /// Represents a generic repository interface.
     /// </summary>

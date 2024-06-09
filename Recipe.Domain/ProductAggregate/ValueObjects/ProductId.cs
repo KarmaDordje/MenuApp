@@ -1,9 +1,9 @@
-using ErrorOr;
-
-using Recipe.Domain.Common.Models;
-
 namespace Recipe.Domain.IngredientAggregate.ValueObjects
 {
+    using ErrorOr;
+    using Recipe.Domain.Common.Models;
+
+
     public class ProductId : AggregateRootId<string>
     {
          private ProductId(string value)
@@ -11,7 +11,7 @@ namespace Recipe.Domain.IngredientAggregate.ValueObjects
         {
         }
 
-        public static ProductId Create(string hostId)
+         public static ProductId Create(string hostId)
         {
         // TODO: enforce invariants
             return new ProductId(hostId);

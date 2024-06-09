@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-
-using Recipe.Application.ApiModels;
-using Recipe.Domain.Dtos;
-using Recipe.Domain.IngredientAggregate;
-using Recipe.Domain.ValueObjects;
-
-namespace Recipe.Application.Mappings
+﻿namespace Recipe.Application.Mappings
 {
+    using AutoMapper;
+    using Recipe.Application.ApiModels;
+    using Recipe.Domain.Dtos;
+    using Recipe.Domain.IngredientAggregate;
+    using Recipe.Domain.ValueObjects;
+
     public class DomainToDtoMappingProfile : Profile
     {
         public DomainToDtoMappingProfile()

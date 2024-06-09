@@ -1,7 +1,7 @@
-using Recipe.Domain.Common.Models;
-
 namespace Recipe.Domain.ValueObjects
 {
+    using Recipe.Domain.Common.Models;
+
     public class RecipeStepId : ValueObject
     {
         public Guid Value { get; private set; }

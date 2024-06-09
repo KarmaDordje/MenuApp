@@ -1,15 +1,13 @@
-using ErrorOr;
-
-using FluentValidation;
-using FluentValidation.Results;
-
-using MediatR;
-
-using Recipe.Application.Ingredients.Commands.AddIngredient;
-using Recipe.Domain.Dtos;
-
 namespace Recipe.Application.Common.Behavior
 {
+    using ErrorOr;
+    using FluentValidation;
+    using FluentValidation.Results;
+    using MediatR;
+    using Recipe.Application.Ingredients.Commands.AddIngredient;
+    using Recipe.Domain.Dtos;
+
+
     public class ValidationBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

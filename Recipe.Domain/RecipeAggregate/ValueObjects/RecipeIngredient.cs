@@ -1,8 +1,8 @@
-using Recipe.Domain.Common.Models;
-using Recipe.Domain.IngredientAggregate.ValueObjects;
-
 namespace Recipe.Domain.ValueObjects
 {
+    using Recipe.Domain.Common.Models;
+    using Recipe.Domain.IngredientAggregate.ValueObjects;
+
     public class RecipeIngredient : ValueObject
     {
         private RecipeIngredient(string ingredientId, decimal quantity)

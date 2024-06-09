@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 namespace Recipe.API.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class ErrorsController : ControllerBase
     {
         [Route("/error")]

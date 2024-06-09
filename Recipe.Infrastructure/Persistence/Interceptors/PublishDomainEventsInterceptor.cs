@@ -1,12 +1,9 @@
-using MediatR;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-
-using Recipe.Domain.Common.Models;
-
 namespace Recipe.Infrastructure.Persistence.Interceptors
 {
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Diagnostics;
+    using Recipe.Domain.Common.Models;
 
     public class PublishDomainEventsInterceptor : SaveChangesInterceptor
     {

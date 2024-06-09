@@ -1,17 +1,13 @@
 using AutoMapper;
-
 using FluentAssertions;
-
 using Moq;
-
 using Recipe.Application.ApiModels;
-
 using Recipe.Application.Ingredients.Commands.AddIngredient;
 using Recipe.Application.Interfaces;
-
 using Recipe.Application.Interfaces.Persistence;
 using Recipe.Application.Mappings;
 using Recipe.Application.UnitTests.Ingredients.Commands.TestUtils;
+
 
 namespace Recipe.Application.UnitTests.Ingredients.Commands.AddIngredient;
 
@@ -48,7 +44,7 @@ public class AddIngredientCommandHandlerTests
         // Arrange
         _mockDeepLClient.Setup(x => x.Translate(It.IsAny<DeepLTranslationRequest>())).ReturnsAsync("patato");
         _mockNutritionClient.Setup(x => x.GetProductNutrition(It.IsAny<string>())).ReturnsAsync(AddIngredientCommandUtils.CreateNutritionResponse());
-        
+
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -56,7 +52,7 @@ public class AddIngredientCommandHandlerTests
         result.IsError.Should().BeFalse();
         //_mockIngredientRepository.Verify(x => x.AddAsync(ingredient), Times.Once);
     }
-    
+
     public static IEnumerable<object[]> ValidCreateRecipeCommands()
     {
         yield return new object[] { AddIngredientCommandUtils.CreateCommand() };

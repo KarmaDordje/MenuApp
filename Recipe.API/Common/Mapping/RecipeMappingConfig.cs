@@ -3,7 +3,7 @@ namespace Recipe.API.Common.Mapping
     using Mapster;
     using Recipe.Application.Recipes.Commands.CreateRecipe;
     using Recipe.Contracts.Ingredients;
-        using Recipe.Contracts.Recipes;
+    using Recipe.Contracts.Recipes;
     using Recipe.Domain.IngredientAggregate;
 
     public class RecipeMappingConfig : IRegister

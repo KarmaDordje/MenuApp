@@ -1,13 +1,12 @@
-﻿using RestSharp;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Recipe.Infrastructure.External
+﻿namespace Recipe.Infrastructure.External
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using RestSharp;
+
     public abstract class GenericApiClient
     {
         private readonly string _baseUrl;

@@ -4,6 +4,7 @@ using Recipe.Domain.RecipeAggregate.Entities;
 using Recipe.Domain.RecipeAggregate.Events;
 using Recipe.Domain.ValueObjects;
 
+
 namespace Recipe.Domain.RecipeAggregate;
 
 public sealed class Recipe : AggregateRoot<RecipeId, Guid>
@@ -43,7 +44,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         VideoUrl = videoUrl;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
-         _recipeSteps = steps;
+        _recipeSteps = steps;
         _ingredients = ingredients;
     }
 
@@ -63,7 +64,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
             DateTime.Now.ToUniversalTime(),
             new (),
             new ());
-            return recipe;
+        return recipe;
     }
 
     public void AddIngredient(RecipeIngredient ingredient)

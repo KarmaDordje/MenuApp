@@ -1,19 +1,13 @@
-using CleanArchitecture.Api.Controllers;
-
-using ErrorOr;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Mvc;
-
-using Newtonsoft.Json;
-
-using Recipe.API.RequestModels;
-using Recipe.Application.Ingredients.Commands.AddIngredient;
-using Recipe.Domain.Dtos;
-
 namespace Recipe.API.Controllers
 {
+    using CleanArchitecture.Api.Controllers;
+    using ErrorOr;
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using Recipe.API.RequestModels;
+    using Recipe.Application.Ingredients.Commands.AddIngredient;
+    using Recipe.Domain.Dtos;
 
     [ApiController]
     [Route("[controller]")]

@@ -1,13 +1,12 @@
-﻿using Recipe.Application.ApiModels;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Recipe.Application.Interfaces
+﻿namespace Recipe.Application.Interfaces
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Recipe.Application.ApiModels;
+
     public interface IDeepLClient
     {
         Task<string> Translate(DeepLTranslationRequest request);

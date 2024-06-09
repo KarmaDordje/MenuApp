@@ -29,25 +29,6 @@ dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
 file_header_template = unset
 
-dotnet_diagnostic.CA1001.severity = none
-dotnet_diagnostic.CA1008.severity = none
-dotnet_diagnostic.CA1014.severity = none
-dotnet_diagnostic.CA1031.severity = none
-dotnet_diagnostic.SA1200.severity = none
-dotnet_diagnostic.SA1208.severity = none
-dotnet_diagnostic.SA1633.severity = none
-dotnet_diagnostic.SA1600.severity = none
-dotnet_diagnostic.SA1505.severity = none
-dotnet_diagnostic.SA1508.severity = none
-dotnet_diagnostic.SA1201.severity = none
-dotnet_diagnostic.SA1101.severity = none
-dotnet_diagnostic.SA1516.severity = none
-dotnet_diagnostic.SA1137.severity = none
-dotnet_diagnostic.SA1309.severity = none
-dotnet_diagnostic.SA1313.severity = none
-dotnet_diagnostic.SA1009.severity = none
-
-
 # this. and Me. preferences
 dotnet_style_qualification_for_event = false:silent
 dotnet_style_qualification_for_field = false:silent
@@ -381,3 +362,47 @@ dotnet_naming_style.s_camelcase.required_suffix =
 dotnet_naming_style.s_camelcase.word_separator = 
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
+
+# Project Configurations
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# SA1602: Enum Elements should be documented
+dotnet_diagnostic.SA1602.severity = none
+
+# SA1633: File must have header
+dotnet_diagnostic.SA1633.severity = none
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = none
+
+#SA1516: Elements should be separated by blank line
+dotnet_diagnostic.SA1516.severity = none
+
+# SA1128: Put constructor initializers on their own line
+dotnet_diagnostic.SA1128.severity = none
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = none
+
+# SA1204: Static elements should appear before instance elements
+dotnet_diagnostic.SA1204.severity = none
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
+
+# SA1118: Parameter should not span multiple lines
+dotnet_diagnostic.SA1118.severity = none
+
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = none
+
+# SA1313: Parameter names should begin with lower-case letter
+dotnet_diagnostic.SA1313.severity = none
+
+[**/Migrations/*]
+generated_code = true

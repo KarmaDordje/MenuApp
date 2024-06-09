@@ -1,10 +1,9 @@
-using Bogus;
-
-using Recipe.Application.ApiModels;
-using Recipe.Application.Ingredients.Commands.AddIngredient;
-
 namespace Recipe.Application.UnitTests.Ingredients.Commands.TestUtils
 {
+    using Bogus;
+    using Recipe.Application.ApiModels;
+    using Recipe.Application.Ingredients.Commands.AddIngredient;
+
     public static class AddIngredientCommandUtils
     {
        public static AddProductCommand CreateCommand(string ingredientName = "ingredientName", int quantity = 100) =>
@@ -37,8 +36,6 @@ namespace Recipe.Application.UnitTests.Ingredients.Commands.TestUtils
         "Carrot",
         "Apple",
         "Bnana",
-        
-    };
-
+       };
     }
 }

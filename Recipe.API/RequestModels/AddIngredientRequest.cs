@@ -1,7 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Recipe.API.RequestModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+
     public class AddIngredientRequest
     {
         public string IngredientName { get; set; }

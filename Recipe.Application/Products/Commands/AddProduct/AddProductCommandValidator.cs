@@ -1,9 +1,9 @@
-using FluentValidation;
-
-using Recipe.Application.Ingredients.Commands.AddIngredient;
-
 namespace Recipe.Application.Common.Behavior
 {
+    using FluentValidation;
+    using Recipe.Application.Ingredients.Commands.AddIngredient;
+
+
     public class AddIngredientCommandValidator : AbstractValidator<AddProductCommand>
     {
         public AddIngredientCommandValidator()

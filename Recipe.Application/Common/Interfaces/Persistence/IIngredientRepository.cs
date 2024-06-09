@@ -1,8 +1,8 @@
-﻿using Recipe.Domain.IngredientAggregate;
-using Recipe.Domain.IngredientAggregate.ValueObjects;
-
-namespace Recipe.Application.Interfaces.Persistence
+﻿namespace Recipe.Application.Interfaces.Persistence
 {
+    using Recipe.Domain.IngredientAggregate;
+    using Recipe.Domain.IngredientAggregate.ValueObjects;
+
     public interface IIngredientRepository
     {
         Task<Product> GetAsync(string id);

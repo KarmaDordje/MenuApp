@@ -1,10 +1,9 @@
-﻿using System.Net;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-namespace Recipe.API.Filters
+﻿namespace Recipe.API.Filters
 {
+    using System.Net;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+
     public class ErrorHandlingFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)

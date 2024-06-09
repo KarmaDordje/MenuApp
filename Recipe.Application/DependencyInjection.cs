@@ -1,19 +1,16 @@
-﻿using FluentValidation;
-
-using MediatR;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Recipe.Application.Common.Behavior;
-using Recipe.Application.Ingredients.Commands.AddIngredient;
-using Recipe.Application.Interfaces;
-using Recipe.Application.Mappings;
-using Recipe.Application.Services;
-
-using System.Reflection;
-
-namespace Recipe.Application
+﻿namespace Recipe.Application
 {
+    using System.Reflection;
+    using FluentValidation;
+    using MediatR;
+    using Microsoft.Extensions.DependencyInjection;
+    using Recipe.Application.Common.Behavior;
+    using Recipe.Application.Ingredients.Commands.AddIngredient;
+    using Recipe.Application.Interfaces;
+    using Recipe.Application.Mappings;
+    using Recipe.Application.Services;
+
+
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)

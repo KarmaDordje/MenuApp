@@ -1,11 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-
-using Recipe.Domain.Common.Models;
-
-using Recipe.Infrastructure.Persistence.Interceptors;
-
 namespace Recipe.Infrastructure.Persistence
 {
+    using Microsoft.EntityFrameworkCore;
+    using Recipe.Domain.Common.Models;
+    using Recipe.Infrastructure.Persistence.Interceptors;
+
     public class RecipeDbContext : DbContext
     {
         private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;

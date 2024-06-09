@@ -1,7 +1,10 @@
-using Recipe.Application.Common.Interfaces.Persistence;
-
 namespace Recipe.Infrastructure.Persistence
 {
+    using Microsoft.EntityFrameworkCore;
+
+
+    using Recipe.Application.Common.Interfaces.Persistence;
+
     public class RecipeRepository : IRecipeRepository
     {
         private readonly RecipeDbContext _context;
@@ -11,10 +14,15 @@ namespace Recipe.Infrastructure.Persistence
             _context = context;
         }
 
-        public void AddAsync(Domain.RecipeAggregate.Recipe recipe)
+        public async Task AddAsync(Domain.RecipeAggregate.Recipe recipe)
         {
             _context.Add(recipe);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Domain.RecipeAggregate.Recipe?> GetAsync(Guid id)
+        {
+            return await _context.Recipes.FirstOrDefaultAsync(r => r.Id.Value == id);
         }
     }
 }

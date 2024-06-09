@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Recipe.Infrastructure.External;
-
-namespace RecipeMicroservice.Configuration
+﻿namespace RecipeMicroservice.Configuration
 {
+    using Microsoft.EntityFrameworkCore;
+    using Recipe.Infrastructure.External;
+
     public static class DependencyInjection
     {
         public static void AddApi(this IServiceCollection services, IConfiguration configuration)

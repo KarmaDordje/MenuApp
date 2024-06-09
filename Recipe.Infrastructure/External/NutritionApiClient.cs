@@ -1,11 +1,11 @@
-﻿using ErrorOr;
-
-using Recipe.Application.ApiModels;
-using Recipe.Application.Interfaces;
-using RestSharp;
-
-namespace Recipe.Infrastructure.External
+﻿namespace Recipe.Infrastructure.External
 {
+    using ErrorOr;
+    using Recipe.Application.ApiModels;
+    using Recipe.Application.Interfaces;
+    using RestSharp;
+
+
     public class NutritionApiClient : GenericApiClient, INutritionClient
     {
 

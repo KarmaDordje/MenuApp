@@ -1,9 +1,9 @@
-﻿using Recipe.Domain.Common.Models;
-using Recipe.Domain.IngredientAggregate.ValueObjects;
-using Recipe.Domain.ValueObjects;
-
-namespace Recipe.Domain.IngredientAggregate
+﻿namespace Recipe.Domain.IngredientAggregate
 {
+    using Recipe.Domain.Common.Models;
+    using Recipe.Domain.IngredientAggregate.ValueObjects;
+    using Recipe.Domain.ValueObjects;
+
     public sealed class Product : Entity<ProductId>
     {
         public string Name { get; private set; }

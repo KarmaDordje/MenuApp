@@ -7,11 +7,11 @@ namespace Recipe.Domain.ValueObjects
     {
         private RecipeIngredient(string ingredientId, decimal quantity)
         {
-            IngredientId = IngredientId.Create(ingredientId);
+            IngredientId = ProductId.Create(ingredientId);
             Quantity = quantity;
         }
 
-        public IngredientId IngredientId { get; set; }
+        public ProductId IngredientId { get; set; }
         public decimal Quantity { get; set; }
 
         public static RecipeIngredient Create(string ingredientId, decimal quantity)

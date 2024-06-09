@@ -8,7 +8,7 @@ namespace Recipe.Application.Interfaces
 {
     public interface INutritionCalculationService
     {
-        Task <Ingredient> CalculateNutritionPerGramm(string polishName);
-        IngredientDTO CalculateNutritionPerPortion(Ingredient ingredient, decimal portion);
+        Task <Product> CalculateNutritionPerGramm(string polishName);
+        ProductDTO CalculateNutritionPerPortion(Product ingredient, decimal portion);
     }
 }

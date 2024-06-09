@@ -4,7 +4,7 @@ using Recipe.Application.Ingredients.Commands.AddIngredient;
 
 namespace Recipe.Application.Common.Behavior
 {
-    public class AddIngredientCommandValidator : AbstractValidator<AddIngredientCommand>
+    public class AddIngredientCommandValidator : AbstractValidator<AddProductCommand>
     {
         public AddIngredientCommandValidator()
         {

@@ -7,8 +7,8 @@ namespace Recipe.Application.UnitTests.Ingredients.Commands.TestUtils
 {
     public static class AddIngredientCommandUtils
     {
-       public static AddIngredientCommand CreateCommand(string ingredientName = "ingredientName", int quantity = 100) =>
-            new AddIngredientCommand(ingredientName, quantity);
+       public static AddProductCommand CreateCommand(string ingredientName = "ingredientName", int quantity = 100) =>
+            new AddProductCommand(ingredientName, quantity);
 
        public static NutritionResponse CreateNutritionResponse()
        {

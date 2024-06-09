@@ -1,8 +1,6 @@
 using AutoMapper;
 
 using ErrorOr;
-
-
 using Recipe.Application.ApiModels;
 using Recipe.Application.Interfaces;
 using Recipe.Domain.Dtos;
@@ -28,14 +26,14 @@ namespace Recipe.Application.Services
             _nutriotionApiClient = nutriotionApiClient;
         }
 
-        public async Task<Ingredient> CalculateNutritionPerGramm(string polishName)
+        public async Task<Product> CalculateNutritionPerGramm(string polishName)
         {
             string translation = TranslateToEnglish(polishName);
             var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
             nutrition = ConvertToPerGramNutritionData(nutrition);
 
-            var result = Ingredient.Create(
-                IngredientId.CreateUnique(),
+            var result = Product.Create(
+                ProductId.CreateUnique(),
                 nutrition.Name,
                 polishName,
                 nutrition.CaloriesG,
@@ -51,9 +49,9 @@ namespace Recipe.Application.Services
             return result;
         }
 
-        public IngredientDTO CalculateNutritionPerPortion(Ingredient ingredient, decimal portion)
+        public ProductDTO CalculateNutritionPerPortion(Product ingredient, decimal portion)
         {
-            var r = _mapper.Map<IngredientDTO>(ingredient);
+            var r = _mapper.Map<ProductDTO>(ingredient);
             foreach (var property in r.GetType().GetProperties())
             {
                 if (property.PropertyType == typeof(decimal))

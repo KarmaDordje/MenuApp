@@ -19,7 +19,7 @@ public class AddIngredientCommandHandlerTests
 {
 
     private readonly Mock<IIngredientRepository> _mockIngredientRepository;
-    private readonly AddIngredientCommandHandler _handler;
+    private readonly AddProductCommandHandler _handler;
     private readonly Mock<INutritionClient> _mockNutritionClient;
     private readonly Mock<IDeepLClient> _mockDeepLClient;
     private readonly IMapper _mapper;
@@ -33,7 +33,7 @@ public class AddIngredientCommandHandlerTests
         _mockDeepLClient = new Mock<IDeepLClient>();
         _mockNutritionCalculationService = new Mock<INutritionCalculationService>();
         _mapper = new MapperConfiguration(cfg => cfg.AddProfile<DomainToDtoMappingProfile>()).CreateMapper();
-        _handler = new AddIngredientCommandHandler(
+        _handler = new AddProductCommandHandler(
             _mapper,
             _mockNutritionClient.Object,
             _mockDeepLClient.Object,
@@ -43,7 +43,7 @@ public class AddIngredientCommandHandlerTests
 
     [Theory]
     [MemberData(nameof(ValidCreateRecipeCommands))]
-    public async Task HandleAddIngredient_WhenIngredientNotInDb_ShouldCreateAndReturnIngredient(AddIngredientCommand command)
+    public async Task HandleAddIngredient_WhenIngredientNotInDb_ShouldCreateAndReturnIngredient(AddProductCommand command)
     {
         // Arrange
         _mockDeepLClient.Setup(x => x.Translate(It.IsAny<DeepLTranslationRequest>())).ReturnsAsync("patato");

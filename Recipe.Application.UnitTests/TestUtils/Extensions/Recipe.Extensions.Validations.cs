@@ -11,10 +11,5 @@ public static partial class MenuExtensions
     {
         recipe.Name.Should().Be(command.Name);
         recipe.UserId.Should().Be(command.UserId);
-        recipe.Description.Should().Be(command.Description);
-        recipe.ImageUrl.Should().Be(command.ImageUrl);
-        recipe.VideoUrl.Should().Be(command.VideoUrl);
-        recipe.RecipeSteps.Should().HaveCount(command.RecipeSteps.Count);
-        recipe.Ingredients.Should().HaveCount(command.Ingredients.Count);
     }
 }

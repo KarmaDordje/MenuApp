@@ -4,7 +4,7 @@ using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Domain.IngredientAggregate
 {
-    public sealed class Ingredient : Entity<IngredientId>
+    public sealed class Product : Entity<ProductId>
     {
         public string Name { get; private set; }
         public string PolishName { get; private set; }
@@ -18,8 +18,8 @@ namespace Recipe.Domain.IngredientAggregate
         public decimal Sugar { get; private set; }
         public Measurement Measurement { get; private set; }
 
-        private Ingredient(
-            IngredientId id,
+        private Product(
+            ProductId id,
             string name,
             string polishName,
             decimal calories,
@@ -46,8 +46,8 @@ namespace Recipe.Domain.IngredientAggregate
             Measurement = measurement;
         }
 
-        public static Ingredient Create(
-            IngredientId id,
+        public static Product Create(
+            ProductId id,
             string name,
             string polishName,
             decimal calories,
@@ -61,8 +61,8 @@ namespace Recipe.Domain.IngredientAggregate
             Measurement measurement)
         {
 
-            return new Ingredient(
-                IngredientId.CreateUnique(),
+            return new Product(
+                ProductId.CreateUnique(),
                 name.ToLower(),
                 polishName.ToLower(),
                 calories,
@@ -77,7 +77,7 @@ namespace Recipe.Domain.IngredientAggregate
         }
 
         #pragma warning disable CS8618
-        private Ingredient()
+        private Product()
         {
         }
         #pragma warning restore CS8618

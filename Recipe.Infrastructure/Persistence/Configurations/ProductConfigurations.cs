@@ -5,16 +5,16 @@ using Recipe.Domain.IngredientAggregate.ValueObjects;
 
 namespace Recipe.Infrastructure.Persistence.Configurations;
 
-public class IngredientConfigurations : IEntityTypeConfiguration<Ingredient>
+public class IngredientConfigurations : IEntityTypeConfiguration<Product>
 {
-    public void Configure(EntityTypeBuilder<Ingredient> builder)
+    public void Configure(EntityTypeBuilder<Product> builder)
     {
         ConfigureIngredientTable(builder);
     }
 
-    private void ConfigureIngredientTable(EntityTypeBuilder<Ingredient> builder)
+    private void ConfigureIngredientTable(EntityTypeBuilder<Product> builder)
     {
-        builder.ToTable("Ingredients");
+        builder.ToTable("Products");
 
         builder.HasKey(i => i.Id);
 
@@ -22,7 +22,7 @@ public class IngredientConfigurations : IEntityTypeConfiguration<Ingredient>
             .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
-                value => IngredientId.Create(value));
+                value => ProductId.Create(value));
 
         builder.Property(i => i.Name)
             .HasMaxLength(100)

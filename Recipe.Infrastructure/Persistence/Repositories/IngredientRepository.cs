@@ -15,34 +15,34 @@ public class IngredientRepository : IIngredientRepository
         _recipeDbContext = recipeDbContext;
     }
 
-    public async Task AddAsync(Ingredient ingredient)
+    public async Task AddAsync(Product ingredient)
     {
         await _recipeDbContext.Ingredients.AddAsync(ingredient);
         await _recipeDbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Ingredient ingredient)
+    public async Task DeleteAsync(Product ingredient)
     {
         _recipeDbContext.Ingredients.Remove(ingredient);
         await _recipeDbContext.SaveChangesAsync();
     }
 
-    public async Task<Ingredient> GetAsync(string id)
+    public async Task<Product> GetAsync(string id)
     {
         return await _recipeDbContext?.Ingredients?.FirstOrDefaultAsync(i => i.Id.Value == id);
     }
 
-    public async Task<Ingredient> GetAsyncByIngredientName(string ingredientName)
+    public async Task<Product> GetAsyncByIngredientName(string ingredientName)
     {
         return await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.PolishName == ingredientName) ?? null;
     }
 
-    public async Task<IEnumerable<Ingredient>> GetIngredientsAsync()
+    public async Task<IEnumerable<Product>> GetIngredientsAsync()
     {
         return await _recipeDbContext.Ingredients.ToListAsync();
     }
 
-    public async Task UpdateAsync(Ingredient ingredient)
+    public async Task UpdateAsync(Product ingredient)
     {
         _recipeDbContext.Ingredients.Update(ingredient);
         await _recipeDbContext.SaveChangesAsync();

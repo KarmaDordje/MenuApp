@@ -16,7 +16,7 @@ namespace Recipe.Infrastructure.Persistence
         }
 
         public DbSet<Domain.RecipeAggregate.Recipe> Recipes { get; set; }
-        public DbSet<Domain.IngredientAggregate.Ingredient> Ingredients { get; set; }
+        public DbSet<Domain.IngredientAggregate.Product> Ingredients { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder

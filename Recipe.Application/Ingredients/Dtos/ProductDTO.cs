@@ -9,7 +9,7 @@ using Recipe.Domain.ValueObjects;
 
 namespace Recipe.Domain.Dtos
 {
-    public class IngredientDTO
+    public class ProductDTO
     {
 
         [Required(ErrorMessage = "The Name is Required")]

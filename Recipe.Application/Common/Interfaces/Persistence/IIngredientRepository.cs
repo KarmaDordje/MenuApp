@@ -5,10 +5,10 @@ namespace Recipe.Application.Interfaces.Persistence
 {
     public interface IIngredientRepository
     {
-        Task<Ingredient> GetAsync(string id);
-        Task<Ingredient> GetAsyncByIngredientName(string ingredientName);
-        Task AddAsync(Ingredient ingredient);
-        Task UpdateAsync(Ingredient ingredient);
-        Task DeleteAsync(Ingredient ingredient);
+        Task<Product> GetAsync(string id);
+        Task<Product> GetAsyncByIngredientName(string ingredientName);
+        Task AddAsync(Product ingredient);
+        Task UpdateAsync(Product ingredient);
+        Task DeleteAsync(Product ingredient);
     }
 }

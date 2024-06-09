@@ -15,7 +15,7 @@ using Recipe.Domain.Persistence;
 
 namespace Recipe.Application.Ingredients.Commands.AddIngredient
 {
-    public class AddIngredientCommandHandler : IRequestHandler<AddIngredientCommand, ErrorOr<IngredientDTO>>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, ErrorOr<ProductDTO>>
     {
 
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
         private readonly INutritionCalculationService _nutritionCalculationService;
          private readonly IIngredientRepository _repository;
 
-        public AddIngredientCommandHandler(
+        public AddProductCommandHandler(
             IMapper mapper,
             INutritionClient nutritionService,
             IDeepLClient deepLApiClient,
@@ -38,7 +38,7 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
             _repository = repository;
         }
 
-        public async Task<ErrorOr<IngredientDTO>> Handle(AddIngredientCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<ProductDTO>> Handle(AddProductCommand command, CancellationToken cancellationToken)
         {
             var ingredient = await _repository.GetAsyncByIngredientName(command.IngredientName);
 
@@ -58,7 +58,7 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
                 }
             }
 
-            IngredientDTO dto = _mapper.Map<IngredientDTO>(ingredient);
+            ProductDTO dto = _mapper.Map<ProductDTO>(ingredient);
             dto = _nutritionCalculationService.CalculateNutritionPerPortion(ingredient, command.Quantity);
             return dto;
         }

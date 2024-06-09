@@ -17,25 +17,25 @@ namespace Recipe.API.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class IngredientController : ApiController
+    public class ProductController : ApiController
     {
         private readonly ISender _mediator;
 
-        public IngredientController(ISender mediator)
+        public ProductController(ISender mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost("AddIngredient")]
-        [ProducesResponseType(typeof(IngredientDTO), 200)]
+        [ProducesResponseType(typeof(ProductDTO), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<IngredientDTO>> AddIngredient([FromBody] AddIngredientRequest request)
+        public async Task<ActionResult<ProductDTO>> AddIngredient([FromBody] AddIngredientRequest request)
         {
-            var command = new AddIngredientCommand(request.IngredientName, request.Quantity);
-            ErrorOr<IngredientDTO> result = await _mediator.Send(command);
+            var command = new AddProductCommand(request.IngredientName, request.Quantity);
+            ErrorOr<ProductDTO> result = await _mediator.Send(command);
 
-            return result.Match<ActionResult<IngredientDTO>>(
+            return result.Match<ActionResult<ProductDTO>>(
                 result => Ok(result),
                 errors => Problem(errors));
         }

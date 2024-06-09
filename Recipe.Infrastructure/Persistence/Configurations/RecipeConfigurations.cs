@@ -29,7 +29,7 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
-                    value => IngredientId.Create(value));
+                    value => ProductId.Create(value));
 
             sb.Property(s => s.Quantity);
         });

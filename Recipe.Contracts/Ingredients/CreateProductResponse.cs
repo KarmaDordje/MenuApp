@@ -1,6 +1,6 @@
 namespace Recipe.Contracts.Ingredients
 {
-    public record CreateIngredientResponse(
+    public record CreateProductResponse(
         string IngredientId,
         string Name,
         string PolishName,

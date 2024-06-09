@@ -56,7 +56,7 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
                     value => Domain.ValueObjects.RecipeStepId.Create(value));
 
             sb.Property(s => s.Name)
-                .HasMaxLength(100);
+                .HasMaxLength(1000);
 
             sb.Property(s => s.Order);
         });

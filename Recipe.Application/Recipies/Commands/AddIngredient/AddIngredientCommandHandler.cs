@@ -49,12 +49,13 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
                 }
             }
 
-            if(await _recipeRepository.GetAsync(command.RecipeId) is not Domain.RecipeAggregate.Recipe recipe)
+            if(await _recipeRepository.GetAsync(RecipeId.Create(command.RecipeId)) is not Domain.RecipeAggregate.Recipe recipe)
             {
                 throw new InvalidOperationException($"Recipe has invalid recipe id (menu id: {command.RecipeId}).");
             }
             var recipeIngredient = RecipeIngredient.Create(ingredient.Id.Value, command.Quantity);
             recipe.AddIngredient(recipeIngredient);
+            await _recipeRepository.UpdateAsync(recipe);
             ProductDTO dto = _mapper.Map<ProductDTO>(ingredient);
             dto = _nutritionCalculationService.CalculateNutritionPerPortion(ingredient, command.Quantity);
             return dto;

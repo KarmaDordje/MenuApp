@@ -72,6 +72,11 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         _ingredients.Add(ingredient);
     }
 
+    public void AddStep(RecipeStep step)
+    {
+        _recipeSteps.Add(step);
+    }
+
     // public static Recipe Create(
     //     string name,
     //     string userId,
@@ -99,6 +104,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     //     recipe.AddDomainEvent(new RecipeCreated(recipe));
     //     return recipe;
     // }
+
 #pragma warning disable CS8618
     private Recipe()
     {

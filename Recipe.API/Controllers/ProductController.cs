@@ -20,11 +20,11 @@ namespace Recipe.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost("AddIngredient")]
+        [HttpPost("AddProduct")]
         [ProducesResponseType(typeof(ProductDTO), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<ProductDTO>> AddIngredient([FromBody] AddIngredientRequest request)
+        public async Task<ActionResult<ProductDTO>> AddIngredient([FromBody] AddProductRequest request)
         {
             var command = new AddProductCommand(request.IngredientName, request.Quantity);
             ErrorOr<ProductDTO> result = await _mediator.Send(command);

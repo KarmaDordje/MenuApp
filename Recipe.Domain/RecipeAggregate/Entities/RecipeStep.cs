@@ -6,23 +6,27 @@ namespace Recipe.Domain.RecipeAggregate.Entities
     {
         public int Order { get; private set; }
         public string Name { get; private set; }
-        private RecipeStep(int order, string name)
+        public string ImgUrl { get; private set; }
+        public string VideoUrl { get; private set; }
+        private RecipeStep(int order, string name, string imgUrl, string videoUrl)
         : base(RecipeStepId.CreateUnique())
-    {
-        Name = name;
-        Order = order;
-    }
+        {
+            Name = name;
+            Order = order;
+            ImgUrl = imgUrl;
+            VideoUrl = videoUrl;
+        }
 
-        public static RecipeStep Create(int order, string name)
-    {
+        public static RecipeStep Create(int order, string name, string imgUrl, string videoUrl)
+        {
         // TODO: enforce invariants
-        return new RecipeStep(order, name);
-    }
+            return new RecipeStep(order, name, imgUrl, videoUrl);
+        }
 
 #pragma warning disable CS8618
         private RecipeStep()
-    {
-    }
+        {
+        }
 #pragma warning restore CS8618
     }
 }

@@ -4,6 +4,10 @@ namespace Recipe.Infrastructure.Persistence
 
 
     using Recipe.Application.Common.Interfaces.Persistence;
+    using Recipe.Domain.RecipeAggregate;
+
+    using Recipe.Domain.ValueObjects;
+
 
     public class RecipeRepository : IRecipeRepository
     {
@@ -20,9 +24,16 @@ namespace Recipe.Infrastructure.Persistence
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Domain.RecipeAggregate.Recipe?> GetAsync(Guid id)
+        public async Task<Domain.RecipeAggregate.Recipe?> GetAsync(RecipeId id)
         {
-            return await _context.Recipes.FirstOrDefaultAsync(r => r.Id.Value == id);
+            return await _context.Recipes.FirstOrDefaultAsync(r => r.Id == id);
         }
+
+        public async Task UpdateAsync(Recipe recipe)
+        {
+            _context.Recipes.Update(recipe);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

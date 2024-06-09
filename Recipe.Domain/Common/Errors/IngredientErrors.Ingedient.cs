@@ -2,7 +2,6 @@ namespace Recipe.Domain.Common.Errors
 {
     using ErrorOr;
 
-
     public static class IngredientErrors
     {
         public static Error IngredientNameCannotBeEmpty => Error.Validation("Ingredient.IngredientName", "Ingredient name cannot be empty");

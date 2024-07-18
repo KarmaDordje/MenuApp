@@ -9,6 +9,6 @@
 
     public interface INutritionClient
     {
-        Task<NutritionResponse> GetProductNutrition(string productName);
+        Task<Item> GetProductNutrition(string productName);
     }
 }

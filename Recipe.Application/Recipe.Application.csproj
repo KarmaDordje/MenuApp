@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Recipe.Domain\Recipe.Domain.csproj" />
+    <ProjectReference Include="..\Recipe.Contracts\Recipe.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,9 +9,9 @@ namespace Recipe.Application.UnitTests.Ingredients.Commands.TestUtils
        public static AddProductCommand CreateCommand(string ingredientName = "ingredientName", int quantity = 100) =>
             new AddProductCommand(ingredientName, quantity);
 
-       public static NutritionResponse CreateNutritionResponse()
+       public static Item CreateNutritionResponse()
        {
-            var response = new Faker<NutritionResponse>()
+            var response = new Faker<Item>()
                 .RuleFor(x => x.CaloriesG, f => f.Random.Int(0, 100))
                 .RuleFor(x => x.CarbohydratesTotalG, f => f.Random.Int(0, 100))
                 .RuleFor(x => x.FatTotalG, f => f.Random.Int(0, 100))

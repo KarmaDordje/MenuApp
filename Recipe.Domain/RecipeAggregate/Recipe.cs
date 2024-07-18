@@ -57,16 +57,17 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
             RecipeId.CreateUnique(),
             name,
             userId,
-            "",
+            string.Empty,
             0,
-            "",
-            "",
+            string.Empty,
+            string.Empty,
             DateTime.Now.ToUniversalTime(),
             DateTime.Now.ToUniversalTime(),
             new (),
             new ());
         return recipe;
     }
+
     public void AddRecipeSection(RecipeSection section)
     {
         _recipeSections.Add(section);

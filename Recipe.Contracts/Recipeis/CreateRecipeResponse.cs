@@ -3,5 +3,6 @@ namespace Recipe.Contracts.Recipes
     using Recipe.Domain.ValueObjects;
 
     public record CreateRecipeResponse(
-        string RecipeId);
+        Guid RecipeId,
+        Guid RecipeSectionId);
 }

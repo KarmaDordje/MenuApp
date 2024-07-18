@@ -68,9 +68,9 @@ namespace Recipe.Application.Services
             return r;
         }
 
-        private NutritionResponse ConvertToPerGramNutritionData(NutritionResponse response)
+        private Item ConvertToPerGramNutritionData(Item response)
         {
-            var result = new NutritionResponse()
+            var result = new Item()
             {
                 CaloriesG = response.CaloriesG / response.ServingSize,
                 CholesterolMg = response.CholesterolMg / response.ServingSize / 1000,

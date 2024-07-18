@@ -28,7 +28,7 @@ namespace Recipe.Domain.RecipeAggregate.Entities
         {
             var recipeSection = new RecipeSection(
                 title,
-                ingredients);
+                ingredients ?? new ());
             return recipeSection;
         }
 

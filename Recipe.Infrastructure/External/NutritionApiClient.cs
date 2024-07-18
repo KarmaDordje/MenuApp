@@ -20,11 +20,11 @@
         /// </summary>
         /// <param name="productName">The name of the product.</param>
         /// <returns>The nutrition response for the product.</returns>
-        public async Task<NutritionResponse> GetProductNutrition(string productName)
+        public async Task<Item> GetProductNutrition(string productName)
         {
-            var result = await Request<List<NutritionResponse>>(() => new RestRequest($"?query={productName}"));
+            var result = await Request<NutritionResponse>(() => new RestRequest($"?query={productName}"));
 
-            return result.First();
+            return result.Items.FirstOrDefault();
         }
     }
 }

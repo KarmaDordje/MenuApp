@@ -1,4 +1,4 @@
 namespace Recipe.Contracts.Recipes
 {
-    public record AddIngredientRequest(Guid RecipeId, string IngredientName, decimal Quantity);
+    public record AddIngredientRequest(Guid RecipeId, Guid RecipeSectionId, string IngredientName, decimal Quantity);
 }

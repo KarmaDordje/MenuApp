@@ -1,9 +1,13 @@
+namespace Recipe.Infrastructure.Persistence.Configurations;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using Recipe.Domain.IngredientAggregate;
+
 using Recipe.Domain.IngredientAggregate.ValueObjects;
-
-
-namespace Recipe.Infrastructure.Persistence.Configurations;
+using Recipe.Domain.RecipeAggregate.Entities;
+using Recipe.Domain.RecipeAggregate.ValueObjects;
 
 public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggregate.Recipe>
 {
@@ -11,34 +15,59 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
     {
         ConfigureRecipeTable(builder);
         ConfigureRecipeStepTable(builder);
-        ConfigureRecipeIngredientTable(builder);
+        ConfigureRecipeSectionTable(builder);
     }
 
-    private void ConfigureRecipeIngredientTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
+    private static void ConfigureRecipeSectionTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
-        builder.OwnsMany(s => s.Ingredients, sb =>
+        builder.OwnsMany(s => s.RecipeSections, rs =>
         {
-            sb.ToTable("RecipeIngredients");
+            rs.ToTable("RecipeSections");
 
-            sb.WithOwner().HasForeignKey("RecipeId");
+            rs.WithOwner().HasForeignKey("RecipeId");
 
-            sb.HasKey("Id", "RecipeId");
+            rs.HasKey("Id", "RecipeId");
 
-            sb.Property(s => s.IngredientId)
-                .HasColumnName("IngredientId")
+            rs.Property(s => s.Id)
+                .HasColumnName("RecipeSectionId")
+                .ValueGeneratedNever()
+                .HasConversion(
+                    id => id.Value,
+                    value => RecipeSectionId.Create(value));
+
+            rs.Property(s => s.Title)
+                .HasMaxLength(100);
+
+            rs.OwnsMany(s => s.Ingredients, ri =>
+            {
+                ri.ToTable("RecipeIngredients");
+
+                ri.WithOwner().HasForeignKey("RecipeSectionId", "RecipeId");
+
+                ri.HasKey(nameof(Product.Id), "RecipeSectionId", "RecipeId");
+
+                ri.Property(i => i.Id)
+                .HasColumnName("RecipeIngredientId")
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
                     value => ProductId.Create(value));
 
-            sb.Property(s => s.Quantity);
+                ri.Property(i => i.Quantity)
+                .HasColumnType("decimal(18,2)");
+
+            });
+
+            rs.Navigation(s => s.Ingredients).Metadata.SetField("_ingredients");
+            rs.Navigation(s => s.Ingredients).UsePropertyAccessMode(PropertyAccessMode.Field);
         });
 
-        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.Ingredients))!
+        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeSections)) !
             .SetPropertyAccessMode(PropertyAccessMode.Field);
+
     }
 
-    private void ConfigureRecipeStepTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
+    private static void ConfigureRecipeStepTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         builder.OwnsMany(s => s.RecipeSteps, sb =>
         {
@@ -61,12 +90,12 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
             sb.Property(s => s.Order);
         });
 
-        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeSteps))!
+        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeSteps)) !
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
     }
 
-    private void ConfigureRecipeTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
+    private static void ConfigureRecipeTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
     {
         builder.ToTable("Recipes");
 

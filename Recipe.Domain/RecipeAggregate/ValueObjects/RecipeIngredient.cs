@@ -7,11 +7,11 @@ namespace Recipe.Domain.ValueObjects
     {
         private RecipeIngredient(string ingredientId, decimal quantity)
         {
-            IngredientId = ProductId.Create(ingredientId);
+            Id = ProductId.Create(ingredientId);
             Quantity = quantity;
         }
 
-        public ProductId IngredientId { get; set; }
+        public ProductId Id { get; set; }
         public decimal Quantity { get; set; }
 
         public static RecipeIngredient Create(string ingredientId, decimal quantity)
@@ -21,7 +21,7 @@ namespace Recipe.Domain.ValueObjects
 
         public override IEnumerable<object> GetEqualityComponents()
         {
-            yield return IngredientId;
+            yield return Id;
             yield return Quantity;
         }
 

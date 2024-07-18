@@ -12,8 +12,8 @@ using Recipe.Infrastructure.Persistence;
 namespace Recipe.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    [Migration("20240415171438_AddIngredientsTable")]
-    partial class AddIngredientsTable
+    [Migration("20240718204931_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Recipe.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Recipe.Domain.Entities.Ingredient", b =>
+            modelBuilder.Entity("Recipe.Domain.IngredientAggregate.Product", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -60,9 +60,12 @@ namespace Recipe.Infrastructure.Migrations
                     b.Property<decimal>("Sodium")
                         .HasColumnType("numeric");
 
+                    b.Property<decimal>("Sugar")
+                        .HasColumnType("numeric");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Recipe.Domain.RecipeAggregate.Recipe", b =>
@@ -108,11 +111,11 @@ namespace Recipe.Infrastructure.Migrations
                     b.ToTable("Recipes", (string)null);
                 });
 
-            modelBuilder.Entity("Recipe.Domain.Entities.Ingredient", b =>
+            modelBuilder.Entity("Recipe.Domain.IngredientAggregate.Product", b =>
                 {
                     b.OwnsOne("Recipe.Domain.ValueObjects.Measurement", "Measurement", b1 =>
                         {
-                            b1.Property<string>("IngredientId")
+                            b1.Property<string>("ProductId")
                                 .HasColumnType("text");
 
                             b1.Property<int>("Name")
@@ -121,12 +124,12 @@ namespace Recipe.Infrastructure.Migrations
                             b1.Property<decimal>("Quantity")
                                 .HasColumnType("numeric");
 
-                            b1.HasKey("IngredientId");
+                            b1.HasKey("ProductId");
 
-                            b1.ToTable("Ingredients");
+                            b1.ToTable("Products");
 
                             b1.WithOwner()
-                                .HasForeignKey("IngredientId");
+                                .HasForeignKey("ProductId");
                         });
 
                     b.Navigation("Measurement")
@@ -135,6 +138,57 @@ namespace Recipe.Infrastructure.Migrations
 
             modelBuilder.Entity("Recipe.Domain.RecipeAggregate.Recipe", b =>
                 {
+                    b.OwnsMany("Recipe.Domain.RecipeAggregate.Entities.RecipeSection", "RecipeSections", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid")
+                                .HasColumnName("RecipeSectionId");
+
+                            b1.Property<Guid>("RecipeId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
+
+                            b1.HasKey("Id", "RecipeId");
+
+                            b1.HasIndex("RecipeId");
+
+                            b1.ToTable("RecipeSections", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("RecipeId");
+
+                            b1.OwnsMany("Recipe.Domain.ValueObjects.RecipeIngredient", "Ingredients", b2 =>
+                                {
+                                    b2.Property<string>("Id")
+                                        .HasColumnType("text")
+                                        .HasColumnName("RecipeIngredientId");
+
+                                    b2.Property<Guid>("RecipeSectionId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<Guid>("RecipeId")
+                                        .HasColumnType("uuid");
+
+                                    b2.Property<decimal>("Quantity")
+                                        .HasColumnType("numeric(18,2)");
+
+                                    b2.HasKey("Id", "RecipeSectionId", "RecipeId");
+
+                                    b2.HasIndex("RecipeSectionId", "RecipeId");
+
+                                    b2.ToTable("RecipeIngredients", (string)null);
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("RecipeSectionId", "RecipeId");
+                                });
+
+                            b1.Navigation("Ingredients");
+                        });
+
                     b.OwnsMany("Recipe.Domain.RecipeAggregate.Entities.RecipeStep", "RecipeSteps", b1 =>
                         {
                             b1.Property<Guid>("Id")
@@ -144,13 +198,21 @@ namespace Recipe.Infrastructure.Migrations
                             b1.Property<Guid>("RecipeId")
                                 .HasColumnType("uuid");
 
+                            b1.Property<string>("ImgUrl")
+                                .IsRequired()
+                                .HasColumnType("text");
+
                             b1.Property<string>("Name")
                                 .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)");
+                                .HasMaxLength(1000)
+                                .HasColumnType("character varying(1000)");
 
                             b1.Property<int>("Order")
                                 .HasColumnType("integer");
+
+                            b1.Property<string>("VideoUrl")
+                                .IsRequired()
+                                .HasColumnType("text");
 
                             b1.HasKey("Id", "RecipeId");
 
@@ -162,36 +224,7 @@ namespace Recipe.Infrastructure.Migrations
                                 .HasForeignKey("RecipeId");
                         });
 
-                    b.OwnsMany("Recipe.Domain.ValueObjects.RecipeIngredient", "Ingredients", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
-
-                            b1.Property<Guid>("RecipeId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("IngredientId")
-                                .IsRequired()
-                                .HasColumnType("text")
-                                .HasColumnName("IngredientId");
-
-                            b1.Property<decimal>("Quantity")
-                                .HasColumnType("numeric");
-
-                            b1.HasKey("Id", "RecipeId");
-
-                            b1.HasIndex("RecipeId");
-
-                            b1.ToTable("RecipeIngredients", (string)null);
-
-                            b1.WithOwner()
-                                .HasForeignKey("RecipeId");
-                        });
-
-                    b.Navigation("Ingredients");
+                    b.Navigation("RecipeSections");
 
                     b.Navigation("RecipeSteps");
                 });

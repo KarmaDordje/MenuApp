@@ -1,10 +1,10 @@
+
+namespace Recipe.Infrastructure.Persistence.Configurations;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Recipe.Domain.IngredientAggregate;
 using Recipe.Domain.IngredientAggregate.ValueObjects;
-
-
-namespace Recipe.Infrastructure.Persistence.Configurations;
 
 public class IngredientConfigurations : IEntityTypeConfiguration<Product>
 {

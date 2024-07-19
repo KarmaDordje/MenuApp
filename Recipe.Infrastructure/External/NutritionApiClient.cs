@@ -5,7 +5,6 @@
     using Recipe.Application.Interfaces;
     using RestSharp;
 
-
     public class NutritionApiClient : GenericApiClient, INutritionClient
     {
 

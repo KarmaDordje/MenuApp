@@ -11,7 +11,6 @@ namespace Recipe.Application.Ingredients.Commands.AddIngredient
     using Recipe.Domain.Dtos;
     using Recipe.Domain.Persistence;
 
-
     public class AddProductCommandHandler : IRequestHandler<AddProductCommand, ErrorOr<ProductDTO>>
     {
 

@@ -9,7 +9,6 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
 
     using Recipe.Domain.ValueObjects;
 
-
     public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, ErrorOr<CreateRecipeResponse>>
     {
         private readonly IRecipeRepository _recipeRepository;

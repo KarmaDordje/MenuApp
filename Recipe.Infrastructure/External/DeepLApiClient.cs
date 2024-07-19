@@ -9,7 +9,6 @@
     using Recipe.Application.Interfaces;
     using RestSharp;
 
-
     public class DeepLApiClient : GenericApiClient, IDeepLClient
     {
 

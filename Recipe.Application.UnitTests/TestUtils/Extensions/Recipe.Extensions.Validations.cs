@@ -2,7 +2,6 @@ using FluentAssertions;
 using Recipe.Application.Recipes.Commands.CreateRecipe;
 using Recipe.Domain.RecipeAggregate;
 
-
 namespace Recipe.Application.UnitTests.TestUnits.Extensions;
 
 public static partial class MenuExtensions

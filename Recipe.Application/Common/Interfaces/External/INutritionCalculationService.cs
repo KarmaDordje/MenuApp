@@ -5,7 +5,6 @@ namespace Recipe.Application.Interfaces
     using Recipe.Domain.Dtos;
     using Recipe.Domain.IngredientAggregate;
 
-
     public interface INutritionCalculationService
     {
         Task <Product> CalculateNutritionPerGramm(string polishName);

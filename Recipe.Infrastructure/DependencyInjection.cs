@@ -12,7 +12,6 @@
     using Recipe.Infrastructure.Persistence.Interceptors;
     using Recipe.Infrastructure.Persistence.Repositories;
 
-
     public static class DependencyInjection
     {
 

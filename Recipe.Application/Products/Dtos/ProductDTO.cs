@@ -9,7 +9,6 @@
     using System.Threading.Tasks;
     using Recipe.Domain.ValueObjects;
 
-
     public class ProductDTO
     {
 

@@ -56,7 +56,7 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
                 throw new InvalidOperationException($"Recipe has invalid recipe id (menu id: {command.RecipeId}).");
             }
             var recipeIngredient = RecipeIngredient.Create(ingredient.Id.Value, command.Quantity);
-            recipe.AddIngredient(RecipeSectionId.Create(command.RecipeId), recipeIngredient);
+            recipe.AddIngredient(RecipeSectionId.Create(command.RecipeSectionId), recipeIngredient);
             await _recipeRepository.UpdateAsync(recipe);
             ProductDTO dto = _mapper.Map<ProductDTO>(ingredient);
             dto = _nutritionCalculationService.CalculateNutritionPerPortion(ingredient, command.Quantity);

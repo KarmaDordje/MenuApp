@@ -37,6 +37,11 @@ namespace Recipe.Domain.RecipeAggregate.Entities
             _ingredients.Add(ingredient);
         }
 
+        public void DeleteIngredient(RecipeIngredient ingredient)
+        {
+            _ingredients.Remove(ingredient);
+        }
+
         #pragma warning disable CS8618
         private RecipeSection()
         {

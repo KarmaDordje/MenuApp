@@ -1,11 +1,10 @@
-using Recipe.Domain.Common.Models;
-using Recipe.Domain.IngredientAggregate.ValueObjects;
-using Recipe.Domain.RecipeAggregate.Entities;
-using Recipe.Domain.RecipeAggregate.Events;
-using Recipe.Domain.RecipeAggregate.ValueObjects;
-using Recipe.Domain.ValueObjects;
-
 namespace Recipe.Domain.RecipeAggregate;
+
+using global::Recipe.Domain.Common.Models;
+using global::Recipe.Domain.IngredientAggregate.ValueObjects;
+using global::Recipe.Domain.RecipeAggregate.Entities;
+using global::Recipe.Domain.RecipeAggregate.ValueObjects;
+using global::Recipe.Domain.ValueObjects;
 
 public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 {
@@ -90,6 +89,49 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     public void AddStep(RecipeStep step)
     {
         _recipeSteps.Add(step);
+    }
+
+    public void DeleteIngredient(RecipeSectionId sectionId, ProductId ingredientId)
+    {
+        var section = _recipeSections.FirstOrDefault(x => x.Id == sectionId);
+
+        if (section is null)
+        {
+            throw new InvalidOperationException("Section not found");
+        }
+
+        var ingredient = section.Ingredients.FirstOrDefault(x => x.Id == ingredientId);
+
+        if (ingredient is null)
+        {
+            throw new InvalidOperationException("Ingredient not found");
+        }
+
+        section.DeleteIngredient(ingredient);
+    }
+
+    public void DeleteRecipeSection(RecipeSectionId sectionId)
+    {
+        var section = _recipeSections.FirstOrDefault(x => x.Id == sectionId);
+
+        if (section is null)
+        {
+            throw new InvalidOperationException("Section not found");
+        }
+
+        _recipeSections.Remove(section);
+    }
+
+    public void DeleteRecipeStep(RecipeStepId stepId)
+    {
+        var step = _recipeSteps.FirstOrDefault(x => x.Id == stepId);
+
+        if (step is null)
+        {
+            throw new InvalidOperationException("Step not found");
+        }
+
+        _recipeSteps.Remove(step);
     }
 
 #pragma warning disable CS8618

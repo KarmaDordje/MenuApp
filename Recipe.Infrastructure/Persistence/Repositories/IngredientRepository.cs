@@ -3,7 +3,6 @@ using Recipe.Application.Interfaces.Persistence;
 using Recipe.Domain.IngredientAggregate;
 using Recipe.Domain.IngredientAggregate.ValueObjects;
 
-
 namespace Recipe.Infrastructure.Persistence.Repositories;
 
 public class IngredientRepository : IIngredientRepository

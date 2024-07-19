@@ -9,7 +9,6 @@ namespace Recipe.Application.Services
     using Recipe.Domain.IngredientAggregate.ValueObjects;
     using Recipe.Domain.ValueObjects;
 
-
     public class NutritionCalculationService : INutritionCalculationService
     {
         private readonly IMapper _mapper;

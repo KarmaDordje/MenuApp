@@ -8,7 +8,6 @@ using Recipe.Application.Interfaces.Persistence;
 using Recipe.Application.Mappings;
 using Recipe.Application.UnitTests.Ingredients.Commands.TestUtils;
 
-
 namespace Recipe.Application.UnitTests.Ingredients.Commands.AddIngredient;
 
 public class AddIngredientCommandHandlerTests

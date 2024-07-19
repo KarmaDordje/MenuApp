@@ -2,12 +2,10 @@ namespace Recipe.Infrastructure.Persistence
 {
     using Microsoft.EntityFrameworkCore;
 
-
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Domain.RecipeAggregate;
 
     using Recipe.Domain.ValueObjects;
-
 
     public class RecipeRepository : IRecipeRepository
     {

@@ -7,7 +7,6 @@ namespace Recipe.Application.Common.Behavior
     using Recipe.Application.Ingredients.Commands.AddIngredient;
     using Recipe.Domain.Dtos;
 
-
     public class ValidationBehavior<TRequest, TResponse> :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

@@ -2,6 +2,8 @@ namespace Recipe.API.Common.Mapping
 {
     using Mapster;
     using Recipe.Application.Recipes.Commands.CreateRecipe;
+    using Recipe.Application.Recipes.Queries;
+
     using Recipe.Contracts.Ingredients;
     using Recipe.Contracts.Recipes;
     using Recipe.Domain.IngredientAggregate;
@@ -16,7 +18,10 @@ namespace Recipe.API.Common.Mapping
         config.NewConfig<Domain.RecipeAggregate.Recipe, CreateRecipeResponse>()
             .Map(dest => dest.RecipeId, src => src.Id.Value);
         config.NewConfig<Product, CreateProductResponse>()
+
             .Map(dest => dest.IngredientId, src => src.Id.Value);
+        config.NewConfig<string, RecipeQuery>()
+            .MapWith((src) => new RecipeQuery(System.Guid.Parse(src)));
 
     }
 }

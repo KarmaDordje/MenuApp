@@ -36,6 +36,12 @@ public class IngredientRepository : IIngredientRepository
         return await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.PolishName == ingredientName) ?? null;
     }
 
+    public async Task<List<Product>> GetByIds(IEnumerable<ProductId> productIds)
+    {
+        return await _recipeDbContext.Ingredients.Where(i => productIds.Contains(i.Id)).ToListAsync();
+    }
+
+
     public async Task<IEnumerable<Product>> GetIngredientsAsync()
     {
         return await _recipeDbContext.Ingredients.ToListAsync();

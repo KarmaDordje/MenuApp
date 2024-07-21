@@ -7,6 +7,7 @@
     {
         Task<Product> GetAsync(string id);
         Task<Product> GetAsyncByIngredientName(string ingredientName);
+        Task<List<Product>> GetByIds(IEnumerable<ProductId> productIds);
         Task AddAsync(Product ingredient);
         Task UpdateAsync(Product ingredient);
         Task DeleteAsync(Product ingredient);

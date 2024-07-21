@@ -14,6 +14,8 @@ namespace Recipe.API.Controllers
     using Recipe.Application.Recipes.Commands.CreateRecipe;
     using Recipe.Application.Recipes.Commands.DeleteIngredient;
     using Recipe.Application.Recipes.Commands.DeleteRecipeStep;
+    using Recipe.Application.Recipes.Queries;
+
     using Recipe.Contracts.Recipes;
 
     [ApiController]
@@ -28,6 +30,18 @@ namespace Recipe.API.Controllers
         _mapper = mapper;
         _mediator = mediator;
     }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(string recipeId)
+        {
+            var query = _mapper.Map<RecipeQuery>(recipeId);
+
+            var recipe = await _mediator.Send(query);
+
+            return recipe.Match(
+                recipe => Ok(recipe),
+                errors => Problem(errors));
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateRecipe(CreateRecipeRequest request)

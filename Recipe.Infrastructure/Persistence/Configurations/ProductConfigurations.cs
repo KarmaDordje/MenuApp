@@ -1,4 +1,3 @@
-
 namespace Recipe.Infrastructure.Persistence.Configurations;
 
 using Microsoft.EntityFrameworkCore;

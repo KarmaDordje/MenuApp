@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Recipe.Domain.Common.Models;
+namespace Menu.Domain.Common.Models;
 
 /// <summary>
 /// Represents an abstract base class for entities in the domain model.

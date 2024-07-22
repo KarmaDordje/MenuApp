@@ -1,4 +1,4 @@
-namespace Recipe.Domain.Common.Models;
+namespace Menu.Domain.Common.Models;
 
 public abstract class AggregateRoot<TId, TIdType> : Entity<TId>
     where TId : AggregateRootId<TIdType>

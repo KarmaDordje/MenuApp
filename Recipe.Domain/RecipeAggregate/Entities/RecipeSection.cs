@@ -14,9 +14,10 @@ namespace Recipe.Domain.RecipeAggregate.Entities
         public IReadOnlyList<RecipeIngredient> Ingredients => _ingredients.AsReadOnly();
 
         private RecipeSection(
+            RecipeSectionId recipeSectionId,
             string title,
             List<RecipeIngredient> ingredients)
-            : base(RecipeSectionId.CreateUnique())
+            : base(recipeSectionId)
         {
             Title = title;
             _ingredients = ingredients;
@@ -27,6 +28,7 @@ namespace Recipe.Domain.RecipeAggregate.Entities
             List<RecipeIngredient> ingredients)
         {
             var recipeSection = new RecipeSection(
+                RecipeSectionId.CreateUnique(),
                 title,
                 ingredients ?? new ());
             return recipeSection;

@@ -1,6 +1,8 @@
 namespace Menu.Infrastructure.Repositories
 {
     using Menu.Domain.MenuAggregate;
+    using Menu.Domain.MenuAggregate.ValueObjects;
+
     using Menu.Infrastructure.Persistance;
     using Microsoft.EntityFrameworkCore;
 

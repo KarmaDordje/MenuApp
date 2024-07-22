@@ -1,8 +1,14 @@
 ﻿namespace Recipe.Infrastructure
 {
+    using MassTransit;
+
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
+
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Application.Interfaces;
     using Recipe.Application.Interfaces.Persistence;
@@ -14,10 +20,8 @@
 
     public static class DependencyInjection
     {
-
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-        {
-
+        {   
             services.AddSingleton<INutritionClient, NutritionApiClient>(provider =>
             {
                 var baseUrl = Environment.GetEnvironmentVariable("NUTRITION_API_BASE_URL");
@@ -33,13 +37,31 @@
                 return new DeepLApiClient(baseUrl, apiKey, headerName);
             });
             services.AddPersistence();
+            //services.AddMessageBus();
             // services.AddScoped<IIngredientRepository, IngredientRepository>();
+            return services;
+        }
+
+        public static IServiceCollection AddMessageBus(this IServiceCollection services)
+        {
+
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq://91.228.56.38", "/", h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
             return services;
         }
 
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
-
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("Postgress");
             services.AddScoped<PublishDomainEventsInterceptor>();
@@ -48,5 +70,6 @@
             services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString!));
             return services;
         }
+
     }
 }

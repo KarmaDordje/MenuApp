@@ -1,4 +1,4 @@
-namespace Recipe.Domain.Common.Models
+namespace Menu.Domain.Common.Models
 {
     public abstract class ValueObject : IEquatable<ValueObject>
     {

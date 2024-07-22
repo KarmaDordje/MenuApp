@@ -1,6 +1,6 @@
-namespace Menu.Domain.MenuAggregate
+namespace Menu.Domain.MenuAggregate.ValueObjects
 {
-    using Recipe.Domain.Common.Models;
+    using global::Menu.Domain.Common.Models;
     public sealed class MenuId : AggregateRootId<Guid>
     {
         private MenuId(Guid value) : base(value)

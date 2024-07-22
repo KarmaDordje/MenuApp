@@ -1,56 +1,43 @@
 namespace Menu.Domain.MenuAggregate
 {
-    using Recipe.Domain.Common.Models;
-    using Recipe.Domain.ValueObjects;
+    using global::Menu.Domain.Common.Models;
+    using global::Menu.Domain.MenuAggregate.Entities;
+    using global::Menu.Domain.MenuAggregate.ValueObjects;
 
     public sealed class Menu : AggregateRoot<MenuId, Guid>
     {
-        private readonly List<RecipeId> _recipes = new List<RecipeId>();
+        private readonly List<MenuDay> _menuDays = new List<MenuDay>();
 
         public string Name { get; private set; }
         public string Description { get; private set; }
         public UserId UserId { get; private set; }
-        public IReadOnlyList<RecipeId> Recipes => _recipes.AsReadOnly();
+        public IReadOnlyList<MenuDay> MenuDays => _menuDays.AsReadOnly();
         private Menu(
             MenuId menuId,
             string name,
             string description,
             UserId userId,
-            List<RecipeId> recipes)
+            List<MenuDay> menuDays)
+            : base(menuId)
         {
             Name = name;
             Description = description;
             UserId = userId;
-            _recipes = recipes;
+            _menuDays = menuDays;
         }
 
         public static Menu Create(
             string name,
             string description,
-            UserId userId)
+            UserId userIds)
         {
             var menu = new Menu(
                 MenuId.CreateUnique(),
                 name,
                 description,
-                userId,
+                userIds,
                 new ());
             return menu;
-        }
-
-        public void AddRecipe(RecipeId recipeId)
-        {
-            _recipes.Add(recipeId);
-        }
-
-        public void DeleteRecipe(RecipeId recipeId)
-        {
-            _recipes.Remove(recipeId);
-        }
-
-        public void FillWithRecipes(List<RecipeId> recipes)
-        {
-            _recipes.AddRange(recipes);
         }
 
         // for EF Core purposes

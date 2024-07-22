@@ -1,5 +1,8 @@
 namespace Recipe.Infrastructure.Persistence
 {
+    using System.Collections.Generic;
+
+
     using Microsoft.EntityFrameworkCore;
 
     using Recipe.Application.Common.Interfaces.Persistence;
@@ -21,6 +24,12 @@ namespace Recipe.Infrastructure.Persistence
             _context.Add(recipe);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Recipe>> GetAllUserRecipes(string userId)
+        {
+            return await _context.Recipes.Where(r => r.UserId == userId).ToListAsync();
+        }
+
 
         public async Task<Domain.RecipeAggregate.Recipe?> GetAsync(RecipeId id)
         {

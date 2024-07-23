@@ -1,24 +1,26 @@
-namespace Recipe.Domain.ValueObjects;
-using Recipe.Domain.Common.Models;
-public sealed class RecipeId : AggregateRootId<Guid>
+namespace Recipe.Domain.ValueObjects
 {
-
-    private RecipeId(Guid value) : base(value)
+    using global::Menu.Domain.Common.Models;
+    public sealed class RecipeId : AggregateRootId<Guid>
     {
-    }
 
-    public static RecipeId CreateUnique()
-    {
-        return new RecipeId(Guid.NewGuid());
-    }
+        private RecipeId(Guid value) : base(value)
+        {
+        }
 
-    public static RecipeId Create(Guid value)
-    {
-        return new RecipeId(value);
-    }
+        public static RecipeId CreateUnique()
+        {
+            return new RecipeId(Guid.NewGuid());
+        }
 
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+        public static RecipeId Create(Guid value)
+        {
+            return new RecipeId(value);
+        }
+
+        public override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
+        }
+        }
 }

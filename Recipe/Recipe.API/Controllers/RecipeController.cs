@@ -1,6 +1,5 @@
 namespace Recipe.API.Controllers
 {
-    using CleanArchitecture.Api.Controllers;
     using Mapster;
     using MapsterMapper;
     using MediatR;

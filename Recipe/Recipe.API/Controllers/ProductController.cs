@@ -1,6 +1,5 @@
 namespace Recipe.API.Controllers
 {
-    using CleanArchitecture.Api.Controllers;
     using ErrorOr;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;

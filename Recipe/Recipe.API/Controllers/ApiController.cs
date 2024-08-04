@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace CleanArchitecture.Api.Controllers;
+namespace Recipe.API.Controllers;
 
 [ApiController]
 public class ApiController : ControllerBase

@@ -4,15 +4,22 @@ namespace Menu.API
     {
         public static IServiceCollection AddGlobalErrorHandling(
         this IServiceCollection services)
-    {
-        services.AddProblemDetails(options =>
         {
-            options.CustomizeProblemDetails = context =>
+            services.AddProblemDetails(options =>
             {
-                context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
-            };
-        });
+                options.CustomizeProblemDetails = context =>
+                {
+                    context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
+                };
+            });
+            services.AddPresentation();
+            return services;
+        }
 
+        public static IServiceCollection AddPresentation(this IServiceCollection services)
+    {
+        //services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
+        //services.AddMappings();
         return services;
     }
     }

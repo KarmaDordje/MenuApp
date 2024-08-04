@@ -19,7 +19,7 @@ namespace Menu.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMenu([FromBody] CreateMenuCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateMenuCommand command)
         {
             var result = await _mediator.Send(command);
             return result.Match<IActionResult>(

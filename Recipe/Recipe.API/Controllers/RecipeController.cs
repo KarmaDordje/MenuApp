@@ -23,16 +23,22 @@ namespace Recipe.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
+        private readonly ILogger<RecipeController> _logger;
 
-        public RecipeController(IMapper mapper, ISender mediator)
+        public RecipeController(
+            IMapper mapper,
+            ISender mediator,
+            ILogger<RecipeController> logger)
     {
         _mapper = mapper;
         _mediator = mediator;
+        _logger = logger;
     }
 
         [HttpGet]
         public async Task<IActionResult> Get(string recipeId)
-        {
+        {   
+            _logger.LogInformation($"Getting recipe with id: {recipeId}");
             var query = _mapper.Map<RecipeQuery>(recipeId);
 
             var recipe = await _mediator.Send(query);

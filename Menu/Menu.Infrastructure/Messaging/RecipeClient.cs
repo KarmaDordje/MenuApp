@@ -14,7 +14,8 @@ public class RecipeClient
 
         public async Task<RecipeConsumerResponse> GetRecipesForUserAsync(RecipeConsumerRequest request)
     {
-        var response = await _client.GetResponse<RecipeConsumerResponse>(request);
+        var req = _client.Create(request);
+        var response = await req.GetResponse<RecipeConsumerResponse>();
 
         return response.Message;
     }

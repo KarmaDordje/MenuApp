@@ -51,12 +51,12 @@
                     var configuration = ConfigurationLoader.LoadConfiguration();
                     var rabbitMQSettings = configuration.GetSection("RabbitMQ").Get<RabbitMQSettings>();
 
-                    cfg.Host(new Uri($"rabbitmq://{rabbitMQSettings.Host}:5672"), h =>
+                    cfg.Host(new Uri($"rabbitmq://{rabbitMQSettings.Host}:5672"), "/", h =>
                     {
                         h.Username(rabbitMQSettings.Username);
                         h.Password(rabbitMQSettings.Password);
 
-                        cfg.ReceiveEndpoint("Recipe", e =>
+                        cfg.ReceiveEndpoint($"{typeof(DependencyInjection).Namespace}", e =>
                         {
                             e.ConfigureConsumer<GetRecipeConsumer>(context);
                         });

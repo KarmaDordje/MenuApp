@@ -41,12 +41,17 @@ namespace Menu.Infrastructure
                     {
                         h.Username(rabbitMQSettings.Username);
                         h.Password(rabbitMQSettings.Password);
+
+                        cfg.ReceiveEndpoint($"{typeof(DependencyInjection).Namespace}", e =>
+                        {
+
+                        });
                     });
                     cfg.ConfigureEndpoints(context);
                 });
             });
-
-            services.AddScoped<RecipeClient>();
+            services.AddMassTransitHostedService();
+            //services.AddScoped<RecipeClient>();
             return services;
         }
     }

@@ -2,6 +2,10 @@ namespace Recipe.API.Controllers
 {
     using Mapster;
     using MapsterMapper;
+
+    using MassTransit;
+
+
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +20,8 @@ namespace Recipe.API.Controllers
     using Recipe.Application.Recipes.Queries;
 
     using Recipe.Contracts.Recipes;
+    using Recipe.Contracts.Recipes.ConsumerContracts;
+
 
     [ApiController]
     [Route("api/[controller]")]
@@ -24,21 +30,25 @@ namespace Recipe.API.Controllers
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
         private readonly ILogger<RecipeController> _logger;
+        private readonly IBusControl _bus;
 
         public RecipeController(
             IMapper mapper,
             ISender mediator,
-            ILogger<RecipeController> logger)
+            ILogger<RecipeController> logger,
+            IBusControl bus)
     {
         _mapper = mapper;
         _mediator = mediator;
         _logger = logger;
+        _bus = bus;
     }
 
         [HttpGet]
         public async Task<IActionResult> Get(string recipeId)
         {   
             _logger.LogInformation($"Getting recipe with id: {recipeId}");
+            await _bus.Publish(new RecipeConsumerRequest { UserId = "cc0ba5fd-598f-4cd2-b834-fd9b2d61fa19" });
             var query = _mapper.Map<RecipeQuery>(recipeId);
 
             var recipe = await _mediator.Send(query);

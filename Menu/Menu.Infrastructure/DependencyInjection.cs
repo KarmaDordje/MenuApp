@@ -51,7 +51,7 @@ namespace Menu.Infrastructure
                 });
             });
             services.AddMassTransitHostedService();
-            //services.AddScoped<RecipeClient>();
+            services.AddScoped<RecipeClient>();
             return services;
         }
     }

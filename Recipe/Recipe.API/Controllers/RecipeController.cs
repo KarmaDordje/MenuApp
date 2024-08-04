@@ -46,9 +46,9 @@ namespace Recipe.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get(string recipeId)
-        {   
+        {
             _logger.LogInformation($"Getting recipe with id: {recipeId}");
-            await _bus.Publish(new RecipeConsumerRequest { UserId = "cc0ba5fd-598f-4cd2-b834-fd9b2d61fa19" });
+
             var query = _mapper.Map<RecipeQuery>(recipeId);
 
             var recipe = await _mediator.Send(query);

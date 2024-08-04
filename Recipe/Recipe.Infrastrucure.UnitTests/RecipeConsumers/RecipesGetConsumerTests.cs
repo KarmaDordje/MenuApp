@@ -14,13 +14,13 @@ namespace Recipe.Infrastructure.UnitTests.RecipeConsumers
     public class RecipesGetConsumerTests
     {
         private readonly Mock<IRecipeRepository> _recipeRepositoryMock;
-        private readonly Mock<ILogger<RecipeConsumer>> _loggerMock;
+        private readonly Mock<ILogger<GetRecipeConsumer>> _loggerMock;
         private readonly Mock<ConsumeContext<RecipeConsumerRequest>> _consumeContextMock;
 
         public RecipesGetConsumerTests()
         {
             _recipeRepositoryMock = new Mock<IRecipeRepository>();
-            _loggerMock = new Mock<ILogger<RecipeConsumer>>();
+            _loggerMock = new Mock<ILogger<GetRecipeConsumer>>();
             _consumeContextMock = new Mock<ConsumeContext<RecipeConsumerRequest>>();
         }
 
@@ -29,7 +29,7 @@ namespace Recipe.Infrastructure.UnitTests.RecipeConsumers
         {
             // Arrange
             var userId = "b4bd504b-032e-4d20-a061-a305635f4804";
-            var consumer = new RecipeConsumer(_recipeRepositoryMock.Object, _loggerMock.Object);
+            var consumer = new GetRecipeConsumer(_recipeRepositoryMock.Object, _loggerMock.Object);
             var request = new RecipeConsumerRequest { UserId = userId };
             _consumeContextMock.Setup(x => x.Message).Returns(request);
 

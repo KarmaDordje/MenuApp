@@ -11,9 +11,7 @@ namespace Recipe.Domain.RecipeAggregate.Entities
     {
         public string Title { get; private set; }
         private readonly List<RecipeIngredient> _ingredients = new ();
-        private readonly List<RecipeStep> _steps = new ();
         public IReadOnlyList<RecipeIngredient> Ingredients => _ingredients.AsReadOnly();
-        public IReadOnlyList<RecipeStep> Steps => _steps.AsReadOnly();
 
         private RecipeSection(
             RecipeSectionId recipeSectionId,

@@ -5,14 +5,14 @@ namespace Recipe.Infrastructure.Messaging
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Contracts.Recipes.ConsumerContracts;
 
-    public class RecipeConsumer : IConsumer<RecipeConsumerRequest>
+    public class GetRecipeConsumer : IConsumer<RecipeConsumerRequest>
     {
         private readonly IRecipeRepository _recipeRepository;
-        private readonly ILogger<RecipeConsumer> _logger;
+        private readonly ILogger<GetRecipeConsumer> _logger;
 
-        public RecipeConsumer(
+        public GetRecipeConsumer(
             IRecipeRepository recipeRepository,
-            ILogger<RecipeConsumer> logger)
+            ILogger<GetRecipeConsumer> logger)
         {
             _recipeRepository = recipeRepository;
             _logger = logger;

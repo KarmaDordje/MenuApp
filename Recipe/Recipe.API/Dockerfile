@@ -9,18 +9,18 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG TARGETARCH
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
-COPY ["Recipe.API/Recipe.API.csproj", "Recipe.API/"]
-COPY ["Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
-COPY ["Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
-COPY ["Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
-COPY ["Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
-RUN dotnet restore "./Recipe.API/Recipe.API.csproj" -a $TARGETARCH 
+COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
+COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
+COPY ["Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
+COPY ["Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
+COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
+RUN dotnet restore ".Recipe//Recipe.API/Recipe.API.csproj" -a $TARGETARCH 
 COPY . .
 WORKDIR "/src/Recipe.API"
-RUN dotnet build "./Recipe.API.csproj" -a $TARGETARCH -c Release -o /app/build
+RUN dotnet build "./Recipe/Recipe.API.csproj" -a $TARGETARCH -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Recipe.API.csproj" -a $TARGETARCH -c Release -o /app/publish
+RUN dotnet publish "./Recipe/Recipe.API.csproj" -a $TARGETARCH -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

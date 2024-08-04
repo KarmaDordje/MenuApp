@@ -17,10 +17,10 @@ COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
 RUN dotnet restore "./Recipe.API/Recipe.API.csproj"
 COPY . .
 WORKDIR "/src/Recipe.API"
-RUN dotnet build "Recipe.API.csproj" -c Release -o /app/build
+RUN dotnet build "Recipe.API/Recipe.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Recipe.API/Recipe.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

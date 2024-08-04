@@ -16,8 +16,7 @@
     using Recipe.Infrastructure.Persistence.Repositories;
 
     public static class DependencyInjection
-    {   
-        
+    {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddSingleton<INutritionClient, NutritionApiClient>(provider =>

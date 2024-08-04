@@ -1,7 +1,7 @@
 namespace Recipe.Domain.RecipeAggregate.Entities
 {
-    using Domain.Common.Models;
-    using Domain.ValueObjects;
+    using global:: Recipe.Domain.Common.Models;
+    using global::Recipe.Domain.ValueObjects;
     public class RecipeStep : Entity<RecipeStepId>
     {
         public int Order { get; private set; }

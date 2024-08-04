@@ -5,37 +5,37 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RecipeMicroservice", "RecipeMicroservice", "{B3A3B3F7-3080-438D-9889-8419C438C19B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.Infrastructure", "Recipe.Infrastructure\Recipe.Infrastructure.csproj", "{0B314331-B730-4417-AA26-51041B29673A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.Infrastructure", "Recipe\Recipe.Infrastructure\Recipe.Infrastructure.csproj", "{0B314331-B730-4417-AA26-51041B29673A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.Domain", "Recipe.Domain\Recipe.Domain.csproj", "{AD382248-3C4C-4741-8032-36E31A9EA6F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.Domain", "Recipe\Recipe.Domain\Recipe.Domain.csproj", "{AD382248-3C4C-4741-8032-36E31A9EA6F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Application", "Recipe.Application\Recipe.Application.csproj", "{056F4810-165A-4873-8681-DF18069FA9E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Application", "Recipe\Recipe.Application\Recipe.Application.csproj", "{056F4810-165A-4873-8681-DF18069FA9E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.API", "Recipe.API\Recipe.API.csproj", "{041CCAE2-708E-4DA2-A7D2-86682164C6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recipe.API", "Recipe\Recipe.API\Recipe.API.csproj", "{041CCAE2-708E-4DA2-A7D2-86682164C6B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Contracts", "Recipe.Contracts\Recipe.Contracts.csproj", "{3EFB6E7D-AA19-4FE2-98CE-1B09E4FC7672}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Contracts", "Recipe\Recipe.Contracts\Recipe.Contracts.csproj", "{3EFB6E7D-AA19-4FE2-98CE-1B09E4FC7672}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0ABEE580-3C90-4A73-BB1D-AA3F0BB6B900}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{AB42B658-26EB-4123-AFE2-1481DFC43547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Application.UnitTests", "Recipe.Application.UnitTests\Recipe.Application.UnitTests.csproj", "{D807EFC6-25C7-4D3E-89CF-92FFD7F5A5AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Application.UnitTests", "Recipe\Recipe.Application.UnitTests\Recipe.Application.UnitTests.csproj", "{D807EFC6-25C7-4D3E-89CF-92FFD7F5A5AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MenuMicroservice", "MenuMicroservice", "{7F49C5C2-DD59-4BA9-8121-293AC703B5AD}"
 	ProjectSection(SolutionItems) = preProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.API", "Menu.API\Menu.API.csproj", "{FCFF820F-7C7A-4352-B949-858DC5D6E31F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.API", "Menu\Menu.API\Menu.API.csproj", "{FCFF820F-7C7A-4352-B949-858DC5D6E31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Application", "Menu.Application\Menu.Application.csproj", "{53C5AA03-D847-4A8C-A3D8-3236E63D9245}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Application", "Menu\Menu.Application\Menu.Application.csproj", "{53C5AA03-D847-4A8C-A3D8-3236E63D9245}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Contracts", "Menu.Contracts\Menu.Contracts.csproj", "{AF70C950-D678-405A-AE4F-0E6F59472865}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Contracts", "Menu\Menu.Contracts\Menu.Contracts.csproj", "{AF70C950-D678-405A-AE4F-0E6F59472865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Domain", "Menu.Domain\Menu.Domain.csproj", "{98A87FB9-31C6-4B26-81BF-E00E7E3B08B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Domain", "Menu\Menu.Domain\Menu.Domain.csproj", "{98A87FB9-31C6-4B26-81BF-E00E7E3B08B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Infrastructure", "Menu.Infrastructure\Menu.Infrastructure.csproj", "{51AF5116-1553-45C5-AB25-A85E9461BBAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menu.Infrastructure", "Menu\Menu.Infrastructure\Menu.Infrastructure.csproj", "{51AF5116-1553-45C5-AB25-A85E9461BBAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Infrastrucure.UnitTests", "Recipe.Infrastrucure.UnitTests\Recipe.Infrastrucure.UnitTests.csproj", "{42270D12-3D7B-44F4-BC03-D2684907A84E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Infrastrucure.UnitTests", "Recipe\Recipe.Infrastrucure.UnitTests\Recipe.Infrastrucure.UnitTests.csproj", "{42270D12-3D7B-44F4-BC03-D2684907A84E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

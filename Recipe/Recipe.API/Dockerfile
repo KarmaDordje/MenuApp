@@ -14,7 +14,7 @@ COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
 COPY ["Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
 COPY ["Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
 COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
-RUN dotnet restore ".Recipe/Recipe.API/Recipe.API.csproj"
+RUN dotnet restore "./Recipe/Recipe.API/Recipe.API.csproj"
 COPY . .
 WORKDIR "/src/Recipe.API"
 RUN dotnet build "./Recipe/Recipe.API.csproj" -c Release -o /app/build

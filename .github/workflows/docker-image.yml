@@ -33,8 +33,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
-        platforms: linux/amd64
         context: .
         file: ./Recipe/Recipe.API/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/recipe-api-linux:latest
+        platforms: linux/amd64
+        build-args: |
+          TARGETARCH=linux/amd64

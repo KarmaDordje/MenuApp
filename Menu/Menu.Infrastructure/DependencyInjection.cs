@@ -1,8 +1,13 @@
 namespace Menu.Infrastructure
 {
     using MassTransit;
+
+    using Menu.Contracts.Recipies.Consumers;
+
     using Menu.Domain.MenuAggregate;
     using Menu.Infrastructure.Common;
+    using Menu.Infrastructure.Messaging;
+
     using Menu.Infrastructure.Persistance;
     using Menu.Infrastructure.Repositories;
     using Microsoft.EntityFrameworkCore;
@@ -21,11 +26,11 @@ namespace Menu.Infrastructure
             return services;
         }
 
-         public static IServiceCollection AddMessageBus(this IServiceCollection services)
+        public static IServiceCollection AddMessageBus(this IServiceCollection services)
         {
             services.AddMassTransit(x =>
             {
-
+                x.AddRequestClient<RecipeConsumerRequest>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     // Retrieve RabbitMQ configuration from IConfiguration
@@ -37,10 +42,11 @@ namespace Menu.Infrastructure
                         h.Username(rabbitMQSettings.Username);
                         h.Password(rabbitMQSettings.Password);
                     });
-
                     cfg.ConfigureEndpoints(context);
                 });
             });
+
+            services.AddScoped<RecipeClient>();
             return services;
         }
     }

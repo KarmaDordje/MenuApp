@@ -23,7 +23,7 @@ namespace Recipe.Infrastructure.Messaging
             var recipe = await _recipeRepository.GetAllUserRecipes(context.Message.UserId);
             _logger.LogInformation($"Recipe received for UserId: {context.Message.UserId}");
 
-            await context.RespondAsync(new RecipeConsumerResponse { Recipe = recipe.ToList() });
+            await context.RespondAsync(new RecipeConsumerResponse { Recipe = recipe.Select(r => r.Name).ToList() });
         }
     }
 }

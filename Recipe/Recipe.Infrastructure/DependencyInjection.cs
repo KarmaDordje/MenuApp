@@ -55,6 +55,11 @@
                     {
                         h.Username(rabbitMQSettings.Username);
                         h.Password(rabbitMQSettings.Password);
+
+                        cfg.ReceiveEndpoint("Recipe", e =>
+                        {
+                            e.ConfigureConsumer<GetRecipeConsumer>(context);
+                        });
                     });
 
                     cfg.ConfigureEndpoints(context);

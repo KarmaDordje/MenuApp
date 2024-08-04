@@ -2,8 +2,8 @@ namespace Menu.Application
 {
     using System.Reflection;
     using FluentValidation;
+    using global::Menu.Application.Common.Behaviors;
     using MediatR;
-    using Menu.Application.Common.Behaviors;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class DependencyInjection

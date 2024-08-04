@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menu.Domain\Menu.Domain.csproj" />
+    <ProjectReference Include="..\Menu.Contracts\Menu.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

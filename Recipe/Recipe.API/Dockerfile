@@ -6,7 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-
+ARG TARGETARCH
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
 COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
@@ -14,13 +14,14 @@ COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
 COPY ["Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
 COPY ["Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
 COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
-RUN dotnet restore "./Recipe.API/Recipe.API.csproj"
+RUN dotnet restore "./Recipe.API/Recipe.API.csproj" 
+
 COPY . .
-WORKDIR "/src/Recipe.API"
-RUN dotnet build "Recipe.API/Recipe.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Recipe/Recipe.API/"
+RUN dotnet build "Recipe.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Recipe.API/Recipe.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

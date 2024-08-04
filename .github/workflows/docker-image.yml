@@ -39,4 +39,4 @@ jobs:
         tags: ${{ secrets.DOCKER_USERNAME }}/recipe-api-linux:latest
         platforms: linux/amd64
         build-args: |
-          TARGETARCH=linux/amd64
+          VERSION=${{ github.sha }}

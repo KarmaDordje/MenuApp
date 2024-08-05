@@ -18,7 +18,7 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
 
     public async Task<ErrorOr<Unit>> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
     {
-        var req = new RecipeConsumerRequest { UserId = Guid.Parse(request.UserId) };
+        var req = new global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest { UserId = request.UserId };
         var response = await _recipeClient.GetRecipesForUserAsync(req);
         throw new NotImplementedException();
     }

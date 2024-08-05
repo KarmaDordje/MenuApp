@@ -5,17 +5,17 @@ namespace Menu.Infrastructure.Messaging;
 
 public class RecipeClient
     {
-        private readonly IRequestClient<RecipeConsumerRequest> _client;
+        private readonly IRequestClient<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest> _client;
 
-        public RecipeClient(IRequestClient<RecipeConsumerRequest> client)
+        public RecipeClient(IRequestClient<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest> client)
         {
             _client = client;
         }
 
-        public async Task<RecipeConsumerResponse> GetRecipesForUserAsync(RecipeConsumerRequest request)
+        public async Task<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerResponse> GetRecipesForUserAsync(global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest request)
     {
         var req = _client.Create(request);
-        var response = await req.GetResponse<RecipeConsumerResponse>();
+        var response = await req.GetResponse<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerResponse>();
 
         return response.Message;
     }

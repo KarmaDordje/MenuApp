@@ -50,7 +50,7 @@ namespace Menu.Infrastructure
                     cfg.ConfigureEndpoints(context);
                 });
             });
-            services.AddMassTransitHostedService();
+            //services.AddMassTransitHostedService();
             services.AddScoped<RecipeClient>();
             return services;
         }

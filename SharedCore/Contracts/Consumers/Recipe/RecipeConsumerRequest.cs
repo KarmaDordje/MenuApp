@@ -1,4 +1,4 @@
-namespace Menu.Contracts.Recipies.Consumers;
+namespace SharedCore.Contracts.Consumers.Recipe;
 
 public class RecipeConsumerRequest
 {

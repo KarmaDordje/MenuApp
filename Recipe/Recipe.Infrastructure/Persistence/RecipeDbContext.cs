@@ -24,7 +24,8 @@ namespace Recipe.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
+            optionsBuilder
+            .AddInterceptors(_publishDomainEventsInterceptor);
         }
     }
 }

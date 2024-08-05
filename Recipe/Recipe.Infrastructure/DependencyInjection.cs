@@ -77,7 +77,7 @@
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
-            services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString, op => op.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             return services;
         }
     }

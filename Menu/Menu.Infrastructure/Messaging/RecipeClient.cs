@@ -1,21 +1,21 @@
 namespace Menu.Infrastructure.Messaging;
 
     using MassTransit;
-    using Menu.Contracts.Recipies.Consumers;
+    using SharedCore.Contracts.Consumers.Recipe;
 
 public class RecipeClient
     {
-        private readonly IRequestClient<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest> _client;
+        private readonly IRequestClient<RecipeConsumerRequest> _client;
 
-        public RecipeClient(IRequestClient<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest> client)
+        public RecipeClient(IRequestClient<RecipeConsumerRequest> client)
         {
             _client = client;
         }
 
-        public async Task<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerResponse> GetRecipesForUserAsync(global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest request)
+        public async Task<List<RecipeConsumerResponse>> GetRecipesForUserAsync(RecipeConsumerRequest request)
     {
         var req = _client.Create(request);
-        var response = await req.GetResponse<global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerResponse>();
+        var response = await req.GetResponse<List<RecipeConsumerResponse>>();
 
         return response.Message;
     }

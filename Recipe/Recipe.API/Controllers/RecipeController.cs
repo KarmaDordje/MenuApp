@@ -2,25 +2,17 @@ namespace Recipe.API.Controllers
 {
     using Mapster;
     using MapsterMapper;
-
     using MassTransit;
-
-
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
-
     using Recipe.Application.Recipes;
     using Recipe.Application.Recipes.Commands.AddRecipeSection;
-
     using Recipe.Application.Recipes.Commands.AddRecipeStep;
-
     using Recipe.Application.Recipes.Commands.CreateRecipe;
     using Recipe.Application.Recipes.Commands.DeleteIngredient;
     using Recipe.Application.Recipes.Commands.DeleteRecipeStep;
     using Recipe.Application.Recipes.Queries;
-
     using Recipe.Contracts.Recipes;
-    using Recipe.Contracts.Recipes.ConsumerContracts;
 
 
     [ApiController]

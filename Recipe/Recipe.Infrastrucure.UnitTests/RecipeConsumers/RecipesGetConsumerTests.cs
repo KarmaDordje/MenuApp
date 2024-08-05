@@ -6,8 +6,8 @@ namespace Recipe.Infrastructure.UnitTests.RecipeConsumers
     using Microsoft.Extensions.Logging;
     using Moq;
     using Recipe.Application.Common.Interfaces.Persistence;
-    using Recipe.Contracts.Recipes.ConsumerContracts;
     using Recipe.Infrastructure.Messaging;
+    using SharedCore.Contracts.Consumers.Recipe;
 
     using Xunit;
 

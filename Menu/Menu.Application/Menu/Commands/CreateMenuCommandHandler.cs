@@ -3,9 +3,9 @@ namespace Menu.Application.Menu.Commands;
 using System.Threading;
 using System.Threading.Tasks;
 using ErrorOr;
-using global::Menu.Contracts.Recipies.Consumers;
 using global::Menu.Infrastructure.Messaging;
 using MediatR;
+using SharedCore.Contracts.Consumers.Recipe;
 
 public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, ErrorOr<Unit>>
 {
@@ -18,7 +18,7 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
 
     public async Task<ErrorOr<Unit>> Handle(CreateMenuCommand request, CancellationToken cancellationToken)
     {
-        var req = new global::Recipe.Contracts.Recipes.ConsumerContracts.RecipeConsumerRequest { UserId = request.UserId };
+        var req = new RecipeConsumerRequest { UserId = request.UserId };
         var response = await _recipeClient.GetRecipesForUserAsync(req);
         throw new NotImplementedException();
     }

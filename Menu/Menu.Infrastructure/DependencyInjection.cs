@@ -1,9 +1,6 @@
 namespace Menu.Infrastructure
 {
     using MassTransit;
-
-    using Menu.Contracts.Recipies.Consumers;
-
     using Menu.Domain.MenuAggregate;
     using Menu.Infrastructure.Common;
     using Menu.Infrastructure.Messaging;
@@ -13,6 +10,7 @@ namespace Menu.Infrastructure
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using SharedCore.Contracts.Consumers.Recipe;
 
     public static class DependencyInjection
     {

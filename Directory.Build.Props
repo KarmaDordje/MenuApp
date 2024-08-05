@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ThreatWarningsAsErrors>true</ThreatWarningsAsErrors>
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>enable</Nullable>

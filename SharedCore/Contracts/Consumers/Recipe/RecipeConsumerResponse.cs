@@ -1,7 +1,7 @@
 namespace SharedCore.Contracts.Consumers.Recipe;
 using System;
 
-public class RecipeConsumerRequest
+public class RecipeConsumerResponse
 {
     public string RecipeName { get; set; }
     public string RecipeId { get; set; }

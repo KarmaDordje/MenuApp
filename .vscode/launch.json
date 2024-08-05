@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Recipe/Recipe.API/bin/Debug/net7.0/Recipe.API.dll",
+            "program": "${workspaceFolder}/Recipe/Recipe.API/bin/Debug/net8.0/Recipe.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Recipe/Recipe.API",
             "stopAtEntry": false,

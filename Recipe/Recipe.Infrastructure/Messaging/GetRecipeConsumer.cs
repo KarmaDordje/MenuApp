@@ -3,10 +3,7 @@ namespace Recipe.Infrastructure.Messaging
     using MassTransit;
     using Microsoft.Extensions.Logging;
     using Recipe.Application.Common.Interfaces.Persistence;
-    using SharedCore.Contracts;
     using SharedCore.Contracts.Consumers.Recipe;
-
-
     public class GetRecipeConsumer : IConsumer<RecipeConsumerRequest>
     {
         private readonly IRecipeRepository _recipeRepository;
@@ -24,7 +21,7 @@ namespace Recipe.Infrastructure.Messaging
         {
             var recipe = await _recipeRepository.GetAllUserRecipes(context.Message.UserId);
             _logger.LogInformation($"Recipe received for UserId: {context.Message.UserId}");
-            var result = recipe.Select(r => new RecipeConsumerResponse{
+            var result = recipe.Select(r => new Recipe{
                 RecipeName = r.Name,
                 RecipeId = r.Id.Value.ToString(),
                 AvarageRating = (decimal)r.AvarageRating,
@@ -33,7 +30,10 @@ namespace Recipe.Infrastructure.Messaging
                 UserId = r.UserId
             }).ToList();
  
-            await context.RespondAsync(result);
+            await context.RespondAsync(new RecipeConsumerResponse
+            {
+                Recipes = result
+            });
         }
     }
 }

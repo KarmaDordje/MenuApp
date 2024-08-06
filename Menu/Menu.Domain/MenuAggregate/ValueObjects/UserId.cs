@@ -1,10 +1,13 @@
 namespace Menu.Domain.MenuAggregate
 {
     using global::Menu.Domain.Common.Models;
-    public sealed class UserId : AggregateRootId<Guid>
+    public class UserId : ValueObject
     {
-        private UserId(Guid value) : base(value)
+        public Guid Value { get; private set; }
+
+        public UserId(Guid value)
         {
+            Value = value;
         }
 
         public static UserId CreateUnique()

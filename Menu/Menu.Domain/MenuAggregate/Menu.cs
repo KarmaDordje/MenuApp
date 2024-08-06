@@ -7,7 +7,6 @@ namespace Menu.Domain.MenuAggregate
     public sealed class Menu : AggregateRoot<MenuId, Guid>
     {
         private readonly List<MenuDay> _menuDays = new List<MenuDay>();
-
         public string Name { get; private set; }
         public string Description { get; private set; }
         public UserId UserId { get; private set; }
@@ -29,20 +28,21 @@ namespace Menu.Domain.MenuAggregate
         public static Menu Create(
             string name,
             string description,
-            UserId userIds)
+            UserId userId,
+            List<MenuDay>? menuDays = null)
         {
             var menu = new Menu(
                 MenuId.CreateUnique(),
                 name,
                 description,
-                userIds,
-                new ());
+                userId,
+                menuDays ?? new ());
             return menu;
         }
 
         // for EF Core purposes
 #pragma warning disable CS8618
-        public Menu()
+        private Menu()
         {
         }
 #pragma warning restore CS8618

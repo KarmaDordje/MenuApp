@@ -1,6 +1,6 @@
 namespace Menu.Domain.Common.Models
 {
-    public interface IhasDomainEvents
+    public interface IHasDomainEvents
     {
         public IReadOnlyList<IDomainEvent> DomainEvents { get; }
         public void ClearDomainEvents();

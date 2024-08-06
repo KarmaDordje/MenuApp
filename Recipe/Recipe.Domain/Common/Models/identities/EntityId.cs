@@ -1,5 +1,3 @@
-using Recipe.Domain.Common.Models;
-
 namespace Recipe.Domain.Common.Models;
 
 public abstract class EntityId<TId> : ValueObject

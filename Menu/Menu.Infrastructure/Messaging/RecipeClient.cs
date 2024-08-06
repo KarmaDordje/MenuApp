@@ -12,10 +12,10 @@ public class RecipeClient
             _client = client;
         }
 
-        public async Task<List<RecipeConsumerResponse>> GetRecipesForUserAsync(RecipeConsumerRequest request)
+        public async Task<RecipeConsumerResponse> GetRecipesForUserAsync(RecipeConsumerRequest request)
     {
         var req = _client.Create(request);
-        var response = await req.GetResponse<List<RecipeConsumerResponse>>();
+        var response = await req.GetResponse<RecipeConsumerResponse>();
 
         return response.Message;
     }

@@ -1,5 +1,8 @@
 namespace Menu.Infrastructure.Persistance
 {
+    using Menu.Domain.MenuAggregate.ValueObjects;
+
+
     using Microsoft.EntityFrameworkCore;
     public class MenuDbContext : DbContext
     {

@@ -5,9 +5,7 @@ namespace Menu.Domain.MenuAggregate.Entities
     using global::Menu.Domain.MenuAggregate.ValueObjects;
 
     public class Meal : Entity<MealId>
-    {   
-        public MenuId MenuId { get; private set; }
-        public MenuDayId MenuDayId { get; private set; }
+    {
         public string RecipeName { get; private set; }
         public string RecipeDescription { get; private set; }
         public string RecipeImageUrl { get; private set; }
@@ -15,16 +13,13 @@ namespace Menu.Domain.MenuAggregate.Entities
         public MealType MealType { get; private set; }
 
         private Meal(
-            MenuId menuId,
-            MenuDayId menuDayId,
             string recipeName,
             string recipeDescription,
             string recipeImageUrl,
-            UserId userId)
-            : base(MealId.CreateUnique())
-        {   
-            MenuId = menuId;
-            MenuDayId = menuDayId;
+            UserId userId,
+            MealId? id = null)
+            : base(id ?? MealId.CreateUnique())
+        {
             RecipeName = recipeName;
             RecipeDescription = recipeDescription;
             RecipeImageUrl = recipeImageUrl;
@@ -32,21 +27,24 @@ namespace Menu.Domain.MenuAggregate.Entities
         }
 
         public static Meal Create(
-            MenuId menuId,
-            MenuDayId menuDayId,
             string recipeName,
             string recipeDescription,
             string recipeImageUrl,
             UserId userId)
         {
             var meal = new Meal(
-                menuId,
-                menuDayId,
                 recipeName,
                 recipeDescription,
                 recipeImageUrl,
                 userId);
             return meal;
         }
+
+        #pragma warning disable CS8618
+        private Meal()
+        {
+        }
+        #pragma warning restore CS8618
     }
+
 }

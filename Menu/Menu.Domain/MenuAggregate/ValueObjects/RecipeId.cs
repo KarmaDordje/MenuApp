@@ -1,11 +1,13 @@
 namespace Recipe.Domain.ValueObjects
 {
     using global::Menu.Domain.Common.Models;
-    public sealed class RecipeId : AggregateRootId<Guid>
+    public class RecipeId : ValueObject
     {
+        public Guid Value { get; private set; }
 
-        private RecipeId(Guid value) : base(value)
+        public RecipeId(Guid value)
         {
+            Value = value;
         }
 
         public static RecipeId CreateUnique()
@@ -22,5 +24,5 @@ namespace Recipe.Domain.ValueObjects
         {
             yield return Value;
         }
-        }
+    }
 }

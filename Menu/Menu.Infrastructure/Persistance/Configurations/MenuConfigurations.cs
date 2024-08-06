@@ -5,16 +5,18 @@ namespace Menu.Infrastructure.Persistance.Configurations
     using Menu.Domain.MenuAggregate.ValueObjects;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 
     public class MenuConfigurations : IEntityTypeConfiguration<Menu>
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
             ConfigureMenusTable(builder);
-            ConfigureMenuDayesTable(builder);
+            ConfigureMenuDaysTable(builder);
         }
 
-        private static void ConfigureMenuDayesTable(EntityTypeBuilder<Menu> builder)
+        private static void ConfigureMenuDaysTable(EntityTypeBuilder<Menu> builder)
         {
             builder.OwnsMany(m => m.MenuDays, menuDay =>
             {
@@ -25,6 +27,7 @@ namespace Menu.Infrastructure.Persistance.Configurations
                 menuDay.HasKey("Id", "MenuId");
 
                 menuDay.Property(x => x.Id)
+                    .HasColumnName("MenuDayId")
                     .ValueGeneratedNever()
                     .HasConversion(
                         id => id.Value,
@@ -41,7 +44,7 @@ namespace Menu.Infrastructure.Persistance.Configurations
 
                     meal.WithOwner().HasForeignKey("MenuDayId", "MenuId");
 
-                    meal.HasKey(nameof(Meal.Id), "Id", "MenuDayId");
+                    meal.HasKey(nameof(Meal.Id), "MenuDayId", "MenuId");
 
                     meal.Property(x => x.Id)
                         .HasColumnName("MealId")
@@ -64,8 +67,15 @@ namespace Menu.Infrastructure.Persistance.Configurations
                             id => id.Value,
                             value => UserId.Create(value));
                 });
+
+                menuDay.Navigation(m => m.Meals).Metadata.SetField("_meals");
+                menuDay.Navigation(m => m.Meals).UsePropertyAccessMode(PropertyAccessMode.Field);
             });
+
+            builder.Metadata.FindNavigation(nameof(Menu.MenuDays))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
         }
+
         private static void ConfigureMenusTable(EntityTypeBuilder<Menu> builder)
         {
             builder.ToTable("Menus");
@@ -76,7 +86,8 @@ namespace Menu.Infrastructure.Persistance.Configurations
                 .ValueGeneratedNever()
                 .HasConversion(
                     id => id.Value,
-                    value => MenuId.Create(value));
+                    value => MenuId.Create(value)
+                );
 
             builder.Property(x => x.Name)
                 .HasMaxLength(100);

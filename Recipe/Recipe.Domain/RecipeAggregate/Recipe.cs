@@ -1,6 +1,7 @@
 namespace Recipe.Domain.RecipeAggregate;
 
 using global::Recipe.Domain.Common.Models;
+using global::Recipe.Domain.Common.Shared;
 using global::Recipe.Domain.IngredientAggregate.ValueObjects;
 using global::Recipe.Domain.RecipeAggregate.Entities;
 using global::Recipe.Domain.RecipeAggregate.ValueObjects;
@@ -10,6 +11,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
 {
     private readonly List<RecipeSection> _recipeSections = new ();
     private readonly List<RecipeStep> _recipeSteps = new ();
+    private readonly List<RecipeTag> _recipeTags = new ();
 
     public string Name { get; private set; }
     public string UserId { get; private set; }
@@ -19,6 +21,8 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     public string VideoUrl { get; private set; }
     public IReadOnlyList<RecipeSection> RecipeSections => _recipeSections.AsReadOnly();
     public IReadOnlyList<RecipeStep> RecipeSteps => _recipeSteps.AsReadOnly();
+    public IReadOnlyList<RecipeTag> RecipeTags => _recipeTags.AsReadOnly();
+    public Category Category { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
@@ -30,10 +34,12 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         float avarageRating,
         string image,
         string videoUrl,
+        Category category,
         DateTime createdAt,
         DateTime updatedAt,
         List<RecipeSection> sections,
-        List<RecipeStep> steps)
+        List<RecipeStep> steps,
+        List<RecipeTag> tags)
         : base(recipeId)
     {
         Name = name;
@@ -42,15 +48,18 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         AvarageRating = avarageRating;
         ImageUrl = image;
         VideoUrl = videoUrl;
+        Category = category;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         _recipeSections = sections;
         _recipeSteps = steps;
+        _recipeTags = tags;
     }
 
     public static Recipe Create(
         string name,
-        string userId)
+        string userId,
+        Category category)
     {
         var recipe = new Recipe(
             RecipeId.CreateUnique(),
@@ -60,8 +69,10 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
             0,
             string.Empty,
             string.Empty,
+            category,
             DateTime.Now.ToUniversalTime(),
             DateTime.Now.ToUniversalTime(),
+            new (),
             new (),
             new ());
         return recipe;
@@ -132,6 +143,11 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
         }
 
         _recipeSteps.Remove(step);
+    }
+
+    public void AddRecipeTag(RecipeTag tag)
+    {
+        _recipeTags.Add(tag);
     }
 
 #pragma warning disable CS8618

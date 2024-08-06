@@ -3,6 +3,7 @@ namespace Recipe.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+using Recipe.Domain.Common.Shared;
 using Recipe.Domain.IngredientAggregate;
 
 using Recipe.Domain.IngredientAggregate.ValueObjects;
@@ -16,6 +17,7 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
         ConfigureRecipeTable(builder);
         ConfigureRecipeStepTable(builder);
         ConfigureRecipeSectionTable(builder);
+        ConfigureRecipeTagTable(builder);
     }
 
     private static void ConfigureRecipeSectionTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
@@ -65,6 +67,28 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
         builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeSections)) !
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
+    }
+
+    private static void ConfigureRecipeTagTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
+    {
+        builder.OwnsMany(s => s.RecipeTags, rt =>
+        {
+            rt.ToTable("RecipeTags");
+
+            rt.WithOwner().HasForeignKey("RecipeId");
+
+            rt.HasKey("Id");
+
+            rt.Property(s => s.Id)
+                .HasColumnName("RecipeTagId")
+                .ValueGeneratedNever()
+                .HasConversion(
+                    id => id.Value,
+                    value => Domain.ValueObjects.TagId.Create(value));
+        });
+
+        builder.Metadata.FindNavigation(nameof(Domain.RecipeAggregate.Recipe.RecipeTags)) !
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
     private static void ConfigureRecipeStepTable(EntityTypeBuilder<Domain.RecipeAggregate.Recipe> builder)
@@ -123,6 +147,11 @@ public class RecipeConfigurations : IEntityTypeConfiguration<Domain.RecipeAggreg
             .HasMaxLength(100);
 
         builder.Property(r => r.UserId);
+
+        builder.Property(r => r.Category)
+            .HasConversion(
+                v => (int)v,
+                v => (Category)v);
 
         builder.Property(r => r.CreatedAt);
 

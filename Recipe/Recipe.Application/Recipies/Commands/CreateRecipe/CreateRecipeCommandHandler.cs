@@ -22,7 +22,8 @@ namespace Recipe.Application.Recipes.Commands.CreateRecipe
         {
             var recipe = Domain.RecipeAggregate.Recipe.Create(
                 request.Name,
-                request.UserId);
+                request.UserId,
+                request.Category);
             var recipeSection = RecipeSection.Create(request.SectionName ?? string.Empty, new List<RecipeIngredient>());
             recipe.AddRecipeSection(recipeSection);
             await _recipeRepository.AddAsync(recipe);

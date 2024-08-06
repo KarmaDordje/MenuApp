@@ -4,6 +4,9 @@ namespace Recipe.Infrastructure.Messaging
     using Microsoft.Extensions.Logging;
     using Recipe.Application.Common.Interfaces.Persistence;
     using SharedCore.Contracts.Consumers.Recipe;
+    using SharedCore.Enums;
+
+
     public class GetRecipeConsumer : IConsumer<RecipeConsumerRequest>
     {
         private readonly IRecipeRepository _recipeRepository;
@@ -27,7 +30,8 @@ namespace Recipe.Infrastructure.Messaging
                 AvarageRating = (decimal)r.AvarageRating,
                 ImageUrl = r.ImageUrl,
                 CreatedAt = r.CreatedAt,
-                UserId = r.UserId
+                UserId = r.UserId,
+                Category = (Category)r.Category,
             }).ToList();
  
             await context.RespondAsync(new RecipeConsumerResponse

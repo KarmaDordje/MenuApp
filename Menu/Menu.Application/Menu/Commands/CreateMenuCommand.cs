@@ -8,6 +8,7 @@ namespace Menu.Application.Menu.Commands
     public class CreateMenuCommand : IRequest<ErrorOr<Unit>>
     {
         public string UserId { get; set; }
+        public int Days { get; set; }
     }
 
 }

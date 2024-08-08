@@ -1,0 +1,33 @@
+name: Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - master  # Trigger the workflow on push to the main branch
+  workflow_dispatch: # Allows the workflow to be manually triggered
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+    - name: Pull Docker image
+      run: docker pull okarkach1989/recipe-api-linux:latest
+
+    - name: Stop and remove previous container
+      run: |
+        if [ "$(docker ps -q -f name=recipe-api)" ]; then
+          docker stop your_container_name
+        fi
+        if [ "$(docker ps -a -q -f name=recipe-api)" ]; then
+          docker rm recipe-api
+        fi
+
+    - name: Run the latest Docker image
+      run: docker run -d -p 5000:8080 --name recipe-api okarkach1989/recipe-api-linux:latest

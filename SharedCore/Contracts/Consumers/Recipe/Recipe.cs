@@ -39,6 +39,8 @@ namespace SharedCore.Contracts.Consumers.Recipe
         /// </summary>
         public string UserId { get; set; }
 
+        public string RecipeDescription { get; set; }
+
         /// <summary>
         /// Gets or sets the category of the recipe.
         /// </summary>

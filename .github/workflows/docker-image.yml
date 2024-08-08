@@ -45,11 +45,13 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const response = await github.actions.createWorkflowDispatch({
+          const workflow_id = 'deploy-docker-image.yml';
+          const ref = 'master';  // or the branch you want to trigger on
+          
+          await github.rest.actions.createWorkflowDispatch({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            workflow_id: 'deploy-docker-image.yml',
-            ref: context.ref,
+            workflow_id: workflow_id,
+            ref: ref,
           });
-          console.log(response);
     

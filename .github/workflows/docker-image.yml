@@ -41,17 +41,19 @@ jobs:
         build-args: |
           VERSION=${{ github.sha }}
     
-    - name: Trigger Deploy Workflow
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const workflow_id = 'deploy-docker-image.yml';
-          const ref = 'master';  // or the branch you want to trigger on
-          
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: workflow_id,
-            ref: ref,
-          });
+   - name: Trigger Deploy Workflow
+  uses: actions/github-script@v6
+  with:
+    script: |
+      const workflow_id = 'deploy-docker-image.yml';
+      const ref = 'master';
+
+      await github.rest.actions.createWorkflowDispatch({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        workflow_id: workflow_id,
+        ref: ref,
+      });
+  env:
+    GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     

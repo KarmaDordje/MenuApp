@@ -48,7 +48,7 @@ jobs:
           const response = await github.actions.createWorkflowDispatch({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            workflow_id: 'deploy-docker-image.yml', # The filename of your child workflow
+            workflow_id: 'deploy-docker-image.yml',
             ref: context.ref,
           });
           console.log(response);

@@ -1,19 +1,13 @@
 name: Deploy Docker Image
 
 on:
-  push:
-    branches:
-      - master 
-  workflow_dispatch: # Allows the workflow to be manually triggered
+  workflow_dispatch: # This allows the workflow to be triggered by the parent workflow
 
 jobs:
   deploy:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
@@ -23,7 +17,7 @@ jobs:
     - name: Stop and remove previous container
       run: |
         if [ "$(docker ps -q -f name=recipe-api)" ]; then
-          docker stop your_container_name
+          docker stop recipe-api
         fi
         if [ "$(docker ps -a -q -f name=recipe-api)" ]; then
           docker rm recipe-api

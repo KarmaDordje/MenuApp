@@ -40,3 +40,16 @@ jobs:
         platforms: linux/amd64
         build-args: |
           VERSION=${{ github.sha }}
+    
+    - name: Trigger Deploy Workflow
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const response = await github.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: 'deploy-docker-image.yml', # The filename of your child workflow
+            ref: context.ref,
+          });
+          console.log(response);
+    

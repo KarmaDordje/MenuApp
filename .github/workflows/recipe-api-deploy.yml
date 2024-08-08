@@ -1,7 +1,8 @@
 name: Deploy Docker Image
 
 on:
-  workflow_dispatch: # This allows the workflow to be triggered by the parent workflow
+  repository_dispatch:
+    types: [deploy-trigger] # This allows the workflow to be triggered by the parent workflow
 
 jobs:
   deploy:

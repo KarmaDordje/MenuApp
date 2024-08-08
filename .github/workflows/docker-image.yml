@@ -42,17 +42,8 @@ jobs:
           VERSION=${{ github.sha }}
     
     - name: Trigger Deploy Workflow
-      uses: actions/github-script@v6
+      uses: peter-evans/repository-dispatch@v3
       with:
-        script: |
-          const workflow_id = 'deploy-docker-image.yml';
-          const ref = 'master';
-
-          await github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: workflow_id,
-            ref: ref,
-          });
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        repository: ${{ github.repository }}
+        event-type: deploy-trigger

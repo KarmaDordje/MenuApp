@@ -11,12 +11,8 @@
 
     public class NutritionApiClient : GenericApiClient, INutritionClient
     {
-        private readonly ILogger<NutritionApiClient> _logger;
-        public NutritionApiClient(string baseUrl, string apiKey, string headerName, ILogger<NutritionApiClient> logger)
-            : base(baseUrl, apiKey, headerName) 
-            {
-                _logger = logger;
-            }
+        public NutritionApiClient(string baseUrl, string apiKey, string headerName)
+            : base(baseUrl, apiKey, headerName) { }
 
         /// <summary>
         /// Returns nutriton infromation about product
@@ -29,7 +25,8 @@
         public async Task<Item> GetProductNutrition(string productName)
         {
             var result = await Request<NutritionResponse>(() => new RestRequest($"?query={productName}"));
-            _logger.LogInformation($"NutritionApiClient.GetProductNutrition: {result}");
+            System.Console.WriteLine(result);
+
             return result.Items.FirstOrDefault();
         }
     }

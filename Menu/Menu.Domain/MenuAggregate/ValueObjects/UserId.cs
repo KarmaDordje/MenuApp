@@ -20,6 +20,11 @@ namespace Menu.Domain.MenuAggregate
             return new UserId(value);
         }
 
+        public static UserId Create(string value)
+        {
+            return new UserId(new Guid(value));
+        }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

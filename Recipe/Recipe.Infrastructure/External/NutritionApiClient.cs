@@ -1,15 +1,22 @@
 ﻿namespace Recipe.Infrastructure.External
 {
     using ErrorOr;
+
+    using Microsoft.Extensions.Logging;
+
+
     using Recipe.Application.ApiModels;
     using Recipe.Application.Interfaces;
     using RestSharp;
 
     public class NutritionApiClient : GenericApiClient, INutritionClient
     {
-
-        public NutritionApiClient(string baseUrl, string apiKey, string headerName)
-            : base(baseUrl, apiKey, headerName) { }
+        private readonly ILogger<NutritionApiClient> _logger;
+        public NutritionApiClient(string baseUrl, string apiKey, string headerName, ILogger<NutritionApiClient> logger)
+            : base(baseUrl, apiKey, headerName) 
+            {
+                _logger = logger;
+            }
 
         /// <summary>
         /// Returns nutriton infromation about product
@@ -22,7 +29,7 @@
         public async Task<Item> GetProductNutrition(string productName)
         {
             var result = await Request<NutritionResponse>(() => new RestRequest($"?query={productName}"));
-
+            _logger.LogInformation($"NutritionApiClient.GetProductNutrition: {result}");
             return result.Items.FirstOrDefault();
         }
     }

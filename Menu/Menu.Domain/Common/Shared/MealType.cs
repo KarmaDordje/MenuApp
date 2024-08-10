@@ -1,9 +1,12 @@
 namespace Menu.Domain.Common.Shared
 {
-    public enum MealType
+    public enum MealCategory
     {
+        Unknown,
         Breakfast,
         Lunch,
         Dinner,
+        Dessert,
+        Snack,
     }
 }

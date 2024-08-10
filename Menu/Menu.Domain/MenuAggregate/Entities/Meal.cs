@@ -10,19 +10,21 @@ namespace Menu.Domain.MenuAggregate.Entities
         public string RecipeDescription { get; private set; }
         public string RecipeImageUrl { get; private set; }
         public UserId UserId { get; private set; }
-        public MealType MealType { get; private set; }
+        public MealCategory MealType { get; private set; }
 
         private Meal(
             string recipeName,
             string recipeDescription,
             string recipeImageUrl,
             UserId userId,
+            MealCategory mealType,
             MealId? id = null)
             : base(id ?? MealId.CreateUnique())
         {
             RecipeName = recipeName;
             RecipeDescription = recipeDescription;
             RecipeImageUrl = recipeImageUrl;
+            MealType = mealType;
             UserId = userId;
         }
 
@@ -30,13 +32,15 @@ namespace Menu.Domain.MenuAggregate.Entities
             string recipeName,
             string recipeDescription,
             string recipeImageUrl,
+            MealCategory mealType,
             UserId userId)
         {
             var meal = new Meal(
                 recipeName,
                 recipeDescription,
                 recipeImageUrl,
-                userId);
+                userId,
+                mealType);
             return meal;
         }
 

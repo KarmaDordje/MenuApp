@@ -1,5 +1,7 @@
 namespace Menu.API
 {
+    using Menu.API.Common.Mapping;
+
     public static class DependencyInjection
     {
         public static IServiceCollection AddGlobalErrorHandling(
@@ -13,6 +15,7 @@ namespace Menu.API
                 };
             });
             services.AddPresentation();
+            services.AddAutoMapper(typeof(MenuMappingConfig));
             return services;
         }
 

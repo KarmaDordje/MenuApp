@@ -5,8 +5,7 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
     using MediatR;
 
     using Microsoft.Extensions.Logging;
-
-
+    using Newtonsoft.Json;
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Application.Interfaces;
     using Recipe.Application.Interfaces.Persistence;
@@ -64,7 +63,7 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
                 throw new InvalidOperationException($"Recipe has invalid recipe id (menu id: {command.RecipeId}).");
             }
 
-            _logger.LogInformation($"Adding ingredient {ingredient} to recipe {recipe.Name}.");
+            _logger.LogInformation($"\rAdding ingredient \n\r{JsonConvert.SerializeObject(ingredient)} \n\rto recipe {recipe.Name}.");
             var recipeIngredient = RecipeIngredient.Create(ingredient.Id.Value, command.Quantity);
             recipe.AddIngredient(RecipeSectionId.Create(command.RecipeSectionId), recipeIngredient);
             await _recipeRepository.UpdateAsync(recipe);

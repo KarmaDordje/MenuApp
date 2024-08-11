@@ -29,6 +29,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# Set the environment variable for runtime
+ARG DB_CONNECTION_STRING
 ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 
 #Debugging: Output the environment variable to verify

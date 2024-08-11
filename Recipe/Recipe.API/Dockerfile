@@ -30,7 +30,8 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 RUN --mount=type=secret,id=db_connections_string \
-  cat /run/secrets/db_connections_string
+  export DB_CONNECTION_STRING=$(cat /run/secrets/db_connections_string) && \
+  echo $DB_CONNECTION_STRING
 
 ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true

@@ -1,5 +1,5 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
+# syntax=docker/dockerfile:1.3
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -24,6 +24,10 @@ RUN dotnet restore "./Recipe.API/Recipe.API.csproj"
 
 COPY . .
 WORKDIR "/src/Recipe/Recipe.API/"
+RUN --mount=type=secret,id=NUTRITION_API_BASE_URL \
+  --mount=type=secret,id=NUTRITION_API_KEY \
+  export MYSQL_HOST=$(cat /run/secrets/NUTRITION_API_BASE_URL) && \
+  export MYSQL_USER=$(cat /run/secrets/NUTRITION_API_KEY) && \
 RUN dotnet build "Recipe.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

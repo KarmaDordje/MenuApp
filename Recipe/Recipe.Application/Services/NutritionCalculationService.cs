@@ -1,11 +1,7 @@
 namespace Recipe.Application.Services
 {
     using AutoMapper;
-    using ErrorOr;
-
     using Microsoft.Extensions.Logging;
-
-
     using Recipe.Application.ApiModels;
     using Recipe.Application.Interfaces;
     using Recipe.Domain.Dtos;
@@ -34,13 +30,15 @@ namespace Recipe.Application.Services
 
         public async Task<Product> CalculateNutritionPerGramm(string polishName)
         {
-            _logger.LogInformation("\tCalculating nutrition for {polishName}", polishName);
-            string translation = await TranslateToEnglish(polishName);
-            var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
-            _logger.LogInformation($"Nutrition for {polishName} calculated");
-            nutrition = ConvertToPerGramNutritionData(nutrition);
+            try
+            {
+                _logger.LogInformation("\tCalculating nutrition for {polishName}", polishName);
+                string translation = await TranslateToEnglish(polishName);
+                var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
+                _logger.LogInformation($"Nutrition for {polishName} calculated");
+                nutrition = ConvertToPerGramNutritionData(nutrition);
 
-            var result = Product.Create(
+                var result = Product.Create(
                 ProductId.CreateUnique(),
                 nutrition.Name,
                 polishName,
@@ -54,7 +52,14 @@ namespace Recipe.Application.Services
                 nutrition.SugarG,
                 new Measurement(1, QuantityType.Grams));
 
-            return result;
+                return result;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error while calculating nutrition for {polishName}", polishName);
+                throw new Exception("Sequence contains no elements");
+            }
+
         }
 
         public ProductDTO CalculateNutritionPerPortion(Product ingredient, decimal portion)

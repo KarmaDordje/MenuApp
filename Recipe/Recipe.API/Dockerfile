@@ -8,7 +8,7 @@ EXPOSE 443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 ARG DB_CONNECTION_STRING
-
+RUN echo "ConnectionStrings Postgress: ${DB_CONNECTION_STRING}"
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
 COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
@@ -28,11 +28,6 @@ RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-# Set environment variable for ConnectionStrings
-# Use the secret during build
-RUN --mount=type=secret,id=db_connection_string \
-    sh -c 'DB_CONNECTION_STRING=$(cat /run/secrets/db_connection_string) && echo "DB_CONNECTION_STRING=${DB_CONNECTION_STRING}" > /app/connection_string.txt'
 
 ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true

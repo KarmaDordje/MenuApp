@@ -26,8 +26,8 @@ COPY . .
 WORKDIR "/src/Recipe/Recipe.API/"
 RUN --mount=type=secret,id=NUTRITION_API_BASE_URL \
   --mount=type=secret,id=NUTRITION_API_KEY \
-  export MYSQL_HOST=$(cat /run/secrets/NUTRITION_API_BASE_URL) && \
-  export MYSQL_USER=$(cat /run/secrets/NUTRITION_API_KEY) && \
+  export NUTRITION_API_BASE_URL=$(cat /run/secrets/NUTRITION_API_BASE_URL) && \
+  export NUTRITION_API_KEY=$(cat /run/secrets/NUTRITION_API_KEY) && \
 RUN dotnet build "Recipe.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

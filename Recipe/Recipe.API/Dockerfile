@@ -43,13 +43,12 @@ ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 #Debugging: Output the environment variable to verify
 RUN echo "ConnectionStrings__Postgress=${ConnectionStrings__Postgress}"
 
-
 ARG NUTRITION_API_BASE_URL
-ENV Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}
-RUN echo "Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}"
+ENV Nutrition__ApiBaseUrl=${NUTRITION_API_BASE_URL}
 
 ARG NUTRITION_API_KEY
-ENV Nutrition__NUTRITION_API_KEY=${NUTRITION_API_KEY}
+ENV Nutrition__ApiKey=${NUTRITION_API_KEY}
+RUN echo "Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}"
 
 ARG DEEPL_API_BASE_URL
 ENV DeepL__DEEPL_API_BASE_URL=${DEEPL_API_BASE_URL}

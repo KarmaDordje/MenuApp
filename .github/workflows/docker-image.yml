@@ -31,14 +31,15 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
+      env:
+        DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
       uses: docker/build-push-action@v3
       with:
         context: .
         file: ./Recipe/Recipe.API/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/recipe-api-linux:latest
-        secrets: |
-            "DB_CONNECTION_STRING=${{ secrets.GITHUB_TOKEN }}"     
+        
         platforms: linux/amd64
         build-args: |
           VERSION=${{ github.sha }}

@@ -8,6 +8,8 @@ EXPOSE 443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 ARG DB_CONNECTION_STRING
+ARG NUTRITION_API_KEY
+ARG NUTRITION_API_BASE_URL
 ARG DEEPL_API_BASE_URL
 ARG DEEPL_API_KEY
 RUN echo "ConnectionStrings Postgress: ${DB_CONNECTION_STRING}"
@@ -18,11 +20,7 @@ COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
 COPY ["Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
 COPY ["Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
 COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
-
-# Use secrets for build and set environment variables directly
-RUN --mount=type=secret,id=NUTRITION_API_BASE_URL \
-    --mount=type=secret,id=NUTRITION_API_KEY \
-    dotnet restore "./Recipe.API/Recipe.API.csproj"
+RUN dotnet restore "./Recipe.API/Recipe.API.csproj" 
 
 COPY . .
 WORKDIR "/src/Recipe/Recipe.API/"
@@ -41,12 +39,12 @@ ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 #Debugging: Output the environment variable to verify
 RUN echo "ConnectionStrings__Postgress=${ConnectionStrings__Postgress}"
 
+
 ARG NUTRITION_API_BASE_URL
-ENV Nutrition__ApiBaseUrl=${NUTRITION_API_BASE_URL}
+ENV Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}
 
 ARG NUTRITION_API_KEY
-ENV Nutrition__ApiKey=${NUTRITION_API_KEY}
-RUN echo "Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}"
+ENV Nutrition__NUTRITION_API_KEY=${NUTRITION_API_KEY}
 
 ARG DEEPL_API_BASE_URL
 ENV DeepL__DEEPL_API_BASE_URL=${DEEPL_API_BASE_URL}

@@ -44,7 +44,8 @@ jobs:
         build-args: |
           VERSION=${{ github.sha }}
           DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}
-    
+    - name: Db connection string
+      run: echo "The secret is ${{ secrets.DB_CONNECTION_STRING }}"
     - name: Trigger Deploy Workflow
       uses: peter-evans/repository-dispatch@v3
       with:

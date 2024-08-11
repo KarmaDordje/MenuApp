@@ -29,7 +29,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
+ENV ConnectionStrings__Postgress="Test"
 RUN echo "DB_CONNECTION_STRING=${DB_CONNECTION_STRING}"
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

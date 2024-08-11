@@ -31,8 +31,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
-      env:
-        ENV ConnectionStrings.Postgress=: ${{ secrets.DB_CONNECTION_STRING }}
       uses: docker/build-push-action@v3
       with:
         context: .

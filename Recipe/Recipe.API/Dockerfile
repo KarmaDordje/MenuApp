@@ -30,9 +30,9 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Set environment variable for ConnectionStrings
+# Use the secret during build
 RUN --mount=type=secret,id=db_connection_string \
-    export DB_CONNECTION_STRING=$(cat /run/secrets/db_connection_string) && \
-    echo "DB_CONNECTION_STRING=${DB_CONNECTION_STRING}" > /app/connection_string.txt
+    sh -c 'DB_CONNECTION_STRING=$(cat /run/secrets/db_connection_string) && echo "DB_CONNECTION_STRING=${DB_CONNECTION_STRING}" > /app/connection_string.txt'
 
 ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true

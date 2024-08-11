@@ -19,18 +19,24 @@
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+
             services.AddSingleton<INutritionClient, NutritionApiClient>(provider =>
             {
-                var baseUrl = Environment.GetEnvironmentVariable("NUTRITION_API_BASE_URL");
-                var apiKey = Environment.GetEnvironmentVariable("NUTRITION_API_KEY");
+                var nutrition = configuration.GetSection("Nutrition");
+
+                var baseUrl = nutrition["NUTRITION_API_BASE_URL"];
+                var apiKey = nutrition["NUTRITION_API_KEY"];
                 string headerName = "X-Api-Key";
                 return new NutritionApiClient(baseUrl, apiKey, headerName);
             });
 
             services.AddSingleton<IDeepLClient, DeepLApiClient>(provider =>
-            {
-                var baseUrl = Environment.GetEnvironmentVariable("DEEPL_API_BASE_URL");
-                var apiKey = Environment.GetEnvironmentVariable("DEEPL_API_KEY");
+            {   
+                var deepL = configuration.GetSection("DeepL");
+
+                var baseUrl = deepL["DEEPL_API_BASE_URL"];
+                var apiKey = deepL["DEEPL_API_KEY"];
                 string headerName = "Authorization";
                 return new DeepLApiClient(baseUrl, apiKey, headerName);
             });
@@ -72,8 +78,8 @@
         {
             // Retrieve configuration
             var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            //var connectionString = configuration.GetConnectionString("Postgress");
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgress");
+            var connectionString = configuration.GetConnectionString("Postgress");
+
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();

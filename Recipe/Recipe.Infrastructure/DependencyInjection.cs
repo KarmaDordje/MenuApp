@@ -32,7 +32,7 @@
             });
 
             services.AddSingleton<IDeepLClient, DeepLApiClient>(provider =>
-            {   
+            {
                 var deepL = configuration.GetSection("DeepL");
 
                 var baseUrl = deepL["DEEPL_API_BASE_URL"];

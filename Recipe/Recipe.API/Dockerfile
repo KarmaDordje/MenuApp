@@ -8,7 +8,6 @@ EXPOSE 443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 ARG DB_CONNECTION_STRING
-ENV ConnectionStrings__Postgress=$DB_CONNECTION_STRING
 
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
@@ -29,5 +28,7 @@ RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ENV ConnectionStrings__Postgress=$DB_CONNECTION_STRING
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

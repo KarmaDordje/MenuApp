@@ -43,7 +43,7 @@ jobs:
         platforms: linux/amd64
         build-args: |
           VERSION=${{ github.sha }}
-          DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}  #
+          DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}
     
     - name: Trigger Deploy Workflow
       uses: peter-evans/repository-dispatch@v3

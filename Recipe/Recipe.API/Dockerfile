@@ -31,6 +31,11 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ConnectionStrings__Postgress="${DB_CONNECTION_STRING} Test"
+ARG DB_CONNECTION_STRING
+ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
+
+# Debugging: Output the environment variable to verify
+RUN echo "ConnectionStrings__Postgress=${ConnectionStrings__Postgress}"
+
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

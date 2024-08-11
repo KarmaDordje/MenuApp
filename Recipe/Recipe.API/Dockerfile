@@ -28,8 +28,10 @@ RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN --mount=type=secret,id=$DB_CONNECTION_STRING \
+  DB_CONNECTION_STRING=$(cat /run/secrets/$DB_CONNECTION_STRING)
 
-ENV ConnectionStrings__Postgress="Test"
+ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 RUN echo "DB_CONNECTION_STRING=${DB_CONNECTION_STRING}"
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

@@ -40,6 +40,10 @@ jobs:
         platforms: linux/amd64
         build-args: |
           DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}
+          NUTRITION_API_BASE_URL=${{ secrets.NUTRITION_API_BASE_URL }}
+          NUTRITION_API_KEY=${{ secrets.NUTRITION_API_KEY }}
+          DEEPL_API_BASE_URL=${{ secrets.DEEPL_API_BASE_URL }}
+          DEEPL_API_KEY=${{ secrets.DEEPL_API_KEY }}
           VERSION=${{ github.sha }}
 
     - name: Trigger Deploy Workflow

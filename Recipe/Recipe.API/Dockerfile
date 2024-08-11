@@ -8,6 +8,10 @@ EXPOSE 443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
 ARG DB_CONNECTION_STRING
+ARG NUTRITION_API_KEY
+ARG NUTRITION_API_BASE_URL
+ARG DEEPL_API_BASE_URL
+ARG DEEPL_API_KEY
 RUN echo "ConnectionStrings Postgress: ${DB_CONNECTION_STRING}"
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
@@ -35,6 +39,19 @@ ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 
 #Debugging: Output the environment variable to verify
 RUN echo "ConnectionStrings__Postgress=${ConnectionStrings__Postgress}"
+
+
+ARG NUTRITION_API_BASE_URL
+ENV Nutrition__NUTRITION_API_BASE_URL=${NUTRITION_API_BASE_URL}
+
+ARG NUTRITION_API_KEY
+ENV Nutrition__NUTRITION_API_KEY=${NUTRITION_API_KEY}
+
+ARG DEEPL_API_BASE_URL
+ENV DeepL__DEEPL_API_BASE_URL=${DEEPL_API_BASE_URL}
+
+ARG DEEPL_API_KEY
+ENV DeepL__DEEPL_API_KEY=${DEEPL_API_KEY}
 
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

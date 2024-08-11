@@ -35,7 +35,7 @@ namespace Recipe.Application.Services
         public async Task<Product> CalculateNutritionPerGramm(string polishName)
         {
             _logger.LogInformation("\tCalculating nutrition for {polishName}", polishName);
-            string translation = TranslateToEnglish(polishName);
+            string translation = await TranslateToEnglish(polishName);
             var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
             _logger.LogInformation($"Nutrition for {polishName} calculated");
             nutrition = ConvertToPerGramNutritionData(nutrition);

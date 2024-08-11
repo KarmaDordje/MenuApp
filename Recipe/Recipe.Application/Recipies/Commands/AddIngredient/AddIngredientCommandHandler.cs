@@ -3,6 +3,10 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
     using AutoMapper;
     using ErrorOr;
     using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Application.Interfaces;
     using Recipe.Application.Interfaces.Persistence;
@@ -18,17 +22,20 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
         private readonly INutritionCalculationService _nutritionCalculationService;
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IRecipeRepository _recipeRepository;
+        private readonly ILogger<AddIngredientCommandHandler> _logger;
 
         public AddIngredientCommandHandler(
             IMapper mapper,
             INutritionCalculationService nutritionCalculationService,
             IIngredientRepository ingredientRepository,
-            IRecipeRepository recipeRepository)
+            IRecipeRepository recipeRepository,
+            ILogger<AddIngredientCommandHandler> logger)
         {
             _mapper = mapper;
             _nutritionCalculationService = nutritionCalculationService;
             _ingredientRepository = ingredientRepository;
             _recipeRepository = recipeRepository;
+            _logger = logger;
         }
 
         public async Task<ErrorOr<ProductDTO>> Handle(AddIngredientCommand command, CancellationToken cancellationToken)
@@ -51,10 +58,12 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
                 }
             }
 
-            if(await _recipeRepository.GetAsync(RecipeId.Create(command.RecipeId)) is not Domain.RecipeAggregate.Recipe recipe)
+            if (await _recipeRepository.GetAsync(RecipeId.Create(command.RecipeId)) is not Domain.RecipeAggregate.Recipe recipe)
             {
                 throw new InvalidOperationException($"Recipe has invalid recipe id (menu id: {command.RecipeId}).");
             }
+
+            _logger.LogInformation($"Adding ingredient {ingredient.Name} to recipe {recipe.Name}.");
             var recipeIngredient = RecipeIngredient.Create(ingredient.Id.Value, command.Quantity);
             recipe.AddIngredient(RecipeSectionId.Create(command.RecipeSectionId), recipeIngredient);
             await _recipeRepository.UpdateAsync(recipe);

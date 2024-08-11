@@ -72,8 +72,8 @@
         {
             // Retrieve configuration
             var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            var connectionString = configuration.GetConnectionString("Postgress");
-
+            //var connectionString = configuration.GetConnectionString("Postgress");
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgress");
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();

@@ -39,11 +39,13 @@ jobs:
         file: ./Recipe/Recipe.API/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/recipe-api-linux:latest
-        secrets: |
-          "DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}"
         platforms: linux/amd64
         build-args: |
+          DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }}
           VERSION=${{ github.sha }}
+        secrets: |
+          id=db_connection_string,src=/run/secrets/db_connection_string
+
     - name: Trigger Deploy Workflow
       uses: peter-evans/repository-dispatch@v3
       with:

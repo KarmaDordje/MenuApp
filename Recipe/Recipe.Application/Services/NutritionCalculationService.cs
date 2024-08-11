@@ -33,9 +33,8 @@ namespace Recipe.Application.Services
         }
 
         public async Task<Product> CalculateNutritionPerGramm(string polishName)
-        {   
+        {
             _logger.LogInformation("Calculating nutrition for {polishName}", polishName);
-            
             string translation = TranslateToEnglish(polishName);
             var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
             _logger.LogInformation($"Nutrition for {polishName} calculated");

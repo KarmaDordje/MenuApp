@@ -1,10 +1,5 @@
 ﻿namespace Recipe.Infrastructure.External
 {
-    using ErrorOr;
-
-    using Microsoft.Extensions.Logging;
-
-
     using Recipe.Application.ApiModels;
     using Recipe.Application.Interfaces;
     using RestSharp;

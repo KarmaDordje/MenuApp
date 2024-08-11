@@ -31,7 +31,7 @@ COPY --from=publish /app/publish .
 
 RUN --mount=type=secret,id=DB_CONNECTION_STRING \
   --mount=type=secret,id=DB_CONNECTION_STRING \
-   export API_ENDPOINT=$(cat /run/secrets/DB_CONNECTION_STRING)
+   export DB_CONNECTION_STRING=$(cat /run/secrets/DB_CONNECTION_STRING)
 
 ENV ConnectionStrings__Postgress=${DB_CONNECTION_STRING}
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true

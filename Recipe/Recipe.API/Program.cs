@@ -6,7 +6,8 @@ using Recipe.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = new ConfigurationBuilder()
-    .AddConfiguration(builder.Configuration)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables()
     .Build();
 
 // Add services to the container.

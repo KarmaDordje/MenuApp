@@ -40,6 +40,7 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
 
         public async Task<ErrorOr<ProductDTO>> Handle(AddIngredientCommand command, CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Adding ingredient to recipe: {command.RecipeId}.");
             var ingredient = await _ingredientRepository.GetAsyncByIngredientName(command.IngredientName);
 
             if (ingredient is null)

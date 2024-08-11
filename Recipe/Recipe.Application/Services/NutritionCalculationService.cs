@@ -2,6 +2,10 @@ namespace Recipe.Application.Services
 {
     using AutoMapper;
     using ErrorOr;
+
+    using Microsoft.Extensions.Logging;
+
+
     using Recipe.Application.ApiModels;
     using Recipe.Application.Interfaces;
     using Recipe.Domain.Dtos;
@@ -14,21 +18,27 @@ namespace Recipe.Application.Services
         private readonly IMapper _mapper;
         private readonly IDeepLClient _deepLApiClient;
         private readonly INutritionClient _nutriotionApiClient;
+        private readonly ILogger<NutritionCalculationService> _logger;
 
         public NutritionCalculationService(
             IMapper mapper,
             IDeepLClient deepLApiClient,
-            INutritionClient nutriotionApiClient)
+            INutritionClient nutriotionApiClient,
+            ILogger<NutritionCalculationService> logger)
         {
             _mapper = mapper;
             _deepLApiClient = deepLApiClient;
             _nutriotionApiClient = nutriotionApiClient;
+            _logger = logger;
         }
 
         public async Task<Product> CalculateNutritionPerGramm(string polishName)
-        {
+        {   
+            _logger.LogInformation("Calculating nutrition for {polishName}", polishName);
+            
             string translation = TranslateToEnglish(polishName);
             var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
+            _logger.LogInformation($"Nutrition for {polishName} calculated");
             nutrition = ConvertToPerGramNutritionData(nutrition);
 
             var result = Product.Create(

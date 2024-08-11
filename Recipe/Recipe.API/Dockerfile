@@ -7,6 +7,9 @@ EXPOSE 443
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG TARGETARCH
+ARG DB_CONNECTION_STRING
+ENV ConnectionStrings__Postgress=$DB_CONNECTION_STRING
+    
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
 COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]

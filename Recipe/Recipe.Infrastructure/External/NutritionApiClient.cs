@@ -11,10 +11,11 @@
     {
         private readonly ILogger<NutritionApiClient> _logger;
         public NutritionApiClient(string baseUrl, string apiKey, string headerName)
-            : base(baseUrl, apiKey, headerName) {
+            : base(baseUrl, apiKey, headerName)
+        {
             _logger = new LoggerFactory().CreateLogger<NutritionApiClient>();
             _logger.LogInformation($"NUTRITION API CLIENT BASE URL: {baseUrl}");
-             }
+        }
 
         /// <summary>
         /// Returns nutriton infromation about product

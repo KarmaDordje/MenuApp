@@ -44,9 +44,11 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
 
             if (ingredient is null)
             {
+                _logger.LogInformation($"\tIngredient {command.IngredientName} not found in database. \n\tCalculating nutrition.");
                 try
                 {
                     ingredient = await _nutritionCalculationService.CalculateNutritionPerGramm(command.IngredientName);
+                    _logger.LogInformation($"\tIngridient from API \n\t{JsonConvert.SerializeObject(ingredient)}");
                     await _ingredientRepository.AddAsync(ingredient);
                 }
                 catch (Exception e)
@@ -63,7 +65,7 @@ namespace Recipe.Application.Recipes.Commands.AddIngredientCommandHandler
                 throw new InvalidOperationException($"Recipe has invalid recipe id (menu id: {command.RecipeId}).");
             }
 
-            _logger.LogInformation($"\rAdding ingredient \n\r{JsonConvert.SerializeObject(ingredient)} \n\rto recipe {recipe.Name}.");
+            _logger.LogInformation($"\tAdding ingredient \n\t{JsonConvert.SerializeObject(ingredient)} \n\tto recipe {recipe.Name}.");
             var recipeIngredient = RecipeIngredient.Create(ingredient.Id.Value, command.Quantity);
             recipe.AddIngredient(RecipeSectionId.Create(command.RecipeSectionId), recipeIngredient);
             await _recipeRepository.UpdateAsync(recipe);

@@ -34,7 +34,7 @@ namespace Recipe.Application.Services
 
         public async Task<Product> CalculateNutritionPerGramm(string polishName)
         {
-            _logger.LogInformation("Calculating nutrition for {polishName}", polishName);
+            _logger.LogInformation("\tCalculating nutrition for {polishName}", polishName);
             string translation = TranslateToEnglish(polishName);
             var nutrition = await _nutriotionApiClient.GetProductNutrition(translation);
             _logger.LogInformation($"Nutrition for {polishName} calculated");
@@ -95,10 +95,11 @@ namespace Recipe.Application.Services
             return result;
         }
 
-        private string TranslateToEnglish(string polishName)
+        private async Task<string> TranslateToEnglish(string polishName)
         {
             DeepLTranslationRequest request = new DeepLTranslationRequest().Create(polishName, "en");
-            return _deepLApiClient.Translate(request).Result;
+            string name = await _deepLApiClient.Translate(request);
+            return name;
         }
     }
 }

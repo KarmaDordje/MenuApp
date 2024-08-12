@@ -4,11 +4,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Application.Interfaces;
     using Recipe.Application.Interfaces.Persistence;
-    using Recipe.Domain.Persistence;
     using Recipe.Infrastructure.External;
     using Recipe.Infrastructure.Messaging;
     using Recipe.Infrastructure.Persistence;

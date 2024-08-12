@@ -47,6 +47,9 @@ jobs:
           NUTRITION_API_KEY=${{ secrets.NUTRITION_API_KEY }}
           DEEPL_API_BASE_URL=${{ secrets.DEEPL_API_BASE_URL }}
           DEEPL_API_KEY=${{ secrets.DEEPL_API_KEY }}
+          RABBIT_HOST=${{ secrets.RABBIT_HOST }}
+          RABBIT_PASSWORD=${{ secrets.RABBIT_PASSWORD }}
+          RABBIT_USER=${{ secrets.RABBIT_USERNAME }}
           VERSION=${{ github.sha }}
 
     - name: Trigger Deploy Workflow

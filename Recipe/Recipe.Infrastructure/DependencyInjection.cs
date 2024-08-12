@@ -56,7 +56,7 @@
                     // Retrieve RabbitMQ configuration from IConfiguration
                     var configuration = ConfigurationLoader.LoadConfiguration();
                     var rabbitMQSettings = configuration.GetSection("RabbitMQ").Get<RabbitMQSettings>();
-
+                    System.Console.WriteLine($"RabbitMQ settings: {rabbitMQSettings.Host}, {rabbitMQSettings.Username}, {rabbitMQSettings.Password}");
                     cfg.Host(new Uri($"rabbitmq://{rabbitMQSettings.Host}:5672"), "/", h =>
                     {
                         h.Username(rabbitMQSettings.Username);
@@ -79,8 +79,6 @@
             // Retrieve configuration
             var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             string? connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgress");
-            System.Console.WriteLine($"!!!!!!!!\n\nConnection string: {connectionString}");
-
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();

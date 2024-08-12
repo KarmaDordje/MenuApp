@@ -64,6 +64,7 @@ ENV RabbitMQ__Password=${RABBIT_PASSWORD}
 
 ARG RABBIT_USERNAME
 ENV RabbitMQ__Username=${RABBIT_USERNAME}
+RUN echo "RabbitMQ__Username=${RabbitMQ__Username}"
 
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 ENTRYPOINT ["dotnet", "Recipe.API.dll"]

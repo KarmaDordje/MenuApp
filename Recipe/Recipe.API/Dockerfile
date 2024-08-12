@@ -57,6 +57,7 @@ ENV DeepL__DEEPL_API_KEY=${DEEPL_API_KEY}
 
 ARG RABBIT_HOST
 ENV RabbitMQ__Host=${RABBIT_HOST}
+RUN echo "RabbitMQ__Host=${RabbitMQ__Host}"
 
 ARG RABBIT_PASSWORD
 ENV RabbitMQ__Password=${RABBIT_PASSWORD}

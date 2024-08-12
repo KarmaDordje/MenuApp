@@ -48,13 +48,14 @@
 
         public static IServiceCollection AddMessageBus(this IServiceCollection services)
         {
+            var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<GetRecipeConsumer>();
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     // Retrieve RabbitMQ configuration from IConfiguration
-                    var configuration = ConfigurationLoader.LoadConfiguration();
+                    //var configuration = ConfigurationLoader.LoadConfiguration();
                     var rabbitMQSettings = configuration.GetSection("RabbitMQ").Get<RabbitMQSettings>();
                     System.Console.WriteLine($"RabbitMQ settings: {rabbitMQSettings.Host}, {rabbitMQSettings.Username}, {rabbitMQSettings.Password}");
                     cfg.Host(new Uri($"rabbitmq://{rabbitMQSettings.Host}:5672"), "/", h =>

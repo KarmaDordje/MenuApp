@@ -49,7 +49,7 @@ jobs:
           DEEPL_API_KEY=${{ secrets.DEEPL_API_KEY }}
           RABBIT_HOST=${{ secrets.RABBIT_HOST }}
           RABBIT_PASSWORD=${{ secrets.RABBIT_PASSWORD }}
-          RABBIT_USER=${{ secrets.RABBIT_USERNAME }}
+          RABBIT_USERNAME=${{ secrets.RABBIT_USERNAME }}
           VERSION=${{ github.sha }}
 
     - name: Trigger Deploy Workflow

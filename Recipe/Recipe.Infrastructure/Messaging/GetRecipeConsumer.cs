@@ -5,8 +5,6 @@ namespace Recipe.Infrastructure.Messaging
     using Recipe.Application.Common.Interfaces.Persistence;
     using SharedCore.Contracts.Consumers.Recipe;
     using SharedCore.Enums;
-
-
     public class GetRecipeConsumer : IConsumer<RecipeConsumerRequest>
     {
         private readonly IRecipeRepository _recipeRepository;

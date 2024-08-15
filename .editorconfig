@@ -406,5 +406,8 @@ dotnet_diagnostic.SA1313.severity = none
 
 dotnet
 
+SA1028: Code should not contain trailing whitespace
+dotnet_diagnostic.SA1028.severity = none
+
 [**/Migrations/*]
 generated_code = true

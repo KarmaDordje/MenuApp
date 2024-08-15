@@ -7,35 +7,82 @@ using global::Menu.Domain.Common.Shared;
 using global::Menu.Domain.MenuAggregate;
 using global::Menu.Domain.MenuAggregate.Entities;
 using global::Menu.Domain.Common.DomainErrors;
+using global::Menu.Contracts.Menu;
 
 public class CreateMenuService : ICreateMenuService
-{
+{   
+
+    public ErrorOr<Menu> GenerateMenu(
+        string userId, 
+        DateTime startDate, 
+        int daysCount, 
+        List<MealCategory> mealCategories, 
+        List<Contracts.Menu.RecipeDTO> recipes)
+    {
+        // if (!ValidateIsEnoughRecipesForMenu(daysCount, recipes.Count, mealCategories.Count))
+        // {
+        //     return Errors.Menu.NotEnoughtRecipies;
+        // }
+
+        List<MenuDay> menuDays = new List<MenuDay>();
+
+        foreach (MealCategory mealCategory in mealCategories)
+        {   
+            var currnetCategoryRecipes = recipes.Where(x => x.Category == mealCategory).ToList();
+
+            // Generate menu day for each meal category
+            var generatedMenuDay = GenerateMenuDay(startDate, mealCategory, userId, currnetCategoryRecipes);
+
+            // If there are no menu days yet, add the first one
+            if (menuDays.Count == 0)
+            {
+                menuDays = generatedMenuDay;
+                continue;
+            }
+
+            // If there are more menu days than generated menu days, add the missing ones
+            if (generatedMenuDay.Count > menuDays.Count)
+                {
+                    var difference = generatedMenuDay
+                        .Where(r1 => !menuDays.Any(r2 => r2.DayOfWeek == r1.DayOfWeek))
+                        .ToList();
+                    menuDays.AddRange(difference);
+                }
+            
+            foreach (var menuDay in menuDays)
+            {   
+                // If the menu day already has a meal of the same type, skip it
+                if (menuDay.Meals.Any(m => m.MealType == generatedMenuDay[menuDays.IndexOf(menuDay)].Meals[0].MealType))
+                {
+                    continue;
+                }
+
+                menuDay.AddMeal(generatedMenuDay[menuDays.IndexOf(menuDay)].Meals[0]);
+            }
+        }
+
+        return CreateMenu(
+            $"Menu for {daysCount} days",
+            "Your menu for the next days",
+            userId,
+            menuDays);
+    }
+
     /// <summary>
     /// Creates a new Menu object.
     /// </summary>
     /// <param name="name">The name of the menu.</param>
     /// <param name="description">The description of the menu.</param>
     /// <param name="userId">The ID of the user.</param>
-    /// <param name="startDate">The start date of the menu.</param>
-    /// <param name="daysCount">The number of days the menu should cover.</param>
-    /// <param name="mealCategories">The list of MealCategory objects representing the meal categories for the menu.</param>
     /// <param name="menuDays">The list of MenuDay objects representing each day of the menu.</param>
-    /// <param name="recipes">The list of RecipeDTO objects representing the recipes for the menu.</param>
     /// <returns>The created Menu object.</returns>
-    public ErrorOr<Menu> CreateMenu(
+    private ErrorOr<Menu> CreateMenu(
         string name,
         string description,
         string userId,
-        DateTime startDate,
-        int daysCount,
-        List<MealCategory> mealCategories,
-        List<MenuDay> menuDays,
-        List<Contracts.Menu.RecipeDTO> recipes)
+        List<MenuDay> menuDays)
     {
-        if (!ValidateIsEnoughRecipesForMenu(daysCount, recipes.Count, Enum.GetValues(typeof(MealCategory)).Length))
-        {
-            return Errors.Menu.NotEnoughtRecipies;
-        }
+
         return Menu.Create(name, description, new UserId(new Guid(userId)), menuDays);
     }
 
@@ -48,7 +95,7 @@ public class CreateMenuService : ICreateMenuService
     /// <param name="mealType">The type of the meal.</param>
     /// <param name="userId">The ID of the user.</param>
     /// <returns>The created Meal object.</returns>
-    public Meal CreateMeal(string recipeName, string recipeDescription, string recipeImageUrl, MealCategory mealType, string userId)
+    private Meal CreateMeal(string recipeName, string recipeDescription, string recipeImageUrl, MealCategory mealType, string userId)
     {
         return Meal.Create(recipeName, recipeDescription, recipeImageUrl, mealType, new UserId(new Guid(userId)));
     }
@@ -61,7 +108,7 @@ public class CreateMenuService : ICreateMenuService
     /// <param name="date">The date of the created menu day.</param>
     /// <param name="meals">The list of meals for each menu day.</param>
     /// <returns>The created list of MenuDay objects.</returns>
-    public List<MenuDay> CreateMenuDayList(int dayNumer, DateTime startFrom, DateTime date, List<Meal> meals)
+    private List<MenuDay> CreateMenuDayList(int dayNumer, DateTime startFrom, DateTime date, List<Meal> meals)
     {
         var menuDays = new List<MenuDay>();
         for (int i = 0; i < (dayNumer - 1); i++)
@@ -79,7 +126,7 @@ public class CreateMenuService : ICreateMenuService
     /// <param name="date">The date of the menu day.</param>
     /// <param name="meals">The list of meals for the menu day.</param>
     /// <returns>The created MenuDay object.</returns>
-    public MenuDay CreateMenuDay(int dayNumer, DateTime date, List<Meal> meals)
+    private MenuDay CreateMenuDay(int dayNumer, DateTime date, List<Meal> meals)
     {
         string dateOfWeek = GetDayOfTheWeek(dayNumer);
         return MenuDay.Create(dateOfWeek, date, meals);
@@ -107,7 +154,24 @@ public class CreateMenuService : ICreateMenuService
     /// <returns>True if there are enough recipes for the menu, otherwise false.</returns>
     private bool ValidateIsEnoughRecipesForMenu(int dayNumer, int recipesCount, int mealTypeCount)
     {
-        return dayNumer == (recipesCount * mealTypeCount);
+        return (dayNumer * mealTypeCount) >= (recipesCount * mealTypeCount);
     }
 
+    private List<MenuDay> GenerateMenuDay(DateTime startDate, MealCategory mealCategory, string userId,  List<RecipeDTO> recipes)
+    {   
+        List<MenuDay> menuDays = new List<MenuDay>();
+
+        foreach (var recipe in recipes)
+            {   
+                List<Meal> meals = new List<Meal>();
+                var meal = CreateMeal(recipe.RecipeName, recipe.RecipeDescription, recipe.ImageUrl, mealCategory, userId);
+                meals.Add(meal);
+                var menuDay = CreateMenuDay(recipes.IndexOf(recipe), startDate, meals);
+                menuDays.Add(menuDay);
+
+            }
+
+        return menuDays;
+    }
+    
 }

@@ -34,10 +34,12 @@ public class CreateMenuCommandHandler : IRequestHandler<CreateMenuCommand, Error
         var req = new RecipeConsumerRequest { UserId = request.UserId };
         var recipes = await _recipeClient.GetRecipesForUserAsync(req);
         var dto = _mapper.Map<List<RecipeDTO>>(recipes.Recipes);
-        foreach (var recipe in recipes.Recipes)
-        {
-            //var meal = _createMenuService.CreateMealAsync(recipe.RecipeName, recipe.);
-        }
+        var menu = _createMenuService.GenerateMenu(
+            request.UserId,
+            request.StartDate,
+            request.Days,
+            request.MealTypes,
+            dto);
         throw new NotImplementedException();
     }
 

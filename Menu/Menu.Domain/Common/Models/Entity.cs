@@ -53,6 +53,14 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents
         _domainEvents.Clear();
     }
 
+    protected void CheckRule(IBusinessRule rule)
+        {
+            if (rule.IsBroken())
+            {
+                throw new BusinessRuleValidationException(rule);
+            }
+        }
+
 #pragma warning disable CS8618
     protected Entity()
     {

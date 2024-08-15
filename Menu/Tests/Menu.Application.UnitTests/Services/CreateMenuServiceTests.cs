@@ -8,7 +8,7 @@ using global::Menu.Application.UnitTests.Services.TestUtils;
 using global::Menu.Domain.MenuAggregate;
 using Bogus.DataSets;
 using System.Globalization;
-
+using global::Menu.Domain.Common.Shared;
 
 public class CreateMenuServiceTests
 {   
@@ -17,63 +17,22 @@ public class CreateMenuServiceTests
     {
         _sut = new CreateMenuService();
     }
+
     [Fact]
-    public void CreateMenuAsync_WithValidData_ShouldCreateMenu()
+    public void GenerateMenu_WhenCalled_ShouldReturnMenu() 
     {
         // Arrange
+        string userId = "cc0ba5fd-598f-4cd2-b834-fd9b2d61fa19";
+        DateTime startDate = DateTime.Now; 
+        int daysCount = 5;
+        List<MealCategory> mealCategories = new List<MealCategory> { MealCategory.Breakfast, MealCategory.Lunch };
+        List<Contracts.Menu.RecipeDTO> recipes = CreateMenuServiceUtils.CreateRecipies(10);
+
         // Act
-        var result = _sut.CreateMeal(
-            Constants.Meal.RecipeName,
-            Constants.Meal.RecipeDescription,
-            Constants.Meal.RecipeImageUrl,
-            Constants.Meal.MenyType,
-            Constants.User.UserId);
+        var result = _sut.GenerateMenu(userId, startDate, daysCount, mealCategories, recipes);
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<Meal>();
-    }
-
-    [Fact]
-    public void CreateMenuDay_WithValidaData_ShouldCreateMenuDay()
-    {
-        // Arrange
-
-        // Act
-
-        var result = _sut.CreateMenuDay(
-            1,
-            DateTime.Now,
-            CreateMenuServiceUtils.CreateMeal(2));
-
-        // Asserion
-
-        result.Should().NotBeNull();
-        result.DayOfWeek.Should().ContainAll(DateTime.Now.AddDays(1).DayOfWeek.ToString(new CultureInfo("pl-PL")));
-        result.Should().BeOfType<MenuDay>();
-    }
-
-    [Fact]
-    public void CreateMenu_WithValidData_ShouldCreateMenu()
-    {
-        // Arrange
-
-        // Act
-
-        // var result = _sut.CreateMenu(
-        //     Constants.Menu.MenuName,
-        //     Constants.Menu.MenuDescription,
-        //     Constants.User.UserId,
-        //     DateTime.Now,
-        //     5,
-
-        //     CreateMenuServiceUtils.CreateMenuDay(2)
-        // );
-
-        // // Assert
-
-        // result.Should().NotBeNull();
-        // result.Should().BeOfType<Menu>();
-        // result.MenuDays.Should().HaveCount(2);
+        result.Value.MenuDays.Should().NotBeEmpty();
     }
 }

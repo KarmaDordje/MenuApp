@@ -1,6 +1,8 @@
 namespace Menu.Domain.MenuAggregate.Entities
 {
     using global::Menu.Domain.Common.Models;
+    using global::Menu.Domain.MenuAggregate.Rules;
+
     using global::Menu.Domain.MenuAggregate.ValueObjects;
     public sealed class MenuDay : Entity<MenuDayId>
     {
@@ -35,8 +37,18 @@ namespace Menu.Domain.MenuAggregate.Entities
         }
 
         public void AddMeal(Meal meal)
-        {
+        {   
+            this.CheckRule(new CantAddMealWithTheSameCategory(_meals, meal));
             _meals.Add(meal);
+        }
+
+        public void AddMeals(List<Meal> meals)
+        {
+            _meals.AddRange(meals);
+        }
+        public void RemoveMeal(Meal meal)
+        {
+            _meals.Remove(meal);
         }
 
         #pragma warning disable CS8618

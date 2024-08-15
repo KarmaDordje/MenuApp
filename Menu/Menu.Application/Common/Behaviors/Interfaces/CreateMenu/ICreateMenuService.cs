@@ -9,18 +9,11 @@ using global::Menu.Domain.Common.Shared;
 using global::Menu.Domain.MenuAggregate;
 using global::Menu.Domain.MenuAggregate.Entities;
     public interface ICreateMenuService
-    {
-        ErrorOr<Menu> CreateMenu(
-            string name,
-            string description,
+    {   
+        ErrorOr<Menu> GenerateMenu(
             string userId,
             DateTime startDate,
             int daysCount,
             List<MealCategory> mealCategories,
-            List<MenuDay> menuDays,
             List<RecipeDTO> recipes);
-        Meal CreateMeal(string recipeName, string recipeDescription, string recipeImageUrl, MealCategory mealType, string userId);
-        MenuDay CreateMenuDay(int dayNumer, DateTime date, List<Meal> meals);
-
-        List<MenuDay> CreateMenuDayList(int dayNumer, DateTime startFrom, DateTime date, List<Meal> meals);
     }

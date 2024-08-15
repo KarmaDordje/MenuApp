@@ -3,7 +3,9 @@ name: build-and-push-recipe-api
 on:
   push:
     branches:
-      - master  
+      - master 
+    paths:
+      - 'Recipe/**'
 
 jobs:
 

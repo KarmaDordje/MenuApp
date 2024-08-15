@@ -26,6 +26,7 @@ namespace Recipe.Infrastructure.Messaging
             _logger.LogInformation($"Recipe received for UserId: {context.Message.UserId}");
             var result = recipe.Select(r => new Recipe{
                 RecipeName = r.Name,
+                RecipeDescription = r.Description,
                 RecipeId = r.Id.Value.ToString(),
                 AvarageRating = (decimal)r.AvarageRating,
                 ImageUrl = r.ImageUrl,

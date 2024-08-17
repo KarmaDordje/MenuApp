@@ -1,6 +1,9 @@
 namespace Menu.Infrastructure
 {
     using MassTransit;
+
+    using Menu.Domain.Common.Data;
+
     using Menu.Domain.MenuAggregate;
     using Menu.Infrastructure.Common;
     using Menu.Infrastructure.Messaging;
@@ -20,6 +23,8 @@ namespace Menu.Infrastructure
             var connectionString = configuration.GetConnectionString("Postgress");
             services.AddScoped<IMenuRepositury, MenuRepository>();
             services.AddDbContext<MenuDbContext>(options => options.UseNpgsql(connectionString!));
+
+            services.AddTransient<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString!));
             services.AddMessageBus();
             return services;
         }

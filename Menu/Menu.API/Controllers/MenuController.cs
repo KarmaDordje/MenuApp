@@ -5,6 +5,8 @@ namespace Menu.API.Controllers
     using AutoMapper;
     using MediatR;
     using Menu.Application.Menu.Commands;
+    using Menu.Application.Menu.Query;
+
     using Menu.Contracts.Menu;
     using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,16 @@ namespace Menu.API.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
+        }
+
+        [HttpGet("{menuId}")]
+        public async Task<IActionResult> Get(string menuId)
+        {
+            var query = new GetMenuQuery(new Guid(menuId));
+            var result = await _mediator.Send(query);
+            return result.Match<IActionResult>(
+                Ok,
+                error => BadRequest(error));
         }
 
         [HttpPost]

@@ -9,20 +9,17 @@ namespace Recipe.Application.Recipes.Queries
     using Recipe.Application.Common.Interfaces.Persistence;
     using Recipe.Application.Interfaces.Persistence;
     using Recipe.Contracts.Recipes;
+    using Recipe.Contracts.Recipes.GetRecipeResponse;
     using Recipe.Domain.ValueObjects;
     using SharedCore.Data;
 
-
     public class RecipeQueryHandler : IRequestHandler<RecipeQuery, ErrorOr<RecipeGetResponse>>
     {
-        private readonly IRecipeRepository _recipeRepository;
         private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
         public RecipeQueryHandler(
-            IRecipeRepository recipeRepository,
             ISqlConnectionFactory sqlConnectionFactory)
         {
-            _recipeRepository = recipeRepository;
             _sqlConnectionFactory = sqlConnectionFactory;
         }
 

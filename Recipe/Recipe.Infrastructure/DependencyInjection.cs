@@ -13,6 +13,9 @@
     using Recipe.Infrastructure.Persistence.Interceptors;
     using Recipe.Infrastructure.Persistence.Repositories;
 
+    using SharedCore.Data;
+
+
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
@@ -76,12 +79,15 @@
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             // Retrieve configuration
-            var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            string? connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgress");
+            // var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            // string? connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Postgress");
+            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+            var connectionString = configuration.GetConnectionString("Postgress");
             services.AddScoped<PublishDomainEventsInterceptor>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddDbContext<RecipeDbContext>(options => options.UseNpgsql(connectionString, op => op.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+            services.AddTransient<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString!));
             return services;
         }
     }

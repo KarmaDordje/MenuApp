@@ -32,21 +32,29 @@ public class IngredientConfigurations : IEntityTypeConfiguration<Product>
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(i => i.Calories);
+        builder.Property(i => i.Calories)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.Cholesterol);
+        builder.Property(i => i.Cholesterol)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.FatSaturated);
+        builder.Property(i => i.FatSaturated)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.FatTotal);
+        builder.Property(i => i.FatTotal)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.Potassium);
+        builder.Property(i => i.Potassium)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.Protein);
+        builder.Property(i => i.Protein)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.Sodium);
+        builder.Property(i => i.Sodium)
+            .HasColumnType("decimal(18,2)");
 
-        builder.Property(i => i.Sugar);
+        builder.Property(i => i.Sugar)
+            .HasColumnType("decimal(18,2)");
 
         builder.OwnsOne(i => i.Measurement, m =>
         {

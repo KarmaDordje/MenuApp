@@ -5,6 +5,6 @@ namespace Recipe.Application.Recipes.Queries
     using MediatR;
     using Recipe.Contracts.Recipes;
 
-    public record RecipeQuery(Guid RecipeId) : IRequest<ErrorOr<RecipeResponse>>;
+    public record RecipeQuery(Guid RecipeId) : IRequest<ErrorOr<RecipeGetResponse>>;
 
 }

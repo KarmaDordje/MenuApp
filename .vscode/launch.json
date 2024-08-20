@@ -5,14 +5,14 @@
             "name": "C#: Menu.API Debug",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/Menu/Menu.API/Menu.API.csproj"
+            "projectPath": "${workspaceFolder}/src/Menu/Menu.API/Menu.API.csproj"
         },
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Recipe/Recipe.API/bin/Debug/net8.0/Recipe.API.dll",
+            "program": "${workspaceFolder}/src/Recipe/Recipe.API/bin/Debug/net8.0/Recipe.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Recipe/Recipe.API",
             "stopAtEntry": false,
@@ -38,7 +38,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/Recipe.API/Recipe.API.csproj"
+                "appProject": "${workspaceFolder}/src/Recipe.API/Recipe.API.csproj"
             }
         }
     ]

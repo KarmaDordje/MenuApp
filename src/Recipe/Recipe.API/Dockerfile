@@ -16,7 +16,7 @@ ARG RABBIT_HOST
 ARG RABBIT_PASSWORD
 ARG RABBIT_USERNAME
 
-WORKDIR /src
+WORKDIR /src/src/
 COPY ["Directory.Build.Props", "."]
 COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
 COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
@@ -26,7 +26,7 @@ COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
 RUN dotnet restore "./Recipe.API/Recipe.API.csproj" 
 
 COPY . .
-WORKDIR "/src/Recipe/Recipe.API/"
+WORKDIR "/src/src/Recipe/Recipe.API/"
 
 FROM build AS publish
 RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish

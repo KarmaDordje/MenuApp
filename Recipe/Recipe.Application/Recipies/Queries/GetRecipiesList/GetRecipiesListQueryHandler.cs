@@ -62,23 +62,36 @@ public class GetRecipiesListQueryHandler : IRequestHandler<GetRecipiesListQuery,
                 FROM "RecipeIngredients" as ri
                 JOIN "Products" as p on p."Id" = ri."RecipeIngredientId"
                 WHERE ri."RecipeId" IN (SELECT  "RecipeId" FROM "Recipes" WHERE  "UserId" = @UserId);
+
+                SELECT
+                    rs."RecipeId",
+                    rs."RecipeStepId",
+                    rs."Order",
+                    rs."Name",
+                    rs."ImgUrl",
+                    rs."VideoUrl"
+                FROM "RecipeSteps" as rs
+                WHERE rs."RecipeId"  IN (SELECT "RecipeId" FROM "Recipes" WHERE "UserId" = @UserId);
             """;
 
             var multi = await connection.QueryMultipleAsync(sql, new { query.UserId });
             var recipeR = multi.ReadAsync<RecipeResponse>().Result.ToList();
             var sections = multi.ReadAsync<RecipeSectionResponse>().Result.ToList();
             var ingredients = multi.ReadAsync<RecipeIngredientResponse>().Result.ToList();
+            var steps = multi.ReadAsync<RecipeStepResponse>().Result.ToList();
 
             var recipies = new List<RecipeGetResponse>();
 
             foreach (var recipe in recipeR)
             {
                 var recipeSections = sections.Where(s => s.RecipeId == recipe.Id).ToList();
-
+            
                 foreach (var section in recipeSections)
                 {
                     section.Ingredients = ingredients.Where(i => i.RecipeSectionId == section.RecipeSectionId).ToList();
                 }
+
+                var recipieSteps = steps.Where(s => s.RecipeId == recipe.Id).ToList();
 
                 recipies.Add(new RecipeGetResponse
                 {
@@ -89,7 +102,7 @@ public class GetRecipiesListQueryHandler : IRequestHandler<GetRecipiesListQuery,
                     ImageUrl = recipe.ImageUrl,
                     VideoUrl = recipe.VideoUrl,
                     RecipeSections = recipeSections,
-                    RecipeSteps = new List<RecipeStepResponse>(),
+                    RecipeSteps = recipieSteps ?? new List<RecipeStepResponse>(),
                     CreatedAt = recipe.CreatedAt,
                     UpdatedAt = recipe.UpdatedAt
                 });

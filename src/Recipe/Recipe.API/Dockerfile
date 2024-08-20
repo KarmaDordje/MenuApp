@@ -18,11 +18,11 @@ ARG RABBIT_USERNAME
 
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
-COPY ["Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
-COPY ["Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
-COPY ["Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
-COPY ["Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
-COPY ["Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
+COPY ["src/Recipe/Recipe.API/Recipe.API.csproj", "Recipe.API/"]
+COPY ["src/Recipe/Recipe.Domain/Recipe.Domain.csproj", "Recipe.Domain/"]
+COPY ["src/Recipe/Recipe.Infrastructure/Recipe.Infrastructure.csproj", "Recipe.Infrastructure/"]
+COPY ["src/Recipe/Recipe.Application/Recipe.Application.csproj", "Recipe.Application/"]
+COPY ["src/Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"]
 RUN dotnet restore "./Recipe.API/Recipe.API.csproj" 
 
 COPY . .

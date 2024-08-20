@@ -5,7 +5,7 @@ on:
     branches:
       - master 
     paths:
-      - 'Recipe/**'
+      - 'src/Recipe/**'
 
 jobs:
 

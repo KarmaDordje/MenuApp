@@ -26,7 +26,7 @@ COPY ["src/Recipe/Recipe.Contracts/Recipe.Contracts.csproj", "Recipe.Contracts/"
 RUN dotnet restore "./Recipe.API/Recipe.API.csproj" 
 
 COPY . .
-WORKDIR "/src/Recipe/Recipe.API/"
+WORKDIR "/src/src/Recipe/Recipe.API/"
 
 FROM build AS publish
 RUN dotnet publish "Recipe.API.csproj" -c Release -o /app/publish

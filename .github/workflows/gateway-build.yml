@@ -1,4 +1,4 @@
-name: build-and-push-recipe-api
+name: gateway-build
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
         context: .
         file: src/ApiGateway/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/gataway:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/gateway:latest
         platforms: linux/amd64
         build-args: |
           VERSION=${{ github.sha }}

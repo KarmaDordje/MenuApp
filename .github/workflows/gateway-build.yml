@@ -42,3 +42,10 @@ jobs:
         platforms: linux/amd64
         build-args: |
           VERSION=${{ github.sha }}
+
+    - name: Trigger Deploy Workflow
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        repository: ${{ github.repository }}
+        event-type: gateway-deploy-trigger

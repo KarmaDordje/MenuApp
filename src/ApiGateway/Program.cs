@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-    
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -16,9 +16,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
 
-    // Middleware to log requests and responses
-    app.Use(async (context, next) =>
+// Middleware to log requests and responses
+app.Use(async (context, next) =>
     {
         var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
         logger.LogInformation($"Incoming request: {context.Request.Method} {context.Request.Path}");
@@ -27,7 +28,6 @@ if (app.Environment.IsDevelopment())
 
         logger.LogInformation($"Outgoing response: {context.Response.StatusCode}");
     });
-}
 
 app.UseHttpsRedirection();
 

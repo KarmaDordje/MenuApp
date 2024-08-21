@@ -54,12 +54,12 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents
     }
 
     protected void CheckRule(IBusinessRule rule)
+    {
+        if (rule.IsBroken())
         {
-            if (rule.IsBroken())
-            {
                 throw new BusinessRuleValidationException(rule);
-            }
         }
+    }
 
 #pragma warning disable CS8618
     protected Entity()

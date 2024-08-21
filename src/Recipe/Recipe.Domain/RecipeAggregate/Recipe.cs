@@ -4,6 +4,7 @@ using global::Recipe.Domain.Common.Models;
 using global::Recipe.Domain.Common.Shared;
 using global::Recipe.Domain.IngredientAggregate.ValueObjects;
 using global::Recipe.Domain.RecipeAggregate.Entities;
+using global::Recipe.Domain.RecipeAggregate.Rules;
 using global::Recipe.Domain.RecipeAggregate.ValueObjects;
 using global::Recipe.Domain.ValueObjects;
 
@@ -106,17 +107,11 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     {
         var section = _recipeSections.FirstOrDefault(x => x.Id == sectionId);
 
-        if (section is null)
-        {
-            throw new InvalidOperationException("Section not found");
-        }
+        this.CheckRule(new CantDeleteSectionIfNotFoundRule(sectionId, _recipeSections));
 
         var ingredient = section.Ingredients.FirstOrDefault(x => x.Id == ingredientId);
 
-        if (ingredient is null)
-        {
-            throw new InvalidOperationException("Ingredient not found");
-        }
+        this.CheckRule(new CantDeleteIngredientIfNotFoundRule(ingredient));
 
         section.DeleteIngredient(ingredient);
     }
@@ -125,10 +120,7 @@ public sealed class Recipe : AggregateRoot<RecipeId, Guid>
     {
         var section = _recipeSections.FirstOrDefault(x => x.Id == sectionId);
 
-        if (section is null)
-        {
-            throw new InvalidOperationException("Section not found");
-        }
+        this.CheckRule(new CantDeleteSectionIfNotFoundRule(sectionId, _recipeSections));
 
         _recipeSections.Remove(section);
     }

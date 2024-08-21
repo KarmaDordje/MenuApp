@@ -2,10 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C#: ApiGateway Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/ApiGateway/ApiGateway.csproj"
+        },
+        {
             "name": "C#: User.API Debug",
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}/src/User/User.API/User.API.csproj"
+        },
+        {
+            "name": "C#: Recipe.API Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/Recipe/Recipe.API/Recipe.API.csproj"
         },
         {
             "name": "C#: Menu.API Debug",
@@ -46,6 +58,12 @@
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Recipe.API/Recipe.API.csproj"
             }
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Luch All",
+            "configurations": ["C#: ApiGateway Debug", "C#: User.API Debug", "C#: Menu.API Debug", "C#: Recipe.API Debug"]
         }
     ]
 }

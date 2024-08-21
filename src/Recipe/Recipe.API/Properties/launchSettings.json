@@ -17,7 +17,7 @@
         "DEEPL_API_KEY": "DeepL-Auth-Key ff24e172-be82-40cb-9613-4b8f3ec5ad50:fx"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7034;http://localhost:5176"
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     },
     "IIS Express": {
       "commandName": "IISExpress",

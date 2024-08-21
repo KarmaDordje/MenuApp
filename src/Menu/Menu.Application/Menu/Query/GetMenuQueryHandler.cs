@@ -74,6 +74,6 @@ public class GetMenuQueryHandler : IRequestHandler<GetMenuQuery, ErrorOr<GetMenu
             UserId = menu.UserId,
             MenuDays = groupedMenuDays
         };
-        return new ErrorOr<GetMenuResponse>();
+        return menuResponse;
     }
 }

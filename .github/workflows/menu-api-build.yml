@@ -36,7 +36,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file:  src/Menu/Menu.API/DockerFile
+        file:  src/Menu/Menu.API/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/menu-api:latest
         platforms: linux/amd64

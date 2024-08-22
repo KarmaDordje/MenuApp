@@ -1,0 +1,25 @@
+name: Deploy Docker Image
+
+on:
+  repository_dispatch:
+    types: [deploy-menu-api] # This allows the workflow to be triggered by the parent workflow
+
+jobs:
+
+  deploy:
+    runs-on: ['self-hosted', 'linux', 'x64', 'recipe-api']
+    steps:
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Pull Docker image
+        run: docker pull okarkach1989/menu-api:latest
+      - name: Stop and remove previous container
+        run: |
+          if [ "$(docker ps -q -f name=menu-api)" ]; then
+            docker stop menu-api
+          fi
+          if [ "$(docker ps -a -q -f name=menu-api)" ]; then
+            docker rm menu-api
+          fi
+      - name: Run the latest Docker image
+        run: docker run -d -p 6000:8080 --name menu-api okarkach1989/menu-api:latest
